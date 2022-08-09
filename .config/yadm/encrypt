@@ -3,14 +3,7 @@ Keys/*
 Keys/*/*
 .bash_aliases
 .bashrc
-.gitconfig
-.nethackrc
 .netrc
-.newsrc
-.profile
-.tmux.conf
-.rainbow_config.json
-.vimrc
 .config/autostart/*
 .config/beets/config.yaml
 .config/calliope/calliope.conf
