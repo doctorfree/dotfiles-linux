@@ -7,9 +7,10 @@ Keys/*/*
 .config/autostart/*
 .config/beets/config.yaml
 .config/calliope/calliope.conf
-.config/jrnl/*
 .config/neomutt/*
 .config/neomutt/accounts/*
 .config/scdl/scdl.cfg
+.config/Synergy/Synergy.conf
+.config/yams/*
 .newsboat/config
 .newsboat/urls

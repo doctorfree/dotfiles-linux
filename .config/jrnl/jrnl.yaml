@@ -1,0 +1,21 @@
+colors:
+  body: cyan
+  date: green
+  tags: magenta
+  title: blue
+default_hour: 9
+default_minute: 0
+editor: vi
+encrypt: false
+highlight: true
+indent_character: '|'
+journals:
+  asciiville:
+    journal: ~/.local/share/jrnl/asciiville.txt
+  default:
+    journal: ~/.local/share/jrnl/journal.txt
+linewrap: 79
+tagsymbols: '#@'
+template: false
+timeformat: '%Y-%m-%d %H:%M'
+version: v2.8.4
