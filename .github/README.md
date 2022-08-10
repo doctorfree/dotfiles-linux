@@ -1,7 +1,8 @@
 # dotfiles-ubuntu
 
 Welcome to my dotfiles-ubuntu repository. Here I store all my configs used
-on my Ubuntu Linux development system. This repository is managed with `yadm`.
+on my Ubuntu Linux development system. This repository is managed with
+[yadm](https://yadm.io/), Yet Another Dotfiles Manager.
 
 Many of my dotfiles contain sensitive information and have been encrypted
 making this repository of little use to others with regards those files.
@@ -9,6 +10,8 @@ making this repository of little use to others with regards those files.
 ![](yadm.png)
 
 ## How to install
+
+See the [yadm installation documentation](https://yadm.io/docs/install)
 
 ```yaml
 Universal: 
