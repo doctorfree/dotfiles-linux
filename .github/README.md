@@ -1,8 +1,12 @@
-# dotfiles
+# dotfiles-ubuntu
 
-<img src="https://repository-images.githubusercontent.com/273326483/25572780-bae4-11ea-906e-40b3c61ac496">
+![](yadm.ppm)
 
-Welcome to my dotfiles repository. Here I store all my configs
+Welcome to my dotfiles-ubuntu repository. Here I store all my configs used
+on my Ubuntu Linux development system. This repository is managed with `yadm`.
+
+Many of my dotfiles contain sensitive information and have been encrypted
+making this repository of little use to others with regards those files.
 
 ## How to install
 
@@ -32,13 +36,17 @@ Debian UNSTABLE/Ubuntu 20.04+:
 ```
 
 ## Updates
-This repository is regurlarly being updated. To update to the latest version of my dotfiles, run:
+
+This repository is regurlarly being updated. To update to the latest version
+of these dotfiles, run:
 ```bash
 yadm pull
 ```
 
 ## Errors
+
 ### When cloning
+
 If you encounter any error when cloning, run 
 ```bash
 yadm stash
@@ -48,10 +56,9 @@ Then reclone with
 yadm clone -f https://github.com/doctorfree/dotfiles-ubuntu.git
 ```
 ### Running bootstrap script
-If you encounter any errors when running the bootstrap script, you can always rerun it with 
+
+If you encounter any errors when running the bootstrap script,
+you can always rerun it with 
 ```bash
 ./.config/yadm/bootstrap
 ```
-## Screenshots
-![](terminal.png)
-![](vim.png)
