@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=xbindkeys
+Exec=xbindkeys -f ~/.xbindkeysrc
+Icon=keyboard
