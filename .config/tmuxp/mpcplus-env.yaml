@@ -5,14 +5,9 @@ windows:
     layout: main-horizontal
     panes:
     - shell_command:
-      - mpcplus; exit
+      - ${MPPCOMM}; exit
       focus: true
     - shell_command:
       - ${VIZCOMM}; exit
     options:
       main-pane-height: ${MAIN_PANE_HEIGHT}
-  - window_name: Fuzzy Finder
-    panes:
-    - shell_command:
-      - ${FZFCOMM}; exit
-      focus: true

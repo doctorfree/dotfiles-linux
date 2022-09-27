@@ -42,6 +42,7 @@ call plug#begin()
 " Plug '~/my-prototype-plugin'
 " Initialize plugin system
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fladson/vim-kitty'
 call plug#end()
 if has("autocmd")
   filetype plugin indent on

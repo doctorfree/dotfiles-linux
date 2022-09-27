@@ -8,11 +8,12 @@ BROWSER=w3m
 COMMAND="bash -m /usr/bin/show_endo"
 FULLSCREEN=
 LOLCAT="lolcat"
-MTITLE="Asciiville Help"
+MTITLE="Asciiville"
 CURRENT=
-GNOME=1
+GNOME=
 RETRO=
 TILIX=
+KITTY=1
 XFCE4=
 
 shuffle=

@@ -2,9 +2,9 @@
 Keys/*
 Keys/*/*
 .bash_aliases
-.bashrc
+.bash_functions
 .netrc
-.config/autostart/*
+.config/autostart/synergy.desktop
 .config/beets/config.yaml
 .config/calliope/calliope.conf
 .config/joplin-desktop/settings.json
@@ -13,5 +13,3 @@ Keys/*/*
 .config/scdl/scdl.cfg
 .config/Synergy/Synergy.conf
 .config/yams/*
-.newsboat/config
-.newsboat/urls
