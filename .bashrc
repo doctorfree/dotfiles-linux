@@ -202,5 +202,4 @@ eval "$(direnv hook bash)"
 
 # command -v spd-say > /dev/null && spd-say "Your computer has been hacked"
 
-command -v please > /dev/null && please
 . "$HOME/.cargo/env"
