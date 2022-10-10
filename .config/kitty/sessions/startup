@@ -2,28 +2,28 @@
 #
 # Kitty tab with Bash shell
 new_tab
-launch bash
+launch zsh
 enabled_layouts tall:bias=50;full_size=1
 layout tall
 
 # Kitty tab for SSH sessions
 new_tab
 cd ~/src
-launch bash
+launch zsh
 enabled_layouts tall:bias=50;full_size=1
 layout tall
 
 # Kitty tab with Bash shell in Asciiville source directory
 new_tab
 cd ~/src/Asciiville
-launch bash
+launch zsh
 enabled_layouts tall:bias=50;full_size=1
 layout tall 
 
 # Kitty tab with Bash shell in MusicPlayerPlus source directory
 new_tab
 cd ~/src/MusicPlayerPlus
-launch bash
+launch zsh
 enabled_layouts tall:bias=50;full_size=1
 layout tall 
 
