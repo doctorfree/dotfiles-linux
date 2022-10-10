@@ -1,4 +1,4 @@
-# MusicPlayerPlus Kitty tabbed startup session
+# Asciiville Kitty tabbed startup session
 #
 # Kitty tab with Bash shell
 new_tab
@@ -8,6 +8,7 @@ layout tall
 
 # Kitty tab for SSH sessions
 new_tab
+cd ~/src
 launch bash
 enabled_layouts tall:bias=50;full_size=1
 layout tall
@@ -25,6 +26,13 @@ cd ~/src/MusicPlayerPlus
 launch bash
 enabled_layouts tall:bias=50;full_size=1
 layout tall 
+
+# Kitty tab with Asciiville interactive menu system
+# new_tab
+# cd ~
+# launch bash -c 'asciiville'
+# enabled_layouts tall:bias=50;full_size=1
+# layout tall 
 
 # Kitty tab with MusicPlayerPlus interactive menu system
 # new_tab

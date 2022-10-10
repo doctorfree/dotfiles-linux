@@ -1,8 +1,7 @@
 .ssh/*
 Keys/*
 Keys/*/*
-.bash_aliases
-.bash_functions
+.private
 .netrc
 .config/autostart/synergy.desktop
 .config/beets/config.yaml

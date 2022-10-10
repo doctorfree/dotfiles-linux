@@ -167,12 +167,16 @@ xterm*|rxvt*)
     ;;
 esac
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
 fi
 
-if [ -f ~/.bash_functions ]; then
-    . ~/.bash_functions
+if [ -f ~/.functions ]; then
+    . ~/.functions
+fi
+
+if [ -f ~/.private ]; then
+    . ~/.private
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -203,3 +207,6 @@ eval "$(direnv hook bash)"
 # command -v spd-say > /dev/null && spd-say "Your computer has been hacked"
 
 . "$HOME/.cargo/env"
+
+# Created by `pipx` on 2022-10-01 18:44:33
+export PATH="$PATH:/home/ronnie/.local/bin"
