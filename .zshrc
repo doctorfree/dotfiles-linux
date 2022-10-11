@@ -22,6 +22,8 @@
 #   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
 #   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# git clone https://github.com/zsh-users/zsh-completions \
+#   ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -114,11 +116,11 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+zstyle ':omz:update' frequency 14
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -239,6 +241,11 @@ if command -v kubectl > /dev/null; then
   plugins+=(kubectl)
 fi
 
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
+# Proper autocompletions
+autoload -U compinit && compinit
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -288,8 +295,6 @@ fi
 if command -v zoxide > /dev/null; then
   eval "$(zoxide init zsh)"
 fi
-
-complete -C /usr/local/bin/vault vault
 
 [ -f ~/.ghcup/env ] && source ~/.ghcup/env
 
