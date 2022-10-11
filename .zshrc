@@ -78,10 +78,10 @@ fi
 export PATH=$PATH:$HOME/context/tex/texmf-osx-64/bin
 
 # The next line updates PATH for the Google Cloud SDK.
-# if [ -f '/Users/doctorwhen/Google/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/doctorwhen/Google/google-cloud-sdk/path.zsh.inc'; fi
+# if [ -f ~/Google/google-cloud-sdk/path.zsh.inc ]; then . ~/Google/google-cloud-sdk/path.zsh.inc; fi
 
 # The next line enables shell command completion for gcloud.
-# if [ -f '/Users/doctorwhen/Google/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/doctorwhen/Google/google-cloud-sdk/completion.zsh.inc'; fi
+# if [ -f ~/Google/google-cloud-sdk/completion.zsh.inc ]; then . ~/Google/google-cloud-sdk/completion.zsh.inc; fi
 
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv"
 [ -d $HOME/.pyenv/bin ] && export PATH="$PYENV_ROOT/bin:$PATH"
@@ -176,16 +176,20 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=red,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=yellow,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
 
+# MAGIC_ENTER_GIT_COMMAND='git status -u .'
+# MAGIC_ENTER_OTHER_COMMAND='ls -lh .'
+MAGIC_ENTER_GIT_COMMAND='git status'
+MAGIC_ENTER_OTHER_COMMAND='ls'
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #
-# Not used but useful: common-aliases, fzf
+# Not used but useful: common-aliases, fzf, themes
 # Available plugins: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
 plugins=(
-  command-not-found
   magic-enter
   zsh-autosuggestions
   zsh-syntax-highlighting
@@ -194,40 +198,45 @@ plugins=(
 
 # Check if git, gh, and thefuck are available
 if command -v gh > /dev/null; then
-    plugins+=(gh)
+  plugins+=(gh)
 fi
 if command -v git > /dev/null; then
-    plugins+=(git)
+  plugins+=(git)
 fi
 if command -v thefuck > /dev/null; then
-    plugins+=(thefuck)
+  plugins+=(thefuck)
 fi
 
 # What OS are we running?
 if command -v apt > /dev/null; then
-    plugins+=(debian)
+  plugins+=(debian command-not-found)
 elif command -v pacman > /dev/null; then
-    plugins+=(archlinux)
+  plugins+=(archlinux command-not-found)
 elif command -v dnf > /dev/null; then
-    plugins+=(dnf)
+  plugins+=(dnf command-not-found)
 elif [[ `uname` == "Darwin" ]]; then
-    plugins+=(macos)
-    if command -v brew > /dev/null; then
-      plugins+=(brew)
-    fi
-    if command -v port > /dev/null; then
-      plugins+=(macports)
-    fi
+  plugins+=(macos)
+  if command -v brew > /dev/null; then
+    HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+    [ -f "$HB_CNF_HANDLER" ] && {
+      source "$HB_CNF_HANDLER"
+      plugins+=(command-not-found)
+    }
+    plugins+=(brew)
+  fi
+  if command -v port > /dev/null; then
+    plugins+=(macports)
+  fi
 fi
 
 # Do we have systemd on board?
 if command -v systemctl > /dev/null; then
-    plugins+=(systemd)
+  plugins+=(systemd)
 fi
 
 # Ditto Kubernetes?
 if command -v kubectl > /dev/null; then
-    plugins+=(kubectl)
+  plugins+=(kubectl)
 fi
 
 source $ZSH/oh-my-zsh.sh
@@ -252,7 +261,7 @@ source $ZSH/oh-my-zsh.sh
 # If you are running through a proxy service some external programs may need
 # to know the proxy setting (e.g. gem). If so, configure and uncomment:
 # export http_proxy=http://proxy.vmware.com:3128
-#export no_proxy=alpha.wallhaven.cc
+# export no_proxy=wallhaven.cc
 
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/Keys/Text-to-Speech-d00ec3799688.json
 export DOTNET_CLI_TELEMETRY_OPTOUT=true
@@ -262,18 +271,18 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=true
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 else
-    export CLICOLOR=1
-    export LSCOLORS=DxFxcxdxCxegedabagacad
-    alias ls='/bin/ls -G'
+  export CLICOLOR=1
+  export LSCOLORS=DxFxcxdxCxegedabagacad
+  alias ls='/bin/ls -G'
 fi
 
 if command -v zoxide > /dev/null; then
@@ -282,7 +291,7 @@ fi
 
 complete -C /usr/local/bin/vault vault
 
-[ -f "/Users/doctorwhen/.ghcup/env" ] && source "/Users/doctorwhen/.ghcup/env"
+[ -f ~/.ghcup/env ] && source ~/.ghcup/env
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

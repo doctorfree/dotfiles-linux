@@ -37,7 +37,7 @@
     vcs                     # git status
     # =========================[ Line #2 ]=========================
     newline                 # \n
-    # prompt_char           # prompt symbol
+    prompt_char             # prompt symbol
   )
 
   # The list of segments shown on the right. Fill it with less important segments.
@@ -184,10 +184,18 @@
 
   #################################[ os_icon: os identifier ]##################################
   # OS identifier color.
-  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=232
-  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=7
+  # typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=232
+  # typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=7
+  # typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=190
+  # typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=6
+  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=226
+  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=22
   # Custom icon.
   # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='⭐'
+  # Arch Linux logo
+  # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=$'\uF303'
+  # Penguin
+  typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION=$'\uF17C'
 
   ################################[ prompt_char: prompt symbol ]################################
   # Transparent background.
@@ -214,7 +222,8 @@
 
   ##################################[ dir: current directory ]##################################
   # Current directory background color.
-  typeset -g POWERLEVEL9K_DIR_BACKGROUND=4
+  # typeset -g POWERLEVEL9K_DIR_BACKGROUND=4
+  typeset -g POWERLEVEL9K_DIR_BACKGROUND=21
   # Default current directory foreground color.
   typeset -g POWERLEVEL9K_DIR_FOREGROUND=254
   # If directory is too long, shorten some of its segments to the shortest possible unique
