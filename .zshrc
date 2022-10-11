@@ -7,6 +7,22 @@
 ## @version 1.0.1
 ##
 
+# Install Oh My Zsh:
+# sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#
+# Install Powerlevel10k theme for Oh My Zsh:
+# git clone https://github.com/romkatv/powerlevel10k.git \
+#   $ZSH_CUSTOM/themes/powerlevel10k
+#
+# Set ZSH_THEME in $HOME/.zshrc
+# ZSH_THEME="powerlevel10k/powerlevel10k"
+#
+# Install Zsh Plugins:
+# git clone https://github.com/zsh-users/zsh-autosuggestions \
+#   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+#   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
