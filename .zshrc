@@ -182,14 +182,26 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=magenta,bold'
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 #
+# Not used but useful: common-aliases, fzf
+# Available plugins: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
 plugins=(
-  gh
-  git
-  thefuck
+  command-not-found
+  magic-enter
   zsh-autosuggestions
   zsh-syntax-highlighting
   web-search
 )
+
+# Check if git, gh, and thefuck are available
+if command -v gh > /dev/null; then
+    plugins+=(gh)
+fi
+if command -v git > /dev/null; then
+    plugins+=(git)
+fi
+if command -v thefuck > /dev/null; then
+    plugins+=(thefuck)
+fi
 
 # What OS are we running?
 if command -v apt > /dev/null; then
@@ -199,7 +211,13 @@ elif command -v pacman > /dev/null; then
 elif command -v dnf > /dev/null; then
     plugins+=(dnf)
 elif [[ `uname` == "Darwin" ]]; then
-    plugins+=(brew macos)
+    plugins+=(macos)
+    if command -v brew > /dev/null; then
+      plugins+=(brew)
+    fi
+    if command -v port > /dev/null; then
+      plugins+=(macports)
+    fi
 fi
 
 # Do we have systemd on board?
