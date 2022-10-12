@@ -9,6 +9,16 @@
 
 ## Setup and Configuration
 #
+## Install ZSH
+# Install with package manager on most platforms
+# Use 'brew install zsh' on Mac OS to get version 5.9
+# To get version 5.9 on Ubuntu 20.04 build from source:
+#   download source release archive from
+#     https://zsh.sourceforge.io/Arc/source.html
+#   extract archive, ./configure; make; sudo make install
+#   add /usr/local/bin/zsh to /etc/shells
+#   change login shell with 'chsh -s /usr/local/bin/zsh'
+#
 ## Install Oh My Zsh:
 # sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 #
