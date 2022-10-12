@@ -7,7 +7,7 @@
 ## @version 1.0.1
 ##
 
-## Setup and Configuration
+### Setup and Configuration # Begin
 #
 ## Install ZSH
 # Install with package manager on most platforms
@@ -40,6 +40,19 @@
 ## Install Meslo Nerd Font patched for Powerlevel10k
 # See https://github.com/romkatv/powerlevel10k#fonts
 # Configure terminal emulator, e.g. kitty.conf: 'font_family MesloLGS NF'
+#
+## Tab titles on Mac OS
+# I needed to install the zsh-tab-title plugin to get Kitty tab titles right
+#
+#   git clone https://github.com/trystan2k/zsh-tab-title \
+#     ~/.oh-my-zsh/custom/plugins/zsh-tab-title
+#
+# Add zsh-tab-title into plugins array in .zshrc
+# Add the following:
+#   ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
+#   ZSH_TAB_TITLE_ONLY_FOLDER=true
+#
+### Setup and Configuration # End
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -226,14 +239,10 @@ if command -v thefuck > /dev/null; then
 fi
 
 # What OS are we running?
-if command -v apt > /dev/null; then
-  plugins+=(debian command-not-found)
-elif command -v pacman > /dev/null; then
-  plugins+=(archlinux command-not-found)
-elif command -v dnf > /dev/null; then
-  plugins+=(dnf command-not-found)
-elif [[ `uname` == "Darwin" ]]; then
-  plugins+=(macos)
+if [[ `uname` == "Darwin" ]]; then
+  plugins+=(macos zsh-tab-title)
+  ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
+  ZSH_TAB_TITLE_ONLY_FOLDER=true
   if command -v brew > /dev/null; then
     HB_CNF_HANDLER="$(brew --repository)/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
     [ -f "$HB_CNF_HANDLER" ] && {
@@ -245,6 +254,12 @@ elif [[ `uname` == "Darwin" ]]; then
   if command -v port > /dev/null; then
     plugins+=(macports)
   fi
+elif command -v apt > /dev/null; then
+  plugins+=(debian command-not-found)
+elif command -v pacman > /dev/null; then
+  plugins+=(archlinux command-not-found)
+elif command -v dnf > /dev/null; then
+  plugins+=(dnf command-not-found)
 fi
 
 # Do we have systemd on board?
@@ -309,6 +324,9 @@ else
   export LSCOLORS=DxFxcxdxCxegedabagacad
   alias ls='/bin/ls -G'
 fi
+
+GPG_TTY=$(tty)
+export GPG_TTY
 
 if command -v zoxide > /dev/null; then
   eval "$(zoxide init zsh)"
