@@ -184,12 +184,15 @@
 
   #################################[ os_icon: os identifier ]##################################
   # OS identifier color.
+  # default
   # typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=232
   # typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=7
-  # typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=190
-  # typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=6
-  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=226
-  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=22
+  # yellow on green, pretty nice
+  # typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=226
+  # typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=22
+  # match the foreground/background of the status on right
+  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=2
+  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=0
   # Custom icon.
   # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='⭐'
   # Arch Linux logo

@@ -7,23 +7,29 @@
 ## @version 1.0.1
 ##
 
-# Install Oh My Zsh:
+## Setup and Configuration
+#
+## Install Oh My Zsh:
 # sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 #
-# Install Powerlevel10k theme for Oh My Zsh:
+## Install Powerlevel10k theme for Oh My Zsh:
 # git clone https://github.com/romkatv/powerlevel10k.git \
 #   $ZSH_CUSTOM/themes/powerlevel10k
 #
-# Set ZSH_THEME in $HOME/.zshrc
+## Set ZSH_THEME in $HOME/.zshrc
 # ZSH_THEME="powerlevel10k/powerlevel10k"
 #
-# Install Zsh Plugins:
+## Install Zsh Plugins:
 # git clone https://github.com/zsh-users/zsh-autosuggestions \
 #   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
 #   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 # git clone https://github.com/zsh-users/zsh-completions \
 #   ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
+#
+## Install Meslo Nerd Font patched for Powerlevel10k
+# See https://github.com/romkatv/powerlevel10k#fonts
+# Configure terminal emulator, e.g. kitty.conf: 'font_family MesloLGS NF'
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -250,7 +256,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/usr/local/share/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -261,6 +267,8 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export VISUAL=vim
+export EDITOR=${VISUAL}
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -314,17 +322,16 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 [ -f ~/.aliases ] && source ~/.aliases
 
+# GPU Mining parameters
 export GPU_MAX_ALLOC_PERCENT=100
 export GPU_MAX_HEAP_SIZE=100
 export GPU_SINGLE_ALLOC_PERCENT=100
 export GPU_USE_SYNC_OBJECTS=1
 export GPU_FORCE_64BIT_PTR=1
 export CUDA_DEVICE_ORDER=PCI_BUS_ID
+
 export KDE_FULL_SESSION=false
 export IPFS_PATH=/etc/ipfs
-
-export VISUAL=vim
-export EDITOR=$VISUAL
 
 # enable terminal linewrap
 setterm -linewrap on 2> /dev/null
