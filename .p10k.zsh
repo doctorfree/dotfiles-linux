@@ -192,8 +192,10 @@
   # typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=226
   # typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=22
   # match the foreground/background of the status on right
-  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=2
-  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=0
+  # typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=220
+  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=232
+  # typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=0
+  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=23
   # Custom icon.
   # typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='⭐'
   # Arch Linux logo
@@ -205,7 +207,7 @@
   # Transparent background.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
   # Green prompt symbol if the last command succeeded.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=76
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=28
   # Red prompt symbol if the last command failed.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=196
   # Default prompt symbol.
@@ -521,7 +523,7 @@
   typeset -g POWERLEVEL9K_STATUS_OK=true
   typeset -g POWERLEVEL9K_STATUS_OK_VISUAL_IDENTIFIER_EXPANSION='✔'
   typeset -g POWERLEVEL9K_STATUS_OK_FOREGROUND=2
-  typeset -g POWERLEVEL9K_STATUS_OK_BACKGROUND=0
+  typeset -g POWERLEVEL9K_STATUS_OK_BACKGROUND=23
 
   # Status when some part of a pipe command fails but the overall exit status is zero. It may look
   # like this: 1|0.
