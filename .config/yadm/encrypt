@@ -7,8 +7,7 @@ Keys/*/*
 .config/beets/config.yaml
 .config/calliope/calliope.conf
 .config/joplin-desktop/settings.json
-.config/neomutt/*
-.config/neomutt/accounts/*
+.config/neomutt/*.gpg
 .config/scdl/scdl.cfg
 .config/Synergy/Synergy.conf
 .config/yams/*
