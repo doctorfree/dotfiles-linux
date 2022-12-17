@@ -61,6 +61,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+umask 022
+
 [ -d /usr/local/bin ] && PATH="/usr/local/bin:$PATH"
 [ -d /usr/local/opt/curl/bin ] && PATH="/usr/local/opt/curl/bin:$PATH"
 [ -d /usr/local/opt/libiconv/bin ] && PATH="/usr/local/opt/libiconv/bin:$PATH"
@@ -226,6 +228,9 @@ plugins=(
   zsh-syntax-highlighting
   web-search
 )
+
+# To enable the flatpak plugin
+# plugins+=(flatpak)
 
 # Check if git, gh, and thefuck are available
 if command -v gh > /dev/null; then
@@ -394,6 +399,10 @@ export FX_THEME=9
 
 # Created by `pipx` on 2022-10-01 18:44:33
 export PATH="$PATH:/home/ronnie/.local/bin"
+
+# Don't merge histories from all tabs
+unsetopt inc_append_history
+unsetopt share_history
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -17,6 +17,7 @@ alias du='du -h'
 alias dutop='du -h -d 0'
 alias icat="kitty +kitten icat"
 alias kt='cd ~/.config/kitty/themes && fzf --preview "head -n 40 {} && kitty @ --to unix:/tmp/kitty set-colors -a -c {}"; cd -'
+alias whvn='cd "/mac/pictures/Work/Wallhaven"'
 alias mpp='tmux new-session -s musicplayerplus "tmux source-file ~/.config/mpcplus/tsession"'
 alias neo='neofetch | lolcat'
 alias whence='type -a'

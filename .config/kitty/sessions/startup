@@ -1,4 +1,4 @@
-# Asciiville Kitty tabbed startup session
+# MusicPlayerPlus Kitty tabbed startup session
 #
 # Kitty tab with Bash shell
 new_tab
@@ -6,9 +6,7 @@ launch zsh
 enabled_layouts tall:bias=50;full_size=1
 layout tall
 
-# Kitty tab for SSH sessions
 new_tab
-cd ~/src
 launch zsh
 enabled_layouts tall:bias=50;full_size=1
 layout tall
@@ -27,22 +25,15 @@ launch zsh
 enabled_layouts tall:bias=50;full_size=1
 layout tall 
 
-# Kitty tab with Asciiville interactive menu system
-# new_tab
-# cd ~
-# launch bash -c 'asciiville'
-# enabled_layouts tall:bias=50;full_size=1
-# layout tall 
-
 # Kitty tab with MusicPlayerPlus interactive menu system
 # new_tab
 # cd ~
-# launch bash -c 'mpplus -i'
+# launch zsh -c 'mpplus -i'
 # enabled_layouts tall:bias=50;full_size=1
 # layout tall 
 
 # Create a window and run the specified command in it
-# launch bash
+# launch zsh
 # Create a window with some environment variables set and run
 # vim in it
 # launch env FOO=BAR vim
@@ -59,7 +50,7 @@ layout tall
 # enabled_layouts tall, stack
 # Set the current layout
 # layout stack
-# launch bash
+# launch zsh
 
 # Create a new OS window
 # new_os_window
