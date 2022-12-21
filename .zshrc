@@ -71,14 +71,24 @@ umask 022
 [ -d ~/bin ] && PATH=$PATH:~/bin
 # To pickup GNU coreutils from the Brew installation path
 [ -d /usr/local/opt/coreutils/libexec/gnubin ] && PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+
+# Go paths
+[ -d ~/go ] && export GOPATH=$HOME/go
+[ "$GOPATH" ] && [ -d "$GOPATH/bin" ] && PATH="$PATH:$GOPATH/bin"
+[ -d /usr/local/go ] && export GOROOT=/usr/local/go
+[ -d /usr/local/go/bin ] && {
+  if [ `echo $PATH | grep -c /usr/local/go/bin` -ne "1" ]; then
+    PATH="$PATH:/usr/local/go/bin"
+  fi
+}
+[ -d $HOME/go/bin ] && {
+  if [ `echo $PATH | grep -c $HOME/go/bin` -ne "1" ]; then
+    PATH="$PATH:$HOME/go/bin"
+  fi
+}
+
 if [ `echo $PATH | grep -c /usr/local/sbin` -ne "1" ]; then
 PATH="$PATH:/usr/local/bin:/usr/local/sbin"
-fi
-if [ `echo $PATH | grep -c /usr/local/go/bin` -ne "1" ]; then
-PATH="$PATH:/usr/local/go/bin"
-fi
-if [ `echo $PATH | grep -c $HOME/go/bin` -ne "1" ]; then
-PATH="$PATH:$HOME/go/bin"
 fi
 if [ `echo $PATH | grep -c /usr/local/swift/bin` -ne "1" ]; then
 PATH="$PATH:/usr/local/swift/bin"
