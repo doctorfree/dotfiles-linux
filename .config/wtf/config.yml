@@ -30,37 +30,39 @@ wtf:
         - 'doctorfree/MusicPlayerPlus'
         - 'doctorfree/Asciiville'
         - 'doctorfree/DoctorFreeScripts'
-    security:
-      enabled: true
+    weather:
+      # Set environment variable WTF_OWM_API_KEY
+      # From https://home.openweathermap.org
       position:
         top: 0
-        left: 3
+        left: 1
         height: 1
         width: 1
-      refreshInterval: 3600
-    clocks:
+      cityids:
+        - 5393052
+        - 6173331
+        - 3128760
+        - 6167865
+        - 6176823
+      colors:
+        current: 'lightblue'
       enabled: true
+      language: 'EN'
+      refreshInterval: 900
+      tempUnit: 'F'
+      useEmoji: true
+    prettyweather:
+      enabled: true
+      city: "Santa Cruz, California"
       position:
         top: 1
-        left: 3
+        left: 1
         height: 1
         width: 1
-      colors:
-        rows:
-          even: 'lightblue'
-          odd: 'white'
-      locations:
-        # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-        Santa Cruz: 'America/Los_Angeles'
-        Enid: 'America/Chicago'
-        London: 'Europe/London'
-        Singapore: 'Asia/Singapore'
-        Peru: 'America/Lima'
-        New Zealand: 'Pacific/Auckland'
-        New York: 'America/New_York'
-        UTC: 'Etc/UTC'
-      refreshInterval: 15
-      sort: 'chronological'
+      refreshInterval: 5m
+      unit: "u"
+      view: 0
+      language: "en"
     ipapi:
       colors:
         name: red
@@ -96,41 +98,66 @@ wtf:
         value: white
       enabled: true
       refreshInterval: 150
-    weather:
-      # Set environment variable WTF_OWM_API_KEY
-      # From https://home.openweathermap.org
+    security:
+      enabled: true
       position:
         top: 0
-        left: 1
+        left: 3
         height: 1
         width: 1
-      cityids:
-        - 5393052
-        - 6173331
-        - 3128760
-        - 6167865
-        - 6176823
-      colors:
-        current: 'lightblue'
+      refreshInterval: 3600
+    clocks:
       enabled: true
-      language: 'EN'
-      refreshInterval: 900
-      tempUnit: 'F'
-      useEmoji: true
-    prettyweather:
-      enabled: true
-      city: "Santa Cruz, California"
       position:
         top: 1
-        left: 1
+        left: 3
         height: 1
         width: 1
-      refreshInterval: 5m
-      unit: "u"
-      view: 0
-      language: "en"
+      colors:
+        rows:
+          even: 'lightblue'
+          odd: 'white'
+      locations:
+        # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+        Santa Cruz: 'America/Los_Angeles'
+        Enid: 'America/Chicago'
+        London: 'Europe/London'
+        Singapore: 'Asia/Singapore'
+        Peru: 'America/Lima'
+        New Zealand: 'Pacific/Auckland'
+        New York: 'America/New_York'
+        UTC: 'Etc/UTC'
+      refreshInterval: 15
+      sort: 'chronological'
+    linux_subreddit:
+      enabled: true
+      numberOfPosts: 10
+      position:
+        top: 0
+        left: 4
+        height: 1
+        width: 3
+      refreshInterval: 15m
+      sortOrder: top
+      subreddit: "linux"
+      topTimePeriod: month
+      type: subreddit
+    cli_subreddit:
+      enabled: true
+      numberOfPosts: 10
+      position:
+        top: 1
+        left: 4
+        height: 1
+        width: 3
+      refreshInterval: 15m
+      sortOrder: top
+      subreddit: "commandline"
+      topTimePeriod: month
+      type: subreddit
     prices_cryptolive:
       enabled: true
+      title: "Cryptocurrency Prices"
       position:
         top: 2
         left: 0
@@ -186,6 +213,7 @@ wtf:
       type: cryptolive
     ada_cryptolive:
       enabled: true
+      title: "Cardano (ADA) Markets"
       position:
         top: 2
         left: 1
@@ -221,6 +249,7 @@ wtf:
       type: cryptolive
     rndr_cryptolive:
       enabled: true
+      title: "Render Token (RNDR) Markets"
       position:
         top: 2
         left: 2
@@ -256,6 +285,7 @@ wtf:
       type: cryptolive
     agix_cryptolive:
       enabled: true
+      title: "SingularityNET (AGI) Markets"
       position:
         top: 2
         left: 3
@@ -291,6 +321,7 @@ wtf:
       type: cryptolive
     coti_cryptolive:
       enabled: true
+      title: "COTI Markets"
       position:
         top: 2
         left: 4
@@ -326,6 +357,7 @@ wtf:
       type: cryptolive
     grt_cryptolive:
       enabled: true
+      title: "The Graph (GRT) Markets"
       position:
         top: 2
         left: 5
@@ -361,6 +393,7 @@ wtf:
       type: cryptolive
     hnt_cryptolive:
       enabled: true
+      title: "Helium (HNT) Markets"
       position:
         top: 2
         left: 6
@@ -394,3 +427,46 @@ wtf:
             field: white
             value: green
       type: cryptolive
+    news:
+      type: hackernews
+      title: "HackerNews"
+      enabled: true
+      numberOfStories: 10
+      position:
+        top: 4
+        left: 0
+        height: 1
+        width: 3
+      storyType: top
+      refreshInterval: 900
+    resources:
+      type: resourceusage
+      enabled: true
+      position:
+        top: 5
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 1
+    uptime:
+      type: cmdrunner
+      args: []
+      cmd: "uptime"
+      enabled: true
+      position:
+        top: 4
+        left: 3
+        height: 1
+        width: 2
+      refreshInterval: 30
+    disks:
+      type: cmdrunner
+      cmd: "df"
+      args: ["-h"]
+      enabled: true
+      position:
+        top: 5
+        left: 1
+        height: 1
+        width: 3
+      refreshInterval: 3600
