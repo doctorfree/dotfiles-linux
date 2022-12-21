@@ -1,9 +1,17 @@
 wtf:
   grid:
     columns: [54, 54, 54, 54, 54, 54, 54]
-    rows: [12, 12, 12, 12, 12, 12]
+    rows: [12, 12, 12, 12, 12, 12, 12]
   refreshInterval: 1
+  # Comment out or set to 'xterm-256color' if not using Kitty
   term: 'xterm-kitty'
+  # openUrlUtil needed for Linux only if xdg-open is not working
+  # Comment out for Mac OS or to use xdg-open
+  # This execs whatever browser is configured in mimetypes
+  # To specify a character browser, set to 'w3m' or 'lynx'
+  openUrlUtil:
+    - 'gio'
+    - 'open'
   mods:
     github:
       # Set environment variable WTF_GITHUB_TOKEN
@@ -52,34 +60,47 @@ wtf:
       tempUnit: 'F'
       useEmoji: true
     prettyweather:
+      enabled: false
+      city: 'Santa Cruz, California'
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 5m
+      unit: 'u'
+      view: 0
+      language: 'en'
+    digitalclock:
+      color: orange
       enabled: true
-      city: "Santa Cruz, California"
+      font: bigfont
+      hourFormat: 12
+      title: 'Time'
       position:
         top: 1
         left: 1
         height: 1
         width: 1
-      refreshInterval: 5m
-      unit: "u"
-      view: 0
-      language: "en"
+      refreshInterval: 1s
+      type: 'digitalclock'
     ipapi:
       colors:
         name: red
         value: white
       # Optional  
       args:
-        - "ip"
-        - "isp"
-        - "as"
-        - "city"
-        - "regionName"
-        - "country"
-        - "continent"
-        - "coordinates"
-        - "organization"
-        - "timezone"
-        - "reverseDNS"
+        - 'ip'
+        - 'isp'
+        - 'as'
+        - 'city'
+        - 'regionName'
+        - 'country'
+        - 'continent'
+        - 'coordinates'
+        - 'organization'
+        - 'timezone'
+        - 'reverseDNS'
       enabled: true
       position:
         top: 0
@@ -139,7 +160,7 @@ wtf:
         width: 3
       refreshInterval: 15m
       sortOrder: top
-      subreddit: "linux"
+      subreddit: 'linux'
       topTimePeriod: month
       type: subreddit
     cli_subreddit:
@@ -152,18 +173,18 @@ wtf:
         width: 3
       refreshInterval: 15m
       sortOrder: top
-      subreddit: "commandline"
+      subreddit: 'commandline'
       topTimePeriod: month
       type: subreddit
     prices_cryptolive:
       enabled: true
-      title: "Cryptocurrency Prices"
+      title: 'Cryptocurrency Prices'
       position:
         top: 2
         left: 0
         height: 2
         width: 1
-      updateInterval: 15
+      updateInterval: 30
       currencies:
         ADA:
           displayName: Cardano
@@ -190,11 +211,6 @@ wtf:
           to:
             - USD
       top:
-        ADA:
-          displayName: Cardano
-          limit: 1
-          to:
-            - USD
       colors:
         from:
           name: coral
@@ -213,13 +229,13 @@ wtf:
       type: cryptolive
     ada_cryptolive:
       enabled: true
-      title: "Cardano (ADA) Markets"
+      title: 'Cardano (ADA) Markets'
       position:
         top: 2
         left: 1
         height: 2
         width: 1
-      updateInterval: 15
+      updateInterval: 30
       currencies:
         ADA:
           displayName: Cardano
@@ -249,13 +265,13 @@ wtf:
       type: cryptolive
     rndr_cryptolive:
       enabled: true
-      title: "Render Token (RNDR) Markets"
+      title: 'Render Token (RNDR) Markets'
       position:
         top: 2
         left: 2
         height: 2
         width: 1
-      updateInterval: 15
+      updateInterval: 30
       currencies:
         RNDR:
           displayName: Render Token
@@ -285,13 +301,13 @@ wtf:
       type: cryptolive
     agix_cryptolive:
       enabled: true
-      title: "SingularityNET (AGI) Markets"
+      title: 'SingularityNET (AGI) Markets'
       position:
         top: 2
         left: 3
         height: 2
         width: 1
-      updateInterval: 15
+      updateInterval: 30
       currencies:
         AGI:
           displayName: SingularityNET
@@ -321,13 +337,13 @@ wtf:
       type: cryptolive
     coti_cryptolive:
       enabled: true
-      title: "COTI Markets"
+      title: 'COTI Markets'
       position:
         top: 2
         left: 4
         height: 2
         width: 1
-      updateInterval: 15
+      updateInterval: 30
       currencies:
         COTI:
           displayName: COTI
@@ -357,13 +373,13 @@ wtf:
       type: cryptolive
     grt_cryptolive:
       enabled: true
-      title: "The Graph (GRT) Markets"
+      title: 'The Graph (GRT) Markets'
       position:
         top: 2
         left: 5
         height: 2
         width: 1
-      updateInterval: 15
+      updateInterval: 30
       currencies:
         GRT:
           displayName: The Graph
@@ -393,13 +409,13 @@ wtf:
       type: cryptolive
     hnt_cryptolive:
       enabled: true
-      title: "Helium (HNT) Markets"
+      title: 'Helium (HNT) Markets'
       position:
         top: 2
         left: 6
         height: 2
         width: 1
-      updateInterval: 15
+      updateInterval: 30
       currencies:
         HNT:
           displayName: Helium
@@ -429,7 +445,7 @@ wtf:
       type: cryptolive
     news:
       type: hackernews
-      title: "HackerNews"
+      title: 'HackerNews'
       enabled: true
       numberOfStories: 10
       position:
@@ -439,19 +455,25 @@ wtf:
         width: 3
       storyType: top
       refreshInterval: 900
-    resources:
-      type: resourceusage
+    feedreader:
       enabled: true
+      feeds:
+      - https://rss.cbc.ca/lineup/topstories.xml
+      - https://www.santacruzsentinel.com/feed/
+#     Subscription required to read articles
+#     - http://feeds.washingtonpost.com/rss/national
+#     - http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml
+      feedLimit: 10
       position:
         top: 5
         left: 0
         height: 1
-        width: 1
-      refreshInterval: 1
+        width: 2
+      refreshInterval: 1h
     uptime:
       type: cmdrunner
       args: []
-      cmd: "uptime"
+      cmd: 'uptime'
       enabled: true
       position:
         top: 4
@@ -459,14 +481,23 @@ wtf:
         height: 1
         width: 2
       refreshInterval: 30
-    disks:
-      type: cmdrunner
-      cmd: "df"
-      args: ["-h"]
+    resources:
+      type: resourceusage
       enabled: true
       position:
         top: 5
-        left: 1
+        left: 2
         height: 1
-        width: 3
+        width: 1
+      refreshInterval: 1
+    disks:
+      type: cmdrunner
+      cmd: 'df'
+      args: ['-h']
+      enabled: true
+      position:
+        top: 5
+        left: 3
+        height: 1
+        width: 2
       refreshInterval: 3600
