@@ -54,6 +54,11 @@
 #
 ### Setup and Configuration # End
 
+# If using GPG_TTY=$(tty) this needs to happen before p10k instant prompt
+# as p10k instant prompt redirects stdin. Or, just use $TTY as that is a zsh
+# environment variable available at all times regardless of stdin redirection
+export GPG_TTY=$TTY
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -339,9 +344,6 @@ else
   export LSCOLORS=DxFxcxdxCxegedabagacad
   alias ls='/bin/ls -G'
 fi
-
-GPG_TTY=$(tty)
-export GPG_TTY
 
 if command -v zoxide > /dev/null; then
   eval "$(zoxide init zsh)"
