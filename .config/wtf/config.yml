@@ -479,6 +479,16 @@ wtf:
         height: 2
         width: 1
       refreshInterval: 3000
+    # The lunarphase module must be installed (pending pull request)
+    lunarphase:
+      enabled: true
+      language: 'en'
+      position:
+        top: 4
+        left: 6
+        height: 2
+        width: 1
+      refreshInterval: 6h
     feedreader:
       enabled: true
       feeds:
