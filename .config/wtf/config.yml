@@ -455,11 +455,39 @@ wtf:
         width: 3
       storyType: top
       refreshInterval: 900
+    disks:
+      type: cmdrunner
+      cmd: 'df'
+      args: ['-h']
+      enabled: true
+      position:
+        top: 4
+        left: 3
+        height: 1
+        width: 2
+      refreshInterval: 3600
+    neofetch:
+      type: cmdrunner
+      args: ['--off']
+      cmd: 'neofetch'
+      pty: false
+      enabled: true
+      title: 'NeoFetch'
+      position:
+        top: 4
+        left: 5
+        height: 2
+        width: 1
+      refreshInterval: 3000
     feedreader:
       enabled: true
       feeds:
       - https://rss.cbc.ca/lineup/topstories.xml
       - https://www.santacruzsentinel.com/feed/
+      - https://www.mercurynews.com/location/california/bay-area/south-bay/santa-cruz-county/feed/
+      - https://goodtimes.sc/feed/atom/
+      - https://kion546.com/category/news/santa-cruz/feed/
+      - https://www.santacruzsentinel.com/news/local-news/feed/
 #     Subscription required to read articles
 #     - http://feeds.washingtonpost.com/rss/national
 #     - http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml
@@ -470,17 +498,6 @@ wtf:
         height: 1
         width: 2
       refreshInterval: 1h
-    uptime:
-      type: cmdrunner
-      args: []
-      cmd: 'uptime'
-      enabled: true
-      position:
-        top: 4
-        left: 3
-        height: 1
-        width: 2
-      refreshInterval: 30
     resources:
       type: resourceusage
       enabled: true
@@ -490,14 +507,14 @@ wtf:
         height: 1
         width: 1
       refreshInterval: 1
-    disks:
+    uptime:
       type: cmdrunner
-      cmd: 'df'
-      args: ['-h']
+      args: []
+      cmd: 'uptime'
       enabled: true
       position:
         top: 5
         left: 3
         height: 1
         width: 2
-      refreshInterval: 3600
+      refreshInterval: 30
