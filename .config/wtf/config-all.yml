@@ -2,7 +2,6 @@ wtf:
   grid:
     columns: [54, 54, 54, 54, 54, 54, 54]
     rows: [12, 12, 12, 12, 12, 12, 12]
-  refreshInterval: 1
   # Comment out or set to 'xterm-256color' if not using Kitty
   term: 'xterm-kitty'
   # openUrlUtil needed for Linux only if xdg-open is not working
@@ -139,7 +138,7 @@ wtf:
       refreshInterval: 15
       sort: 'chronological'
     linux_subreddit:
-      enabled: false
+      enabled: true
       numberOfPosts: 10
       position:
         top: 0
@@ -152,7 +151,7 @@ wtf:
       topTimePeriod: month
       type: subreddit
     cli_subreddit:
-      enabled: false
+      enabled: true
       numberOfPosts: 10
       position:
         top: 1
@@ -165,7 +164,7 @@ wtf:
       topTimePeriod: month
       type: subreddit
     prices_cryptolive:
-      enabled: false
+      enabled: true
       title: 'Cryptocurrency Prices'
       position:
         top: 2
@@ -216,7 +215,7 @@ wtf:
             value: green
       type: cryptolive
     ada_cryptolive:
-      enabled: false
+      enabled: true
       title: 'Cardano (ADA) Markets'
       position:
         top: 2
@@ -252,7 +251,7 @@ wtf:
             value: green
       type: cryptolive
     rndr_cryptolive:
-      enabled: false
+      enabled: true
       title: 'Render Token (RNDR) Markets'
       position:
         top: 2
@@ -288,7 +287,7 @@ wtf:
             value: green
       type: cryptolive
     agix_cryptolive:
-      enabled: false
+      enabled: true
       title: 'SingularityNET (AGI) Markets'
       position:
         top: 2
@@ -324,7 +323,7 @@ wtf:
             value: green
       type: cryptolive
     coti_cryptolive:
-      enabled: false
+      enabled: true
       title: 'COTI Markets'
       position:
         top: 2
@@ -360,7 +359,7 @@ wtf:
             value: green
       type: cryptolive
     grt_cryptolive:
-      enabled: false
+      enabled: true
       title: 'The Graph (GRT) Markets'
       position:
         top: 2
@@ -396,7 +395,7 @@ wtf:
             value: green
       type: cryptolive
     hnt_cryptolive:
-      enabled: false
+      enabled: true
       title: 'Helium (HNT) Markets'
       position:
         top: 2
@@ -434,7 +433,7 @@ wtf:
     news:
       type: hackernews
       title: 'HackerNews'
-      enabled: false
+      enabled: true
       numberOfStories: 10
       position:
         top: 4
@@ -476,7 +475,7 @@ wtf:
         height: 2
         width: 1
     feedreader:
-      enabled: false
+      enabled: true
       feeds:
       - https://rss.cbc.ca/lineup/topstories.xml
       - https://www.santacruzsentinel.com/feed/
@@ -502,7 +501,7 @@ wtf:
         left: 2
         height: 1
         width: 1
-      refreshInterval: 1
+      refreshInterval: 100
     uptime:
       type: cmdrunner
       args: []
@@ -513,7 +512,7 @@ wtf:
         left: 3
         height: 1
         width: 2
-      refreshInterval: 30
+      refreshInterval: 300
     pokemon_static_1:
       type: pokemon
       enabled: true
