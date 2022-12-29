@@ -1,7 +1,17 @@
 #!/bin/env python3
 
 '''
+Original work by https://github.com/Fitzy1293
 gist:   https://gist.github.com/Fitzy1293/ccacc7a4420ff4a1a42d2f97dd5e1823
+
+Modified to work with < Python 3.10 and Zsh aliases by doctorfree@github.com
+
+Note: Zsh aliases can include syntax unsupported as yet by this script
+For example, the Zsh alias:
+    ail='sed -e '\''s/  */ /g'\'' -e '\''s/ *//'\'' | cut -s -d '\'' '\'' -f 1 | xargs sudo apt install'
+    causes an exception when processing by this script
+A workaround for this limitation is to temporarily unalias the offending alias:
+    unalias ail
 '''
 
 import sys
