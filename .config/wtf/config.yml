@@ -1,6 +1,6 @@
 wtf:
   grid:
-    columns: [54, 54, 54, 54, 54, 54, 54]
+    columns: [54, 54, 54, 54, 54, 54, 74]
     rows: [12, 12, 12, 12, 12, 12, 12]
   refreshInterval: 1
   # Comment out or set to 'xterm-256color' if not using Kitty
@@ -35,9 +35,12 @@ wtf:
           filter: 'is:issue is:open'
       username: doctorfree
       repositories:
-        - 'doctorfree/MusicPlayerPlus'
         - 'doctorfree/Asciiville'
         - 'doctorfree/DoctorFreeScripts'
+        - 'doctorfree/DriveCommandLine'
+        - 'doctorfree/MirrorCommand'
+        - 'doctorfree/MusicPlayerPlus'
+        - 'doctorfree/RoonCommandLine'
     weather:
       # Set environment variable WTF_OWM_API_KEY
       # From https://home.openweathermap.org
@@ -139,7 +142,7 @@ wtf:
       refreshInterval: 15
       sort: 'chronological'
     linux_subreddit:
-      enabled: false
+      enabled: true
       numberOfPosts: 10
       position:
         top: 0
@@ -152,7 +155,7 @@ wtf:
       topTimePeriod: month
       type: subreddit
     cli_subreddit:
-      enabled: false
+      enabled: true
       numberOfPosts: 10
       position:
         top: 1
@@ -165,7 +168,7 @@ wtf:
       topTimePeriod: month
       type: subreddit
     prices_cryptolive:
-      enabled: false
+      enabled: true
       title: 'Cryptocurrency Prices'
       position:
         top: 2
@@ -216,7 +219,7 @@ wtf:
             value: green
       type: cryptolive
     ada_cryptolive:
-      enabled: false
+      enabled: true
       title: 'Cardano (ADA) Markets'
       position:
         top: 2
@@ -252,7 +255,7 @@ wtf:
             value: green
       type: cryptolive
     rndr_cryptolive:
-      enabled: false
+      enabled: true
       title: 'Render Token (RNDR) Markets'
       position:
         top: 2
@@ -288,7 +291,7 @@ wtf:
             value: green
       type: cryptolive
     agix_cryptolive:
-      enabled: false
+      enabled: true
       title: 'SingularityNET (AGI) Markets'
       position:
         top: 2
@@ -324,7 +327,7 @@ wtf:
             value: green
       type: cryptolive
     coti_cryptolive:
-      enabled: false
+      enabled: true
       title: 'COTI Markets'
       position:
         top: 2
@@ -360,7 +363,7 @@ wtf:
             value: green
       type: cryptolive
     grt_cryptolive:
-      enabled: false
+      enabled: true
       title: 'The Graph (GRT) Markets'
       position:
         top: 2
@@ -396,7 +399,7 @@ wtf:
             value: green
       type: cryptolive
     hnt_cryptolive:
-      enabled: false
+      enabled: true
       title: 'Helium (HNT) Markets'
       position:
         top: 2
@@ -434,7 +437,7 @@ wtf:
     news:
       type: hackernews
       title: 'HackerNews'
-      enabled: false
+      enabled: true
       numberOfStories: 10
       position:
         top: 4
@@ -476,7 +479,7 @@ wtf:
         height: 2
         width: 1
     feedreader:
-      enabled: false
+      enabled: true
       feeds:
       - https://rss.cbc.ca/lineup/topstories.xml
       - https://www.santacruzsentinel.com/feed/
@@ -516,7 +519,7 @@ wtf:
       refreshInterval: 30
     pokemon_static_1:
       type: pokemon
-      enabled: true
+      enabled: false
       pokemon_name: 'Celesteela'
       random: false
       colors:
@@ -543,7 +546,7 @@ wtf:
       randomInterval: 10
     pokemon_random:
       type: pokemon
-      enabled: true
+      enabled: false
       random: true
       colors:
         name: blue
@@ -569,7 +572,7 @@ wtf:
       randomInterval: 10
     pokemon_static_2:
       type: pokemon
-      enabled: true
+      enabled: false
       pokemon_name: 'Bulbasaur'
       random: false
       colors:

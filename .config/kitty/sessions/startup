@@ -2,38 +2,39 @@
 #
 # Kitty tab with Bash shell
 new_tab
-launch zsh
+launch bash
 enabled_layouts tall:bias=50;full_size=1
 layout tall
 
-new_tab
-launch zsh
-enabled_layouts tall:bias=50;full_size=1
-layout tall
+# Kitty tab for SSH sessions
+# new_tab
+# launch bash
+# enabled_layouts tall:bias=50;full_size=1
+# layout tall
 
 # Kitty tab with Bash shell in Asciiville source directory
-new_tab
-cd ~/src/Asciiville
-launch zsh
-enabled_layouts tall:bias=50;full_size=1
-layout tall 
+# new_tab
+# cd ~/src/Asciiville
+# launch bash
+# enabled_layouts tall:bias=50;full_size=1
+# layout tall 
 
 # Kitty tab with Bash shell in MusicPlayerPlus source directory
-new_tab
-cd ~/src/MusicPlayerPlus
-launch zsh
-enabled_layouts tall:bias=50;full_size=1
-layout tall 
+# new_tab
+# cd ~/src/MusicPlayerPlus
+# launch bash
+# enabled_layouts tall:bias=50;full_size=1
+# layout tall 
 
 # Kitty tab with MusicPlayerPlus interactive menu system
 # new_tab
 # cd ~
-# launch zsh -c 'mpplus -i'
+# launch bash -c 'mpplus -i'
 # enabled_layouts tall:bias=50;full_size=1
 # layout tall 
 
 # Create a window and run the specified command in it
-# launch zsh
+# launch bash
 # Create a window with some environment variables set and run
 # vim in it
 # launch env FOO=BAR vim
@@ -50,7 +51,7 @@ layout tall
 # enabled_layouts tall, stack
 # Set the current layout
 # layout stack
-# launch zsh
+# launch bash
 
 # Create a new OS window
 # new_os_window

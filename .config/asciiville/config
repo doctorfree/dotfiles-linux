@@ -1,5 +1,5 @@
-ARTDIR=/usr/share/asciiville/art
-MUSEDIR=/usr/share/asciiville/music
+ARTDIR=/usr/local/share/asciiville/art
+MUSEDIR=/usr/local/share/asciiville/music
 SONG=/Chronos.mp3
 ALTSONG=/Epic_Dramatic-Yuriy_Bespalov.wav
 
@@ -8,7 +8,7 @@ BROWSER=w3m
 COMMAND="btop"
 FULLSCREEN=
 LOLCAT="lolcat"
-MTITLE="Asciiville"
+MTITLE="Btop++ System Monitor"
 CURRENT=
 GNOME=
 RETRO=
@@ -23,8 +23,8 @@ use_lol=YES
 journal="default"
 style="pretty"
 show_interval=5
-art_font_size=8
-txt_font_size=24
+art_font_size=4
+txt_font_size=20
 
 defchars='   ...,;:clodxkO0KXNWM'
 revchars='MWNXK0Okxdolc:;,...   '
