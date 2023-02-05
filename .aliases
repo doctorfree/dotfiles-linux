@@ -61,7 +61,14 @@ alias l='ls -CF'
 
 #alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# To use Vim
 command -v vim > /dev/null && alias vi='vim'
+# To use NeoVim
+command -v nvim > /dev/null && alias vi='nvim'
+# To use NeoVim-qt
+command -v nvim-qt > /dev/null && \
+  command -v gvim > /dev/null || alias gvim='nvim-qt'
+
 command -v lsd > /dev/null && alias ls='lsd --group-dirs first' && \
 	alias tree='lsd --tree' && alias lss='lsd --group-dirs first'
 command -v colorls > /dev/null && alias ls='colorls --sd --gs' && \
