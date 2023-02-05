@@ -1,17 +1,139 @@
 execute pathogen#infect()
-set nocompatible
-set backspace=indent,eol,start
-set history=50  " keep 50 lines of command line history
-set ruler       " show the cursor position all the time
-set showcmd     " display incomplete commands
-set incsearch   " do incremental searching
+" General "{{{
+set nocompatible               " Be iMproved
+set backspace=indent
+set backspace+=eol
+set backspace+=start
+set history=256 " Number of things to remember in history
+set ruler       " Show the cursor position all the time
+set showcmd     " Display an incomplete command in statusline
+set incsearch   " Show matches while typing
 if has('mouse')
-  set mouse=a
+  set mouse=a   " Enable mouse in GUI mode
+  set mousehide " Hide mouse after chars typed
 endif
+
 if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
+  syntax on     " Enable syntax
+  set hlsearch  " Highlight search
 endif
+
+scriptencoding utf-8           " UTF-8 all the way
+set encoding=utf-8
+
+set timeoutlen=250             " Time to wait after ESC (default causes an annoying delay)
+set clipboard+=unnamed         " Yanks go on clipboard instead.
+set pastetoggle=<F10>          " Toggle between paste and normal: for 'safer' pasting from keyboard
+set shiftround                 " Round indent to multiple of 'shiftwidth'
+set tags=.git/tags;$HOME       " Consider the repo tags first, then
+                               " Walk directory tree upto $HOME looking for tags
+                               " Note `;` sets the stop folder. :h file-search
+
+set modeline
+set modelines=5                " Default numbers of lines to read for modeline instructions
+
+set autowrite                  " Writes on make/shell commands
+set autoread
+
+set nobackup
+set nowritebackup
+set directory=/tmp//           " Prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
+set noswapfile                 "
+
+set hidden                     " The current buffer can be put to the background without writing to disk
+
+set ignorecase                 " Be case insensitive when searching
+set smartcase                  " Be case sensitive when input has a capital letter
+
+let g:is_posix = 1             " Vim's default is archaic bourne shell, bring it up to the 90s
+let mapleader = ','
+let maplocalleader = '	'      " Tab as a local leader
+let g:netrw_banner = 0         " Do not show Netrw help banner
+" "}}}
+
+" Formatting "{{{
+set fo+=o                      " Automatically insert the current comment leader after hitting 'o' or 'O' in Normal mode.
+set fo-=r                      " Do not automatically insert a comment leader after an enter
+set fo-=t                      " Do no auto-wrap text using textwidth (does not apply to comments)
+
+" set nowrap
+" set textwidth=0                " Don't wrap lines by default
+
+set tabstop=2                  " Tab size eql 2 spaces
+set softtabstop=2
+set shiftwidth=2               " Default shift width for indents
+set expandtab                  " Replace tabs with ${tabstop} spaces
+set smarttab                   "
+
+set cindent
+set indentkeys-=0#             " Do not break indent on #
+set cinkeys-=0#
+set cinoptions=:s,ps,ts,cs
+set cinwords=if,else,while,do
+set cinwords+=for,switch,case
+" "}}}
+
+" Visual "{{{
+" set synmaxcol=250              " limit syntax highlighting to 128 columns
+
+set nonumber                  " line numbers Off
+set showmatch                 " Show matching brackets.
+set matchtime=2               " Bracket blinking.
+
+set wildmode=longest,list     " At command line, complete longest common string, then list alternatives.
+
+set completeopt-=preview      " Disable auto opening preview window
+
+set novisualbell              " No blinking
+set noerrorbells              " No noise.
+set vb t_vb=                  " Disable any beeps or flashes on error
+
+" set laststatus=2              " Always show status line.
+" set shortmess=atI             " Shortens messages
+
+set statusline=%<%f\          " Custom statusline
+set stl+=[%{&ff}]             " Show fileformat
+set stl+=%y%m%r%=
+set stl+=%-14.(%l,%c%V%)\ %P
+
+set foldenable                " Turn on folding
+set foldmethod=marker         " Fold on the marker
+set foldlevel=100             " Don't autofold anything (but I can still fold manually)
+
+set foldopen=block,hor,tag    " What movements open folds
+set foldopen+=percent,mark
+set foldopen+=quickfix
+
+set virtualedit=block
+
+set splitbelow
+set splitright
+
+" set list                    " Display unprintable characters F12 - switches
+set listchars=tab:\ ·,eol:¬
+set listchars+=trail:·
+set listchars+=extends:»,precedes:«
+map <silent> <F12> :set invlist<CR>
+
+if has('gui_running')
+  set guioptions=cMg " Console dialogs, do not show menu and toolbar
+
+  " Fonts
+  " :set guifont=* " To launch a GUI dialog
+  if has('mac')
+    if has('macligatures')
+      set antialias macligatures guifont=Fira\ Code\ Light:h13 " -> <=
+    else
+      set noantialias guifont=Andale\ Mono:h14
+    end
+  set fuoptions=maxvert,maxhorz ",background:#00AAaaaa
+  else
+  set guifont=Terminus:h16
+  end
+endif
+" "}}}
+
+
 " Using plug.vim Plugin manager from https://github.com/junegunn/vim-plug
 " Commands
 " PlugInstall [name ...] [#threads]  Install plugins
@@ -55,19 +177,18 @@ call plug#begin()
 " Make your Vim/Neovim as smart as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_disable_startup_warning = 1
-" Kitty config syntax highlighting for vim
-Plug 'fladson/vim-kitty'
+Plug 'fladson/vim-kitty' " Kitty config syntax highlighting for vim
 " Colorschemes
-Plug 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'  " One stop shop for vim colorschemes
 Plug 'gmarik/ingretu'
+" Uncomment to play with colorschemes
+" Plug 'felixhummel/setcolors.vim' " Easily switch colorschemes
 " Language support
 Plug 'davidhalter/jedi-vim'    " Python autocompletion
 Plug 'klen/python-mode'        " Python IDE
 let g:pymode = 1
 let g:pymode_warnings = 1
 Plug 'fatih/vim-go'            " Go language support for Vim
-" Plug 'derekwyatt/vim-scala'  " Scala language support
-" Plug 'tpope/vim-rails'       " Editing Ruby on Rails applications
 Plug 'yuezk/vim-js'            " Syntax highlighting for JavaScript and Flow.js
 Plug 'leafgarland/typescript-vim' " Typescript syntax
 " To disable built-in Typescript indentation:
@@ -79,37 +200,50 @@ Plug 'gmarik/vim-markdown'      " Markdown syntax support for Vim
 Plug 'tpope/vim-git'            " Syntax, indent, and filetype for Git
 " Git integration - :Git (or just :G) calls any arbitrary Git command
 Plug 'tpope/vim-fugitive'       " For more information, see :help fugitive
+Plug 'junegunn/gv.vim'      " A git commit browser (requires vim-fugitive)
 " :GV to open commit browser
 "     You can pass git log options to the command, e.g. :GV -S foobar -- plugins
 " :GV! will only list commits that affected the current file
 " :GV? fills the location list with the revisions of the current file
-Plug 'junegunn/gv.vim'      " A git commit browser (requires vim-fugitive)
 Plug 'tpope/vim-repeat'     " Remaps '.' to repeat the last plugin map as a whole
 Plug 'tpope/vim-surround'   " Delete/change/add parentheses/quotes/XML-tags/more
 Plug 'tpope/vim-unimpaired' " Pairs of handy bracket mappings
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'gmarik/github-search.vim'
-Plug 'gmarik/ide-popup.vim'
-Plug 'gmarik/sudo-gui.vim'
-Plug 'sjl/gundo.vim'
-Plug 'mkitt/browser-refresh.vim'
-Plug 'bogado/file-line'
-Plug 'junegunn/vim-easy-align'
-" Plug 'vim-scripts/lastpos.vim'
-Plug 'Lokaltog/vim-easymotion'
-" Plug 'ZoomWin'
-Plug 'tomtom/tlib_vim'
-Plug 'tomtom/tcomment_vim'
-Plug 'gmarik/hlmatch.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'rstacruz/sparkup.git', {'rtp': 'vim/'}
-Plug 'fladson/vim-kitty'
-Plug 'hrsh7th/nvim-cmp'
+Plug 'AndrewRadev/splitjoin.vim' " Switch between single-line and multiline
+Plug 'gmarik/github-search.vim'  " Search Github and clone repos with Vim
+Plug 'gmarik/ide-popup.vim' " Make Vim completion popup menu work like in an IDE
+Plug 'lambdalisue/suda.vim' " Alternative sudo for vim
+" Re-open a current file with sudo
+" :SudaRead
+" Open /etc/sudoers with sudo
+" :SudaRead /etc/sudoers
+" Forcedly save a current file with sudo
+" :SudaWrite
+" Write contents to /etc/profile
+" :SudaWrite /etc/profile
+Plug 'bogado/file-line'        " Enable opening a file in a given line
+                               " vim index.html:20
+                               " vim app/models/user.rb:1337
+Plug 'junegunn/vim-easy-align' " A simple, easy-to-use Vim alignment plugin
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+"   xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+"   nmap ga <Plug>(EasyAlign)
+Plug 'tomtom/tlib_vim'     " Some utility functions
+Plug 'tomtom/tcomment_vim' " Easy to use, file-type sensible comments for Vim
+Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, mru, tag finder for Vim
+Plug 'hrsh7th/nvim-cmp'    " A completion engine plugin for neovim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim'    " Things you can do with fzf and Vim
+" Plug 'vim-scripts/lastpos.vim'
+" Plug 'gmarik/sudo-gui.vim'  " GUI sudo for a GUI vim
+" Plug 'gmarik/hlmatch.vim' " Vim highlighting utils
+" Plug 'derekwyatt/vim-scala'  " Scala language support
+" Plug 'tpope/vim-rails'       " Editing Ruby on Rails applications
+" Plug 'rstacruz/sparkup.git', {'rtp': 'vim/'}
 " Plug 'godlygeek/tabular'  " needed by 'preservim/vim-markdown'
 " Plug 'preservim/vim-markdown'
-Plug 'epwalsh/obsidian.nvim'
+" Plug 'epwalsh/obsidian.nvim' " Write and navigate an Obsidian vault
+" Plug 'ZoomWin'
 call plug#end()
 if has("autocmd")
   filetype plugin indent on
@@ -128,14 +262,11 @@ endif " has("autocmd")
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 endif
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
 if has("gui_running")
   colorscheme ingretu
 else
-  colorscheme darkspectrum
+" colorscheme darkspectrum
+  colorscheme darktango
 endif
 set guifont=Inconsolata:h18
 let g:syntastic_html_checkers = []
