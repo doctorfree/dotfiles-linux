@@ -1,5 +1,135 @@
-""" Modified Optixal's Neovim Init.vim
-"   https://github.com/Optixal/neovim-init.vim
+" General "{{{
+set backspace=indent
+set backspace+=eol
+set backspace+=start
+set history=256 " Number of things to remember in history
+set ruler       " Show the cursor position all the time
+set showcmd     " Display an incomplete command in statusline
+set incsearch   " Show matches while typing
+if has('mouse')
+  set mouse=a   " Enable mouse in GUI mode
+  set mousehide " Hide mouse after chars typed
+endif
+
+if &t_Co > 2 || has("gui_running")
+  syntax on     " Enable syntax
+  set hlsearch  " Highlight search
+endif
+
+scriptencoding utf-8           " UTF-8 all the way
+set encoding=utf-8
+
+set timeoutlen=250             " Time to wait after ESC (default causes an annoying delay)
+set clipboard+=unnamed         " Yanks go on clipboard instead.
+set pastetoggle=<F10>          " Toggle between paste and normal: for 'safer' pasting from keyboard
+set shiftround                 " Round indent to multiple of 'shiftwidth'
+set tags=.git/tags;$HOME       " Consider the repo tags first, then
+                               " Walk directory tree upto $HOME looking for tags
+                               " Note `;` sets the stop folder. :h file-search
+
+set modeline
+set modelines=5                " Default numbers of lines to read for modeline instructions
+
+set autowrite                  " Writes on make/shell commands
+set autoread
+
+set nobackup
+set nowritebackup
+set directory=/tmp//           " Prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
+set noswapfile                 "
+
+set hidden                     " The current buffer can be put to the background without writing to disk
+
+set ignorecase                 " Be case insensitive when searching
+set smartcase                  " Be case sensitive when input has a capital letter
+
+let g:is_posix = 1             " Vim's default is archaic bourne shell, bring it up to the 90s
+let mapleader = ','
+let maplocalleader = '	'      " Tab as a local leader
+let g:netrw_banner = 0         " Do not show Netrw help banner
+" "}}}
+
+" Formatting "{{{
+set fo+=o                      " Automatically insert the current comment leader after hitting 'o' or 'O' in Normal mode.
+set fo-=r                      " Do not automatically insert a comment leader after an enter
+set fo-=t                      " Do no auto-wrap text using textwidth (does not apply to comments)
+
+" set nowrap
+" set textwidth=0                " Don't wrap lines by default
+
+set tabstop=2                  " Tab size eql 2 spaces
+set softtabstop=2
+set shiftwidth=2               " Default shift width for indents
+set expandtab                  " Replace tabs with ${tabstop} spaces
+set smarttab                   "
+
+set cindent
+set indentkeys-=0#             " Do not break indent on #
+set cinkeys-=0#
+set cinoptions=:s,ps,ts,cs
+set cinwords=if,else,while,do
+set cinwords+=for,switch,case
+" "}}}
+
+" Visual "{{{
+" set synmaxcol=250              " limit syntax highlighting to 128 columns
+
+set nonumber                  " line numbers Off
+set showmatch                 " Show matching brackets.
+set matchtime=2               " Bracket blinking.
+
+set wildmode=longest,list     " At command line, complete longest common string, then list alternatives.
+
+set completeopt-=preview      " Disable auto opening preview window
+
+set novisualbell              " No blinking
+set noerrorbells              " No noise.
+set vb t_vb=                  " Disable any beeps or flashes on error
+
+" set laststatus=2              " Always show status line.
+" set shortmess=atI             " Shortens messages
+
+set statusline=%<%f\          " Custom statusline
+set stl+=[%{&ff}]             " Show fileformat
+set stl+=%y%m%r%=
+set stl+=%-14.(%l,%c%V%)\ %P
+
+set foldenable                " Turn on folding
+set foldmethod=marker         " Fold on the marker
+set foldlevel=100             " Don't autofold anything (but I can still fold manually)
+
+set foldopen=block,hor,tag    " What movements open folds
+set foldopen+=percent,mark
+set foldopen+=quickfix
+
+set virtualedit=block
+
+set splitbelow
+set splitright
+
+" set list                    " Display unprintable characters F12 - switches
+set listchars=tab:\ ·,eol:¬
+set listchars+=trail:·
+set listchars+=extends:»,precedes:«
+map <silent> <F12> :set invlist<CR>
+
+if has('gui_running')
+  set guioptions=cMg " Console dialogs, do not show menu and toolbar
+
+  " Fonts
+  " :set guifont=* " To launch a GUI dialog
+  if has('mac')
+    if has('macligatures')
+      set antialias macligatures guifont=Fira\ Code\ Light:h13 " -> <=
+    else
+      set noantialias guifont=Andale\ Mono:h14
+    end
+  set fuoptions=maxvert,maxhorz ",background:#00AAaaaa
+  else
+  set guifont=Terminus:h16
+  end
+endif
+" "}}}
 
 """ Vim-Plug
 " Using plug.vim Plugin manager from https://github.com/junegunn/vim-plug
@@ -172,161 +302,6 @@ Plug 'sudormrfbin/cheatsheet.nvim'
 
 call plug#end()
 
-""" Main Configurations
-" General "{{{
-set backspace=indent
-set backspace+=eol
-set backspace+=start
-set history=256 " Number of things to remember in history
-set showcmd     " Display an incomplete command in statusline
-set incsearch   " Show matches while typing
-if has('mouse')
-  set mouse=a   " Enable mouse in GUI mode
-  set mousehide " Hide mouse after chars typed
-endif
-
-if &t_Co > 2 || has("gui_running")
-  syntax on     " Enable syntax
-  set hlsearch  " Highlight search
-endif
-
-set timeoutlen=250             " Time to wait after ESC (default causes an annoying delay)
-set clipboard+=unnamed         " Yanks go on clipboard instead.
-set pastetoggle=<F10>          " Toggle between paste and normal: for 'safer' pasting from keyboard
-set shiftround                 " Round indent to multiple of 'shiftwidth'
-set tags=.git/tags;$HOME       " Consider the repo tags first, then
-                               " Walk directory tree upto $HOME looking for tags
-                               " Note `;` sets the stop folder. :h file-search
-
-set modeline
-set modelines=5                " Default numbers of lines to read for modeline instructions
-
-set autowrite                  " Writes on make/shell commands
-set autoread
-
-set nobackup
-set nowritebackup
-set directory=/tmp//           " Prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
-set noswapfile                 "
-
-set hidden                     " The current buffer can be put to the background without writing to disk
-
-set ignorecase                 " Be case insensitive when searching
-set smartcase                  " Be case sensitive when input has a capital letter
-
-let g:is_posix = 1             " Vim's default is archaic bourne shell, bring it up to the 90s
-let mapleader = ','
-let maplocalleader = '	'      " Tab as a local leader
-let g:netrw_banner = 0         " Do not show Netrw help banner
-" "}}}
-
-" Formatting "{{{
-set fo+=o                      " Automatically insert the current comment leader after hitting 'o' or 'O' in Normal mode.
-set fo-=r                      " Do not automatically insert a comment leader after an enter
-set fo-=t                      " Do not auto-wrap text using textwidth (does not apply to comments)
-" set nowrap
-" set textwidth=0                " Don't wrap lines by default
-" set wildmode=longest,list     " At command line, complete longest common string, then list alternatives.
-set wildmode=longest,list,full wildmenu
-" set ruler       " Show the cursor position all the time
-set ruler laststatus=2 showcmd showmode
-" set list listchars=trail:»,tab:»-
-" set list                    " Display unprintable characters F12 - switches
-set listchars=tab:\ ·,eol:¬
-set listchars+=trail:·
-set listchars+=extends:»,precedes:«
-map <silent> <F12> :set invlist<CR>
-" set fillchars+=vert:\ 
-" set wrap breakindent
-scriptencoding utf-8           " UTF-8 all the way
-set encoding=utf-8
-set textwidth=0
-
-set tabstop=2                  " Tab size eql 2 spaces
-set softtabstop=2
-set shiftwidth=2               " Default shift width for indents
-set expandtab                  " Replace tabs with ${tabstop} spaces
-set smarttab                   "
-
-set cindent
-set indentkeys-=0#             " Do not break indent on #
-set cinkeys-=0#
-set cinoptions=:s,ps,ts,cs
-set cinwords=if,else,while,do
-set cinwords+=for,switch,case
-" "}}}
-
-" Visual "{{{
-" set synmaxcol=250              " limit syntax highlighting to 128 columns
-
-set nonumber                  " line numbers Off
-set showmatch                 " Show matching brackets.
-set matchtime=2               " Bracket blinking.
-set completeopt-=preview      " Disable auto opening preview window
-
-set novisualbell              " No blinking
-set noerrorbells              " No noise.
-set vb t_vb=                  " Disable any beeps or flashes on error
-
-" set laststatus=2              " Always show status line.
-" set shortmess=atI             " Shortens messages
-
-set statusline=%<%f\          " Custom statusline
-set stl+=[%{&ff}]             " Show fileformat
-set stl+=%y%m%r%=
-set stl+=%-14.(%l,%c%V%)\ %P
-
-set foldenable                " Turn on folding
-set foldmethod=marker         " Fold on the marker
-set foldlevel=100             " Don't autofold anything (but I can still fold manually)
-
-set foldopen=block,hor,tag    " What movements open folds
-set foldopen+=percent,mark
-set foldopen+=quickfix
-
-set virtualedit=block
-
-set splitbelow
-set splitright
-
-if has('gui_running')
-  set guioptions=cMg " Console dialogs, do not show menu and toolbar
-
-  " Fonts
-  " :set guifont=* " To launch a GUI dialog
-  if has('mac')
-    if has('macligatures')
-      set antialias macligatures guifont=Fira\ Code\ Light:h13 " -> <=
-    else
-      set noantialias guifont=Andale\ Mono:h14
-    end
-  set fuoptions=maxvert,maxhorz ",background:#00AAaaaa
-  else
-  set guifont=Terminus:h16
-  end
-endif
-" "}}}
-
-if has("autocmd")
-  filetype plugin indent on
-  augroup vimrcEx
-  au!
-  autocmd FileType text setlocal textwidth=78
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-  augroup END
-  autocmd FileType * setlocal formatoptions-=c formatoptions-=r
-else
-  set autoindent    " always set autoindenting on
-endif " has("autocmd")
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-endif
-
-set title
-
 """ Filetype-Specific Configurations
 
 " HTML, XML, Jinja
@@ -341,17 +316,6 @@ autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
 " Markdown and Journal
 autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
-
-""" Coloring
-
-if has("gui_running")
-  colorscheme ingretu
-else
-" colorscheme darkspectrum
-  colorscheme darktango
-endif
-set guifont=Inconsolata:h18
-let g:syntastic_html_checkers = []
 
 set completeopt=menu,menuone,noselect
 
@@ -376,6 +340,8 @@ let g:cursorhold_updatetime = 100
 let g:context_nvim_no_redraw = 1
 
 " Neovim :Terminal
+"
+" Exit NeoVim's terminal emulator (:term) by simply pressing escape
 tmap <Esc> <C-\><C-n>
 tmap <C-w> <Esc><C-w>
 "tmap <C-d> <Esc>:q<CR>
@@ -387,6 +353,8 @@ let g:python3_host_prog = '~/.config/nvim/env/bin/python3'
 let g:pydocstring_doq_path = '~/.config/nvim/env/bin/doq'
 
 """ Core plugin configuration (lua)
+" Use airline rather than lualine
+" require('lualine-config')
 lua << EOF
 servers = {
     'pyright',
@@ -396,7 +364,6 @@ require('treesitter-config')
 require('nvim-cmp-config')
 require('lspconfig-config')
 require('telescope-config')
-require('lualine-config')
 require('diagnostics')
 EOF
 
@@ -455,7 +422,7 @@ endfunction
 let mapleader=","
 nmap <leader>q :NvimTreeFindFileToggle<CR>
 nmap \ <leader>q
-nmap <leader>r :so ~/.config/nvim/init-standalone.vim<CR>
+nmap <leader>r :so ~/.config/nvim/init.vim<CR>
 nmap <leader>t :call TrimWhitespace()<CR>
 xmap <leader>a gaip*
 nmap <leader>a gaip*
@@ -485,3 +452,31 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fc <cmd>Telescope colorscheme<cr>
 nnoremap <leader>f/ <cmd>Telescope current_buffer_fuzzy_find<cr>
 
+" Override those configurations for each project with a local .nvimrc
+set exrc
+
+if has("autocmd")
+  filetype plugin indent on
+  augroup vimrcEx
+  au!
+  autocmd FileType text setlocal textwidth=78
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+  augroup END
+  autocmd FileType * setlocal formatoptions-=c formatoptions-=r
+else
+  set autoindent    " always set autoindenting on
+endif " has("autocmd")
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+endif
+if has("gui_running")
+  colorscheme ingretu
+else
+" colorscheme darkspectrum
+  colorscheme darktango
+endif
+set guifont=Inconsolata:h18
+let g:syntastic_html_checkers = []
