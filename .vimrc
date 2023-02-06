@@ -133,7 +133,6 @@ if has('gui_running')
 endif
 " "}}}
 
-
 " Using plug.vim Plugin manager from https://github.com/junegunn/vim-plug
 " Commands
 " PlugInstall [name ...] [#threads]  Install plugins
@@ -174,6 +173,14 @@ call plug#begin()
 " Plug '~/my-prototype-plugin'
 " Initialize plugin system
 "
+Plug 'vim-airline/vim-airline' " Nifty status of your current file
+" let g:airline_section_b = 'Filetype: %y'
+let g:airline#extensions#tabline#enabled = 1
+Plug 'vim-airline/vim-airline-themes' " Airline status themes
+" let g:airline_theme='simple'
+" let g:airline_theme='dark-powerline'
+let g:airline_theme='google_dark'
+Plug 'tpope/vim-sleuth'        " Automatically adjust indentation
 " Make your Vim/Neovim as smart as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_disable_startup_warning = 1
