@@ -174,9 +174,9 @@ call plug#begin()
 " Initialize plugin system
 "
 Plug 'vim-airline/vim-airline' " Nifty status of your current file
-" let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 let g:bufferline_echo = 0
+let g:airline_powerline_fonts = 1
 " Remove the error and warning sections from Airline layout
 " let g:airline#extensions#default#layout = [
 "     \ [ 'a', 'b', 'c' ],
