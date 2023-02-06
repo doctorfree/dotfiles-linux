@@ -1,6 +1,46 @@
-""" Optixal's Neovim Init.vim
+""" Modified Optixal's Neovim Init.vim
+"   https://github.com/Optixal/neovim-init.vim
 
 """ Vim-Plug
+" Using plug.vim Plugin manager from https://github.com/junegunn/vim-plug
+" Commands
+" PlugInstall [name ...] [#threads]  Install plugins
+" PlugUpdate  [name ...] [#threads]  Install or update plugins
+" PlugClean[!]  Remove unlisted plugins (bang version will clean without prompt)
+" PlugUpgrade   Upgrade vim-plug itself
+" PlugStatus    Check the status of plugins
+" PlugDiff      Examine changes from the previous update and the pending changes
+" PlugSnapshot[!] [output path]  Generate script for restoring
+"                                the current snapshot of the plugins
+" The default plugin directory will be as follows:
+"   - Vim (Linux/macOS): '~/.vim/plugged'
+"   - Vim (Windows): '~/vimfiles/plugged'
+"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+" You can specify a custom plugin directory by passing it as the argument
+"   - e.g. `call plug#begin('~/.vim/plugged')`
+"   - Avoid using standard Vim directory names like 'plugin'
+" Make sure you use single quotes
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+" Plug 'junegunn/vim-easy-align'
+" Any valid git URL is allowed
+" Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+" Multiple Plug commands can be written in a single line using | separators
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" On-demand loading
+" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+" Using a non-default branch
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+" Plug 'fatih/vim-go', { 'tag': '*' }
+" Plugin options
+" Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+" Plugin outside ~/.vim/plugged with post-update hook
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Unmanaged plugin (manually installed and updated)
+" Plug '~/my-prototype-plugin'
+
 call plug#begin()
 
 " Core (treesitter, nvim-lspconfig, nvim-cmp, nvim-telescope, nvim-lualine)
@@ -11,7 +51,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/nvim-cmp'    " A completion engine plugin for neovim
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
@@ -30,7 +70,14 @@ Plug 'mhinz/vim-signify'
 Plug 'jiangmiao/auto-pairs'
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-abolish'
-Plug 'junegunn/vim-easy-align'
+Plug 'bogado/file-line'        " Enable opening a file in a given line
+                               " vim index.html:20
+                               " vim app/models/user.rb:1337
+Plug 'junegunn/vim-easy-align' " A simple, easy-to-use Vim alignment plugin
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+"   xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+"   nmap ga <Plug>(EasyAlign)
 Plug 'scrooloose/nerdcommenter'
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer'
@@ -38,15 +85,81 @@ Plug 'KabbAmine/vCoolor.vim'
 Plug 'dkarter/bullets.vim'
 Plug 'wellle/context.vim'
 Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'tpope/vim-git'            " Syntax, indent, and filetype for Git
+" Git integration - :Git (or just :G) calls any arbitrary Git command
+Plug 'junegunn/gv.vim'      " A git commit browser (requires vim-fugitive)
+" :GV to open commit browser
+"     You can pass git log options to the command, e.g. :GV -S foobar -- plugins
+" :GV! will only list commits that affected the current file
+" :GV? fills the location list with the revisions of the current file
+Plug 'vim-airline/vim-airline' " Nifty status of your current file
+let g:airline#extensions#tabline#enabled = 1
+let g:bufferline_echo = 0
+let g:airline_powerline_fonts = 1
+" Remove the error and warning sections from Airline layout
+" let g:airline#extensions#default#layout = [
+"     \ [ 'a', 'b', 'c' ],
+"     \ [ 'x', 'y', 'z', 'error', 'warning' ]
+"     \ ]
+let g:airline#extensions#default#layout = [
+    \ [ 'a', 'b', 'c' ],
+    \ [ 'x', 'y', 'z']
+    \ ]
+Plug 'vim-airline/vim-airline-themes' " Airline status themes
+" let g:airline_theme='simple'
+" let g:airline_theme='dark-powerline'
+let g:airline_theme='google_dark'
+" Plug 'tpope/vim-sleuth'        " Automatically adjust indentation
+" Make your Vim/Neovim as smart as VSCode
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" let g:coc_disable_startup_warning = 1
+Plug 'fladson/vim-kitty' " Kitty config syntax highlighting for vim
+" Language support
+Plug 'fatih/vim-go'            " Go language support for Vim
+Plug 'yuezk/vim-js'            " Syntax highlighting for JavaScript and Flow.js
+Plug 'leafgarland/typescript-vim' " Typescript syntax
+" To disable built-in Typescript indentation:
+" let g:typescript_indent_disable = 1
+Plug 'maxmellon/vim-jsx-pretty' " The React syntax highlighting and indenting
+Plug 'gmarik/snipmate.vim'      " TextMate's snippets features in Vim
+Plug 'gmarik/snipmate.snippets' " gmarik's custom snippet collection
+Plug 'gmarik/vim-markdown'      " Markdown syntax support for Vim
+Plug 'tpope/vim-repeat'     " Remaps '.' to repeat the last plugin map as a whole
+Plug 'tpope/vim-surround'   " Delete/change/add parentheses/quotes/XML-tags/more
+Plug 'tpope/vim-unimpaired' " Pairs of handy bracket mappings
+Plug 'AndrewRadev/splitjoin.vim' " Switch between single-line and multiline
+Plug 'gmarik/github-search.vim'  " Search Github and clone repos with Vim
+Plug 'gmarik/ide-popup.vim' " Make Vim completion popup menu work like in an IDE
+Plug 'lambdalisue/suda.vim' " Alternative sudo for vim
+" Re-open a current file with sudo
+" :SudaRead
+" Open /etc/sudoers with sudo
+" :SudaRead /etc/sudoers
+" Forcedly save a current file with sudo
+" :SudaWrite
+" Write contents to /etc/profile
+" :SudaWrite /etc/profile
+Plug 'tomtom/tlib_vim'     " Some utility functions
+Plug 'tomtom/tcomment_vim' " Easy to use, file-type sensible comments for Vim
+Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, mru, tag finder for Vim
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'    " Things you can do with fzf and Vim
 
 " Functionalities - Python
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'heavenshell/vim-pydocstring'
+Plug 'davidhalter/jedi-vim'    " Python autocompletion
+Plug 'klen/python-mode'        " Python IDE
+let g:pymode = 1
+let g:pymode_warnings = 1
 
 " Aesthetics - Colorschemes
-Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'zaki/zazen'
 Plug 'yuttie/hydrangea-vim'
+Plug 'flazz/vim-colorschemes'  " One stop shop for vim colorschemes
+Plug 'gmarik/ingretu'
+" Uncomment to play with colorschemes
+" Plug 'felixhummel/setcolors.vim' " Easily switch colorschemes
 
 " Aesthetics - Others
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -88,33 +201,43 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 softtabstop=2
 """ Coloring
 
 " Functions and autocmds to run whenever changing colorschemes
-function! TransparentBackground()
-    highlight Normal guibg=NONE ctermbg=NONE
-    highlight LineNr guibg=NONE ctermbg=NONE
-    set fillchars+=vert:\│
-    highlight WinSeparator gui=NONE guibg=NONE guifg=#444444 cterm=NONE ctermbg=NONE ctermfg=gray
-    highlight VertSplit gui=NONE guibg=NONE guifg=#444444 cterm=NONE ctermbg=NONE ctermfg=gray
-endfunction
+" function! TransparentBackground()
+"     highlight Normal guibg=NONE ctermbg=NONE
+"     highlight LineNr guibg=NONE ctermbg=NONE
+"     set fillchars+=vert:\│
+"     highlight WinSeparator gui=NONE guibg=NONE guifg=#444444 cterm=NONE ctermbg=NONE ctermfg=gray
+"     highlight VertSplit gui=NONE guibg=NONE guifg=#444444 cterm=NONE ctermbg=NONE ctermfg=gray
+" endfunction
 
-" Use these colors for Pmenu, CmpPmenusBorder and TelescopeBorder when using dracula colorscheme
-function! DraculaTweaks()
-    " Pmenu colors when not using bordered windows
-    highlight Pmenu guibg=#363948
-    highlight PmenuSbar guibg=#363948
-    " Completion/documentation Pmenu border color when using bordered windows
-    highlight link CmpPmenuBorder NonText
-    " Telescope borders
-    highlight link TelescopeBorder Constant
-endfunction
+" Use these colors for Pmenu, CmpPmenusBorder and TelescopeBorder
+" when using dracula colorscheme
+" function! DraculaTweaks()
+"     " Pmenu colors when not using bordered windows
+"     highlight Pmenu guibg=#363948
+"     highlight PmenuSbar guibg=#363948
+"     " Completion/documentation Pmenu border color when using bordered windows
+"     highlight link CmpPmenuBorder NonText
+"     " Telescope borders
+"     highlight link TelescopeBorder Constant
+" endfunction
 
-augroup MyColors
-    autocmd!
-    autocmd ColorScheme dracula call DraculaTweaks()
-    "autocmd ColorScheme * call TransparentBackground() " uncomment if you are using a translucent terminal and you want nvim to use that
-augroup END
+if has("gui_running")
+  colorscheme ingretu
+else
+" colorscheme darkspectrum
+  colorscheme darktango
+endif
 
-color dracula
-set termguicolors
+" augroup MyColors
+"     autocmd!
+"     " uncomment if you are using dracula colorscheme
+"     "autocmd ColorScheme dracula call DraculaTweaks()
+"     " comment out if you are not using a translucent terminal
+"     autocmd ColorScheme * call TransparentBackground()
+" augroup END
+
+" color dracula
+" set termguicolors
 
 """ Core plugin configuration (vim)
 
@@ -189,7 +312,7 @@ endfunction
 let mapleader=","
 nmap <leader>q :NvimTreeFindFileToggle<CR>
 nmap \ <leader>q
-nmap <leader>r :so ~/.config/nvim/init.vim<CR>
+nmap <leader>r :so ~/.config/nvim/init-standalone.vim<CR>
 nmap <leader>t :call TrimWhitespace()<CR>
 xmap <leader>a gaip*
 nmap <leader>a gaip*
