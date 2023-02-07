@@ -62,7 +62,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'kyazdani42/nvim-tree.lua'
 
 " Functionalities
 Plug 'tpope/vim-fugitive'
@@ -255,8 +255,6 @@ set matchtime=2               " Bracket blinking.
 
 set wildmode=longest,list     " At command line, complete longest common string, then list alternatives.
 
-set completeopt-=preview      " Disable auto opening preview window
-
 set novisualbell              " No blinking
 set noerrorbells              " No noise.
 set vb t_vb=                  " Disable any beeps or flashes on error
@@ -308,10 +306,16 @@ endif
 
 """ Filetype-Specific Configurations
 
-" HTML, XML, Jinja
+" CSS, HTML, LUA, JS, TS, XML, Jinja, YAML
+autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType typescript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType scss setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType xhtml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
@@ -359,6 +363,7 @@ let g:pydocstring_doq_path = '~/.config/nvim/env/bin/doq'
 """ Core plugin configuration (lua)
 " Use airline rather than lualine
 " require('lualine-config')
+" require('nvim-tree-config')
 lua << EOF
 servers = {
     'pyright',
@@ -368,7 +373,6 @@ require('treesitter-config')
 require('nvim-cmp-config')
 require('lspconfig-config')
 require('telescope-config')
-require('nvim-tree-config')
 require('diagnostics')
 EOF
 
