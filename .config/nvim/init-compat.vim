@@ -1,3 +1,9 @@
+""" Vim compatible NeoVim init
+"
+"   Copy this file to ~/.config/nvim/init.vim to enable
+"   or invoke NeoVim as: nvim -u ~/.config/nvim/init-compat.vim
+"   This NeoVim config will source your existing Vim ~/.vimrc
+"
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 " Use my existing .vimrc

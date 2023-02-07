@@ -45,7 +45,7 @@
 
 call plug#begin()
 
-" Core (treesitter, nvim-lspconfig, nvim-cmp, nvim-telescope)
+" Core (treesitter, nvim-lspconfig, nvim-cmp, nvim-telescope, nvim-tree, etc)
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/playground'
 Plug 'neovim/nvim-lspconfig'
@@ -62,7 +62,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'kyazdani42/nvim-web-devicons'
-" Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-tree.lua'
 
 " Functionalities
 Plug 'tpope/vim-fugitive'
@@ -146,6 +146,21 @@ Plug 'tomtom/tcomment_vim' " Easy to use, file-type sensible comments for Vim
 Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, mru, tag finder for Vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'    " Things you can do with fzf and Vim
+if has('nvim')
+  function! UpdateRemotePlugins(...)
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
+  endfunction
+
+  Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+else
+  Plug 'gelguy/wilder.nvim'
+
+  " To use Python remote plugin features in Vim, can be skipped
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 " Functionalities - Python
 Plug 'psf/black', { 'branch': 'stable' }
@@ -169,7 +184,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-journal'
 
 " Cheat sheets
-Plug 'sudormrfbin/cheatsheet.nvim'
+Plug 'sudormrfbin/cheatsheet.nvim'  " :Cheatsheet
 
 call plug#end()
 
@@ -222,6 +237,37 @@ let g:is_posix = 1             " Vim's default is archaic bourne shell, bring it
 let mapleader = ','
 let maplocalleader = '	'      " Tab as a local leader
 let g:netrw_banner = 0         " Do not show Netrw help banner
+
+" complete longest common string, then list alternatives.
+set wildmode=longest,list
+" Use wilder, see https://github.com/gelguy/wilder.nvimrc
+" for extensive set of configuration examples
+call wilder#setup({'modes': [':', '/', '?']})
+" When in : cmdline mode, wildmenu suggestions will be automatically provided.
+" When searching using /, suggestions from the current buffer will be provided.
+" Substring matching is used by default.
+" 
+" Use <Tab> to cycle through the list forwards, and <S-Tab> to move backwards.
+" 
+" The keybinds can be changed:
+" 
+" Default keys
+" call wilder#setup({
+"       \ 'modes': [':', '/', '?'],
+"       \ 'next_key': '<Tab>',
+"       \ 'previous_key': '<S-Tab>',
+"       \ 'accept_key': '<Down>',
+"       \ 'reject_key': '<Up>',
+"       \ })
+" 
+" Airline and Lightline users:
+" wilder#wildmenu_airline_theme() and wilder#wildmenu_lightline_theme() can be used.
+call wilder#set_option('renderer', wilder#wildmenu_renderer(
+      \ wilder#wildmenu_airline_theme({
+      \   'highlights': {},
+      \   'highlighter': wilder#basic_highlighter(),
+      \   'separator': ' · ',
+      \ })))
 " "}}}
 
 " Formatting "{{{
@@ -252,8 +298,6 @@ set cinwords+=for,switch,case
 set nonumber                  " line numbers Off
 set showmatch                 " Show matching brackets.
 set matchtime=2               " Bracket blinking.
-
-set wildmode=longest,list     " At command line, complete longest common string, then list alternatives.
 
 set novisualbell              " No blinking
 set noerrorbells              " No noise.
@@ -363,7 +407,6 @@ let g:pydocstring_doq_path = '~/.config/nvim/env/bin/doq'
 """ Core plugin configuration (lua)
 " Use airline rather than lualine
 " require('lualine-config')
-" require('nvim-tree-config')
 lua << EOF
 servers = {
     'pyright',
@@ -373,6 +416,7 @@ require('treesitter-config')
 require('nvim-cmp-config')
 require('lspconfig-config')
 require('telescope-config')
+require('nvim-tree-config')
 require('diagnostics')
 EOF
 

@@ -1,137 +1,9 @@
-" General "{{{
-set backspace=indent
-set backspace+=eol
-set backspace+=start
-set history=256 " Number of things to remember in history
-set ruler       " Show the cursor position all the time
-set showcmd     " Display an incomplete command in statusline
-set incsearch   " Show matches while typing
-if has('mouse')
-  set mouse=a   " Enable mouse in GUI mode
-  set mousehide " Hide mouse after chars typed
-endif
-
-if &t_Co > 2 || has("gui_running")
-  syntax on     " Enable syntax
-  set hlsearch  " Highlight search
-endif
-
-scriptencoding utf-8           " UTF-8 all the way
-set encoding=utf-8
-
-set timeoutlen=250             " Time to wait after ESC (default causes an annoying delay)
-set clipboard+=unnamed         " Yanks go on clipboard instead.
-set pastetoggle=<F10>          " Toggle between paste and normal: for 'safer' pasting from keyboard
-set shiftround                 " Round indent to multiple of 'shiftwidth'
-set tags=.git/tags;$HOME       " Consider the repo tags first, then
-                               " Walk directory tree upto $HOME looking for tags
-                               " Note `;` sets the stop folder. :h file-search
-
-set modeline
-set modelines=5                " Default numbers of lines to read for modeline instructions
-
-set autowrite                  " Writes on make/shell commands
-set autoread
-
-set nobackup
-set nowritebackup
-set directory=/tmp//           " Prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
-set noswapfile                 "
-
-set hidden                     " The current buffer can be put to the background without writing to disk
-
-set ignorecase                 " Be case insensitive when searching
-set smartcase                  " Be case sensitive when input has a capital letter
-
-let g:is_posix = 1             " Vim's default is archaic bourne shell, bring it up to the 90s
-let mapleader = ','
-let maplocalleader = '	'      " Tab as a local leader
-let g:netrw_banner = 0         " Do not show Netrw help banner
-" "}}}
-
-" Formatting "{{{
-set fo+=o                      " Automatically insert the current comment leader after hitting 'o' or 'O' in Normal mode.
-set fo-=r                      " Do not automatically insert a comment leader after an enter
-set fo-=t                      " Do no auto-wrap text using textwidth (does not apply to comments)
-
-" set nowrap
-" set textwidth=0                " Don't wrap lines by default
-
-set tabstop=2                  " Tab size eql 2 spaces
-set softtabstop=2
-set shiftwidth=2               " Default shift width for indents
-set expandtab                  " Replace tabs with ${tabstop} spaces
-set smarttab                   "
-
-set cindent
-set indentkeys-=0#             " Do not break indent on #
-set cinkeys-=0#
-set cinoptions=:s,ps,ts,cs
-set cinwords=if,else,while,do
-set cinwords+=for,switch,case
-" "}}}
-
-" Visual "{{{
-" set synmaxcol=250              " limit syntax highlighting to 128 columns
-
-set nonumber                  " line numbers Off
-set showmatch                 " Show matching brackets.
-set matchtime=2               " Bracket blinking.
-
-set wildmode=longest,list     " At command line, complete longest common string, then list alternatives.
-
-set completeopt-=preview      " Disable auto opening preview window
-
-set novisualbell              " No blinking
-set noerrorbells              " No noise.
-set vb t_vb=                  " Disable any beeps or flashes on error
-
-" set laststatus=2              " Always show status line.
-" set shortmess=atI             " Shortens messages
-
-set statusline=%<%f\          " Custom statusline
-set stl+=[%{&ff}]             " Show fileformat
-set stl+=%y%m%r%=
-set stl+=%-14.(%l,%c%V%)\ %P
-
-set foldenable                " Turn on folding
-set foldmethod=marker         " Fold on the marker
-set foldlevel=100             " Don't autofold anything (but I can still fold manually)
-
-set foldopen=block,hor,tag    " What movements open folds
-set foldopen+=percent,mark
-set foldopen+=quickfix
-
-set virtualedit=block
-
-set splitbelow
-set splitright
-
-" set list                    " Display unprintable characters F12 - switches
-set listchars=tab:\ ·,eol:¬
-set listchars+=trail:·
-set listchars+=extends:»,precedes:«
-map <silent> <F12> :set invlist<CR>
-
-if has('gui_running')
-  set guioptions=cMg " Console dialogs, do not show menu and toolbar
-
-  " Fonts
-  " :set guifont=* " To launch a GUI dialog
-  if has('mac')
-    if has('macligatures')
-      set antialias macligatures guifont=Fira\ Code\ Light:h13 " -> <=
-    else
-      set noantialias guifont=Andale\ Mono:h14
-    end
-  set fuoptions=maxvert,maxhorz ",background:#00AAaaaa
-  else
-  set guifont=Terminus:h16
-  end
-endif
-" "}}}
-
-""" Vim-Plug
+""" Modified Optixal's Neovim Init.vim by Doctorfree
+"   https://github.com/Optixal/neovim-init.vim (original)
+"   https://github.com/doctorfree/dotfiles-linux/blob/master/.config/nvim/init.vim
+"
+""" Vim-Plug managed plugins
+"
 " Using plug.vim Plugin manager from https://github.com/junegunn/vim-plug
 " Commands
 " PlugInstall [name ...] [#threads]  Install plugins
@@ -173,7 +45,7 @@ endif
 
 call plug#begin()
 
-" Core (treesitter, nvim-lspconfig, nvim-cmp, nvim-telescope, nvim-lualine)
+" Core (treesitter, nvim-lspconfig, nvim-cmp, nvim-telescope, nvim-tree, etc)
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/playground'
 Plug 'neovim/nvim-lspconfig'
@@ -189,9 +61,8 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-" Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-tree.lua'
 
 " Functionalities
 Plug 'tpope/vim-fugitive'
@@ -275,6 +146,21 @@ Plug 'tomtom/tcomment_vim' " Easy to use, file-type sensible comments for Vim
 Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, mru, tag finder for Vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'    " Things you can do with fzf and Vim
+if has('nvim')
+  function! UpdateRemotePlugins(...)
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
+  endfunction
+
+  Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+else
+  Plug 'gelguy/wilder.nvim'
+
+  " To use Python remote plugin features in Vim, can be skipped
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 
 " Functionalities - Python
 Plug 'psf/black', { 'branch': 'stable' }
@@ -298,16 +184,182 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-journal'
 
 " Cheat sheets
-Plug 'sudormrfbin/cheatsheet.nvim'
+Plug 'sudormrfbin/cheatsheet.nvim'  " :Cheatsheet
 
 call plug#end()
 
+" General "{{{
+set backspace=indent
+set backspace+=eol
+set backspace+=start
+set history=256 " Number of things to remember in history
+set ruler       " Show the cursor position all the time
+set showcmd     " Display an incomplete command in statusline
+set incsearch   " Show matches while typing
+if has('mouse')
+  set mouse=a   " Enable mouse in GUI mode
+  set mousehide " Hide mouse after chars typed
+endif
+
+if &t_Co > 2 || has("gui_running")
+  syntax on     " Enable syntax
+  set hlsearch  " Highlight search
+endif
+
+scriptencoding utf-8           " UTF-8 all the way
+set encoding=utf-8
+
+set timeoutlen=250             " Time to wait after ESC (default causes an annoying delay)
+set clipboard+=unnamed         " Yanks go on clipboard instead.
+set pastetoggle=<F10>          " Toggle between paste and normal: for 'safer' pasting from keyboard
+set shiftround                 " Round indent to multiple of 'shiftwidth'
+set tags=.git/tags;$HOME       " Consider the repo tags first, then
+                               " Walk directory tree upto $HOME looking for tags
+                               " Note `;` sets the stop folder. :h file-search
+
+set modeline
+set modelines=5                " Default numbers of lines to read for modeline instructions
+
+set autowrite                  " Writes on make/shell commands
+set autoread
+
+set nobackup
+set nowritebackup
+set directory=/tmp//           " Prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
+set noswapfile                 "
+
+set hidden                     " The current buffer can be put to the background without writing to disk
+
+set ignorecase                 " Be case insensitive when searching
+set smartcase                  " Be case sensitive when input has a capital letter
+
+let g:is_posix = 1             " Vim's default is archaic bourne shell, bring it up to the 90s
+let mapleader = ','
+let maplocalleader = '	'      " Tab as a local leader
+let g:netrw_banner = 0         " Do not show Netrw help banner
+
+" complete longest common string, then list alternatives.
+set wildmode=longest,list
+" Use wilder, see https://github.com/gelguy/wilder.nvimrc
+" for extensive set of configuration examples
+call wilder#setup({'modes': [':', '/', '?']})
+" When in : cmdline mode, wildmenu suggestions will be automatically provided.
+" When searching using /, suggestions from the current buffer will be provided.
+" Substring matching is used by default.
+" 
+" Use <Tab> to cycle through the list forwards, and <S-Tab> to move backwards.
+" 
+" The keybinds can be changed:
+" 
+" Default keys
+" call wilder#setup({
+"       \ 'modes': [':', '/', '?'],
+"       \ 'next_key': '<Tab>',
+"       \ 'previous_key': '<S-Tab>',
+"       \ 'accept_key': '<Down>',
+"       \ 'reject_key': '<Up>',
+"       \ })
+" 
+" Airline and Lightline users:
+" wilder#wildmenu_airline_theme() and wilder#wildmenu_lightline_theme() can be used.
+call wilder#set_option('renderer', wilder#wildmenu_renderer(
+      \ wilder#wildmenu_airline_theme({
+      \   'highlights': {},
+      \   'highlighter': wilder#basic_highlighter(),
+      \   'separator': ' · ',
+      \ })))
+" "}}}
+
+" Formatting "{{{
+set fo+=o                      " Automatically insert the current comment leader after hitting 'o' or 'O' in Normal mode.
+set fo-=r                      " Do not automatically insert a comment leader after an enter
+set fo-=t                      " Do no auto-wrap text using textwidth (does not apply to comments)
+
+" set nowrap
+" set textwidth=0                " Don't wrap lines by default
+
+set tabstop=2                  " Tab size eql 2 spaces
+set softtabstop=2
+set shiftwidth=2               " Default shift width for indents
+set expandtab                  " Replace tabs with ${tabstop} spaces
+set smarttab                   "
+
+set cindent
+set indentkeys-=0#             " Do not break indent on #
+set cinkeys-=0#
+set cinoptions=:s,ps,ts,cs
+set cinwords=if,else,while,do
+set cinwords+=for,switch,case
+" "}}}
+
+" Visual "{{{
+" set synmaxcol=250              " limit syntax highlighting to 128 columns
+
+set nonumber                  " line numbers Off
+set showmatch                 " Show matching brackets.
+set matchtime=2               " Bracket blinking.
+
+set novisualbell              " No blinking
+set noerrorbells              " No noise.
+set vb t_vb=                  " Disable any beeps or flashes on error
+
+" set laststatus=2              " Always show status line.
+" set shortmess=atI             " Shortens messages
+
+set statusline=%<%f\          " Custom statusline
+set stl+=[%{&ff}]             " Show fileformat
+set stl+=%y%m%r%=
+set stl+=%-14.(%l,%c%V%)\ %P
+
+set foldenable                " Turn on folding
+set foldmethod=marker         " Fold on the marker
+set foldlevel=100             " Don't autofold anything (but I can still fold manually)
+
+set foldopen=block,hor,tag    " What movements open folds
+set foldopen+=percent,mark
+set foldopen+=quickfix
+
+set virtualedit=block
+
+set splitbelow
+set splitright
+
+" set list                    " Display unprintable characters F12 - switches
+set listchars=tab:\ ·,eol:¬
+set listchars+=trail:·
+set listchars+=extends:»,precedes:«
+map <silent> <F12> :set invlist<CR>
+
+if has('gui_running')
+  set guioptions=cMg " Console dialogs, do not show menu and toolbar
+
+  " Fonts
+  " :set guifont=* " To launch a GUI dialog
+  if has('mac')
+    if has('macligatures')
+      set antialias macligatures guifont=Fira\ Code\ Light:h13 " -> <=
+    else
+      set noantialias guifont=Andale\ Mono:h14
+    end
+  set fuoptions=maxvert,maxhorz ",background:#00AAaaaa
+  else
+  set guifont=Terminus:h16
+  end
+endif
+" "}}}
+
 """ Filetype-Specific Configurations
 
-" HTML, XML, Jinja
+" CSS, HTML, LUA, JS, TS, XML, Jinja, YAML
+autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType typescript setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType scss setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType xml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType xhtml setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
@@ -364,6 +416,7 @@ require('treesitter-config')
 require('nvim-cmp-config')
 require('lspconfig-config')
 require('telescope-config')
+require('nvim-tree-config')
 require('diagnostics')
 EOF
 
