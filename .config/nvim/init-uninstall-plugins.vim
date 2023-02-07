@@ -1,6 +1,10 @@
-""" Modified Optixal's Neovim Init.vim by Doctorfree
-"   https://github.com/Optixal/neovim-init.vim (original)
-"   https://github.com/doctorfree/dotfiles-linux/blob/master/.config/nvim/init.vim
+""" Use this NeoVim configuration to uninstall all plugins
+"
+"   Open NeoVim with 'nvim -u ~/.config/nvim/init-uninstall-plugins.vim'
+"   Run ':PlugClean'
+"
+"   After plugins have been removed, reinstall the NeoVim plugins with:
+"     nvim -c 'PlugInstall' -c 'qa'
 "
 """ Vim-Plug managed plugins
 "
@@ -46,93 +50,93 @@
 call plug#begin()
 
 " Core (treesitter, nvim-lspconfig, nvim-cmp, nvim-telescope)
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'nvim-treesitter/playground'
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'    " A completion engine plugin for neovim
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+" Plug 'nvim-treesitter/playground'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'hrsh7th/cmp-nvim-lsp'
+" Plug 'hrsh7th/cmp-buffer'
+" Plug 'hrsh7th/cmp-path'
+" Plug 'hrsh7th/cmp-cmdline'
+" Plug 'hrsh7th/nvim-cmp'    " A completion engine plugin for neovim
+" Plug 'hrsh7th/cmp-vsnip'
+" Plug 'hrsh7th/vim-vsnip'
+" Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+" Plug 'kyazdani42/nvim-web-devicons'
+" Plug 'kyazdani42/nvim-tree.lua'
 
 " Functionalities
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'mhinz/vim-signify'
-Plug 'jiangmiao/auto-pairs'
-Plug 'alvan/vim-closetag'
-Plug 'tpope/vim-abolish'
-Plug 'bogado/file-line'        " Enable opening a file in a given line
+" Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-sensible'
+" Plug 'tpope/vim-surround'
+" Plug 'mhinz/vim-signify'
+" Plug 'jiangmiao/auto-pairs'
+" Plug 'alvan/vim-closetag'
+" Plug 'tpope/vim-abolish'
+" Plug 'bogado/file-line'        " Enable opening a file in a given line
                                " vim index.html:20
                                " vim app/models/user.rb:1337
-Plug 'junegunn/vim-easy-align' " A simple, easy-to-use Vim alignment plugin
+" Plug 'junegunn/vim-easy-align' " A simple, easy-to-use Vim alignment plugin
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 "   xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 "   nmap ga <Plug>(EasyAlign)
-Plug 'scrooloose/nerdcommenter'
-Plug 'Yggdroot/indentLine'
-Plug 'chrisbra/Colorizer'
-Plug 'KabbAmine/vCoolor.vim'
-Plug 'dkarter/bullets.vim'
-Plug 'wellle/context.vim'
-Plug 'antoinemadec/FixCursorHold.nvim'
-Plug 'tpope/vim-git'            " Syntax, indent, and filetype for Git
+" Plug 'scrooloose/nerdcommenter'
+" Plug 'Yggdroot/indentLine'
+" Plug 'chrisbra/Colorizer'
+" Plug 'KabbAmine/vCoolor.vim'
+" Plug 'dkarter/bullets.vim'
+" Plug 'wellle/context.vim'
+" Plug 'antoinemadec/FixCursorHold.nvim'
+" Plug 'tpope/vim-git'            " Syntax, indent, and filetype for Git
 " Git integration - :Git (or just :G) calls any arbitrary Git command
-Plug 'junegunn/gv.vim'      " A git commit browser (requires vim-fugitive)
+" Plug 'junegunn/gv.vim'      " A git commit browser (requires vim-fugitive)
 " :GV to open commit browser
 "     You can pass git log options to the command, e.g. :GV -S foobar -- plugins
 " :GV! will only list commits that affected the current file
 " :GV? fills the location list with the revisions of the current file
-Plug 'vim-airline/vim-airline' " Nifty status of your current file
-let g:airline#extensions#tabline#enabled = 1
-let g:bufferline_echo = 0
-let g:airline_powerline_fonts = 1
+" Plug 'vim-airline/vim-airline' " Nifty status of your current file
+" let g:airline#extensions#tabline#enabled = 1
+" let g:bufferline_echo = 0
+" let g:airline_powerline_fonts = 1
 " Remove the error and warning sections from Airline layout
 " let g:airline#extensions#default#layout = [
 "     \ [ 'a', 'b', 'c' ],
 "     \ [ 'x', 'y', 'z', 'error', 'warning' ]
 "     \ ]
-let g:airline#extensions#default#layout = [
-    \ [ 'a', 'b', 'c' ],
-    \ [ 'x', 'y', 'z']
-    \ ]
-Plug 'vim-airline/vim-airline-themes' " Airline status themes
+" let g:airline#extensions#default#layout = [
+"     \ [ 'a', 'b', 'c' ],
+"     \ [ 'x', 'y', 'z']
+"     \ ]
+" Plug 'vim-airline/vim-airline-themes' " Airline status themes
 " let g:airline_theme='simple'
 " let g:airline_theme='dark-powerline'
-let g:airline_theme='google_dark'
+" let g:airline_theme='google_dark'
 " Plug 'tpope/vim-sleuth'        " Automatically adjust indentation
 " Make your Vim/Neovim as smart as VSCode
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " let g:coc_disable_startup_warning = 1
-Plug 'fladson/vim-kitty' " Kitty config syntax highlighting for vim
+" Plug 'fladson/vim-kitty' " Kitty config syntax highlighting for vim
 " Language support
-Plug 'fatih/vim-go'            " Go language support for Vim
-Plug 'yuezk/vim-js'            " Syntax highlighting for JavaScript and Flow.js
-Plug 'leafgarland/typescript-vim' " Typescript syntax
+" Plug 'fatih/vim-go'            " Go language support for Vim
+" Plug 'yuezk/vim-js'            " Syntax highlighting for JavaScript and Flow.js
+" Plug 'leafgarland/typescript-vim' " Typescript syntax
 " To disable built-in Typescript indentation:
 " let g:typescript_indent_disable = 1
-Plug 'maxmellon/vim-jsx-pretty' " The React syntax highlighting and indenting
-Plug 'gmarik/snipmate.vim'      " TextMate's snippets features in Vim
-Plug 'gmarik/snipmate.snippets' " gmarik's custom snippet collection
-Plug 'gmarik/vim-markdown'      " Markdown syntax support for Vim
-Plug 'tpope/vim-repeat'     " Remaps '.' to repeat the last plugin map as a whole
-Plug 'tpope/vim-surround'   " Delete/change/add parentheses/quotes/XML-tags/more
-Plug 'tpope/vim-unimpaired' " Pairs of handy bracket mappings
-Plug 'AndrewRadev/splitjoin.vim' " Switch between single-line and multiline
-Plug 'gmarik/github-search.vim'  " Search Github and clone repos with Vim
-Plug 'gmarik/ide-popup.vim' " Make Vim completion popup menu work like in an IDE
-Plug 'lambdalisue/suda.vim' " Alternative sudo for vim
+" Plug 'maxmellon/vim-jsx-pretty' " The React syntax highlighting and indenting
+" Plug 'gmarik/snipmate.vim'      " TextMate's snippets features in Vim
+" Plug 'gmarik/snipmate.snippets' " gmarik's custom snippet collection
+" Plug 'gmarik/vim-markdown'      " Markdown syntax support for Vim
+" Plug 'tpope/vim-repeat'     " Remaps '.' to repeat the last plugin map as a whole
+" Plug 'tpope/vim-surround'   " Delete/change/add parentheses/quotes/XML-tags/more
+" Plug 'tpope/vim-unimpaired' " Pairs of handy bracket mappings
+" Plug 'AndrewRadev/splitjoin.vim' " Switch between single-line and multiline
+" Plug 'gmarik/github-search.vim'  " Search Github and clone repos with Vim
+" Plug 'gmarik/ide-popup.vim' " Make Vim completion popup menu work like in an IDE
+" Plug 'lambdalisue/suda.vim' " Alternative sudo for vim
 " Re-open a current file with sudo
 " :SudaRead
 " Open /etc/sudoers with sudo
@@ -141,35 +145,35 @@ Plug 'lambdalisue/suda.vim' " Alternative sudo for vim
 " :SudaWrite
 " Write contents to /etc/profile
 " :SudaWrite /etc/profile
-Plug 'tomtom/tlib_vim'     " Some utility functions
-Plug 'tomtom/tcomment_vim' " Easy to use, file-type sensible comments for Vim
-Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, mru, tag finder for Vim
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'    " Things you can do with fzf and Vim
+" Plug 'tomtom/tlib_vim'     " Some utility functions
+" Plug 'tomtom/tcomment_vim' " Easy to use, file-type sensible comments for Vim
+" Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, mru, tag finder for Vim
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'    " Things you can do with fzf and Vim
 
 " Functionalities - Python
-Plug 'psf/black', { 'branch': 'stable' }
-Plug 'heavenshell/vim-pydocstring'
-Plug 'davidhalter/jedi-vim'    " Python autocompletion
-Plug 'klen/python-mode'        " Python IDE
-let g:pymode = 1
-let g:pymode_warnings = 1
+" Plug 'psf/black', { 'branch': 'stable' }
+" Plug 'heavenshell/vim-pydocstring'
+" Plug 'davidhalter/jedi-vim'    " Python autocompletion
+" Plug 'klen/python-mode'        " Python IDE
+" let g:pymode = 1
+" let g:pymode_warnings = 1
 
 " Aesthetics - Colorschemes
-Plug 'zaki/zazen'
-Plug 'yuttie/hydrangea-vim'
-Plug 'flazz/vim-colorschemes'  " One stop shop for vim colorschemes
-Plug 'gmarik/ingretu'
+" Plug 'zaki/zazen'
+" Plug 'yuttie/hydrangea-vim'
+" Plug 'flazz/vim-colorschemes'  " One stop shop for vim colorschemes
+" Plug 'gmarik/ingretu'
 " Uncomment to play with colorschemes
 " Plug 'felixhummel/setcolors.vim' " Easily switch colorschemes
 
 " Aesthetics - Others
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'junegunn/vim-journal'
+" Plug 'junegunn/rainbow_parentheses.vim'
+" Plug 'junegunn/limelight.vim'
+" Plug 'junegunn/vim-journal'
 
 " Cheat sheets
-Plug 'sudormrfbin/cheatsheet.nvim'
+" Plug 'sudormrfbin/cheatsheet.nvim'
 
 call plug#end()
 
@@ -359,18 +363,18 @@ let g:pydocstring_doq_path = '~/.config/nvim/env/bin/doq'
 """ Core plugin configuration (lua)
 " Use airline rather than lualine
 " require('lualine-config')
-lua << EOF
-servers = {
-    'pyright',
-    --'tsserver', -- uncomment for typescript. See https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md for other language servers
-}
-require('treesitter-config')
-require('nvim-cmp-config')
-require('lspconfig-config')
-require('telescope-config')
-require('nvim-tree-config')
-require('diagnostics')
-EOF
+" lua << EOF
+" servers = {
+"     'pyright',
+"     --'tsserver', -- uncomment for typescript. See https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md for other language servers
+" }
+" require('treesitter-config')
+" require('nvim-cmp-config')
+" require('lspconfig-config')
+" require('telescope-config')
+" require('nvim-tree-config')
+" require('diagnostics')
+" EOF
 
 " Use the :Cheatsheet command which automatically uses Telescope
 " if installed or falls back to showing all the cheatsheet files
@@ -379,38 +383,38 @@ EOF
 " By default the <leader> key is \.
 "
 " Default cheatsheet configuration:
-lua << EOF
-require("cheatsheet").setup({
-    -- Whether to show bundled cheatsheets
-
-    -- For generic cheatsheets like default, unicode, nerd-fonts, etc
-    -- bundled_cheatsheets = {
-    --     enabled = {},
-    --     disabled = {},
-    -- },
-    bundled_cheatsheets = true,
-
-    -- For plugin specific cheatsheets
-    -- bundled_plugin_cheatsheets = {
-    --     enabled = {},
-    --     disabled = {},
-    -- }
-    bundled_plugin_cheatsheets = true,
-
-    -- For bundled plugin cheatsheets, do not show a sheet if you
-    -- don't have the plugin installed (searches runtimepath for
-    -- same directory name)
-    include_only_installed_plugins = true,
-
-    -- Key mappings bound inside the telescope window
-    telescope_mappings = {
-        ['<CR>'] = require('cheatsheet.telescope.actions').select_or_fill_commandline,
-        ['<A-CR>'] = require('cheatsheet.telescope.actions').select_or_execute,
-        ['<C-Y>'] = require('cheatsheet.telescope.actions').copy_cheat_value,
-        ['<C-E>'] = require('cheatsheet.telescope.actions').edit_user_cheatsheet,
-    }
-})
-EOF
+" lua << EOF
+" require("cheatsheet").setup({
+"     -- Whether to show bundled cheatsheets
+" 
+"     -- For generic cheatsheets like default, unicode, nerd-fonts, etc
+"     -- bundled_cheatsheets = {
+"     --     enabled = {},
+"     --     disabled = {},
+"     -- },
+"     bundled_cheatsheets = true,
+" 
+"     -- For plugin specific cheatsheets
+"     -- bundled_plugin_cheatsheets = {
+"     --     enabled = {},
+"     --     disabled = {},
+"     -- }
+"     bundled_plugin_cheatsheets = true,
+" 
+"     -- For bundled plugin cheatsheets, do not show a sheet if you
+"     -- don't have the plugin installed (searches runtimepath for
+"     -- same directory name)
+"     include_only_installed_plugins = true,
+" 
+"     -- Key mappings bound inside the telescope window
+"     telescope_mappings = {
+"         ['<CR>'] = require('cheatsheet.telescope.actions').select_or_fill_commandline,
+"         ['<A-CR>'] = require('cheatsheet.telescope.actions').select_or_execute,
+"         ['<C-Y>'] = require('cheatsheet.telescope.actions').copy_cheat_value,
+"         ['<C-E>'] = require('cheatsheet.telescope.actions').edit_user_cheatsheet,
+"     }
+" })
+" EOF
 
 """ Custom Functions
 
