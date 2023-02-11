@@ -1,12 +1,9 @@
-""" Use this Neovim configuration to uninstall all plugins
+""" Minimal Neovim plugin Init.vim for testing and PR submission
 "
-"   Open Neovim with 'nvim -u ~/.config/nvim/init-uninstall-plugins.vim'
-"   Run ':PlugClean'
-"
-"   After plugins have been removed, reinstall the Neovim plugins with:
-"     nvim -c 'PlugInstall' -c 'qa'
-"
-" General "{{{
+call plug#begin()
+Plug 'flazz/vim-colorschemes'  " One stop shop for vim colorschemes
+call plug#end()
+
 set backspace=indent
 set backspace+=eol
 set backspace+=start
@@ -57,7 +54,6 @@ let g:netrw_banner = 0         " Do not show Netrw help banner
 " complete longest common string, then list alternatives.
 set wildmode=longest,list
 
-" Formatting "{{{
 set fo+=o  " Insert the current comment leader after hitting 'o' or 'O' in Normal mode.
 set fo-=r  " Do not automatically insert a comment leader after an enter
 set fo-=t  " Do no auto-wrap text using textwidth (does not apply to comments)
@@ -77,9 +73,7 @@ set cinkeys-=0#
 set cinoptions=:s,ps,ts,cs
 set cinwords=if,else,while,do
 set cinwords+=for,switch,case
-" "}}}
 
-" Visual "{{{
 set synmaxcol=250             " limit syntax highlighting to 250 columns
 
 set nonumber                  " line numbers Off
@@ -133,9 +127,6 @@ if has('gui_running')
   set guifont=Terminus:h16
   end
 endif
-" "}}}
-
-""" Filetype-Specific Configurations
 
 " CSS, HTML, LUA, JS, TS, XML, Jinja, YAML
 autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -190,41 +181,6 @@ autocmd BufLeave term://* stopinsert
 " If Python was installed in a virtual environment here
 " let g:python3_host_prog = '~/.config/nvim/env/bin/python3'
 " let g:pydocstring_doq_path = '~/.config/nvim/env/bin/doq'
-
-""" Custom Mappings (vim) (lua custom mappings are within individual lua config files)
-
-" Core
-let mapleader=","
-nmap <leader>q :NvimTreeFindFileToggle<CR>
-nmap \ <leader>q
-nmap <leader>r :so ~/.config/nvim/init.vim<CR>
-xmap <leader>a gaip*
-nmap <leader>a gaip*
-nmap <leader>h :RainbowParentheses!!<CR>
-nmap <leader>j :set filetype=journal<CR>
-nmap <leader>k :ColorToggle<CR>
-nmap <leader>l :Limelight!!<CR>
-xmap <leader>l :Limelight!!<CR>
-nmap <silent> <leader><leader> :noh<CR>
-nmap <Tab> :bnext<CR>
-nmap <S-Tab> :bprevious<CR>
-nmap <leader>$s <C-w>s<C-w>j:terminal<CR>:set nonumber<CR><S-a>
-nmap <leader>$v <C-w>v<C-w>l:terminal<CR>:set number<CR><S-a>
-
-" Python
-autocmd Filetype python nmap <leader>d <Plug>(pydocstring)
-autocmd FileType python nmap <leader>p :Black<CR>
-
-" Solidity (requires: npm install --save-dev prettier prettier-plugin-solidity)
-autocmd Filetype solidity nmap <leader>p :0,$!npx prettier %<CR>
-
-" Telescope mappings
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fc <cmd>Telescope colorscheme<cr>
-nnoremap <leader>f/ <cmd>Telescope current_buffer_fuzzy_find<cr>
 
 " Override those configurations for each project with a local .nvimrc
 set exrc

@@ -50,6 +50,7 @@
 # Default value: "%4i %f %D %6L  %?T?|%-17T|  ?%t"
 #
 # articlelist-format "%4i %f %D   %?T?|%-17T|  ?%t"
+articlelist-format "%f%?T?%-14T ? %t%> %D"
 
 ####  articlelist-title-format
 #
@@ -73,43 +74,6 @@
 #
 auto-reload yes
 
-####  bind-key
-#
-# Bind key <key> to <operation>. This means that whenever <key> is pressed,
-# then <operation> is executed (if applicable in the current dialog). A list of
-# available operations can be found below. Optionally, you can specify a
-# dialog. If you specify one, the key binding will only be added to the
-# specified dialog. Available dialogs are `all` (default if none is specified),
-# `feedlist`, `filebrowser`, `help`, `articlelist`, `article`, `tagselection`,
-# `filterselection`, `urlview`, `podbeuter`, and `dirbrowser`.
-#
-# Syntax: <key> <operation> [<dialog>]
-#
-# Default value: n/a
-#
-# bind-key ^R reload-all
-bind-key j down feedlist
-bind-key k up feedlist
-bind-key j next articlelist
-bind-key k prev articlelist
-bind-key J next-feed articlelist
-bind-key K prev-feed articlelist
-bind-key j down article
-bind-key k up article
-bind-key l open
-bind-key h quit
-bind-key ^D pagedown
-bind-key ^U pageup
-bind-key b toggle-source-view
-bind-key U toggle-show-read-feeds
-bind-key u show-urls
-bind-key g home
-bind-key G end
-bind-key b open-in-browser-and-mark-read
-bind-key B open-in-browser
-bind-key i sort
-bind-key I rev-sort
-
 ####  bookmark-autopilot
 #
 # If set to `yes`, the configured bookmark command is executed without any
@@ -132,7 +96,8 @@ bookmark-autopilot yes
 # Default value: ""
 #
 # bookmark-cmd "~/bin/delicious-bookmark.sh"
-bookmark-cmd ~/.newsboat/bookmark.sh
+# bookmark-cmd "~/.config/newsboat/scripts/vimwiki"
+bookmark-cmd ~/.config/newsboat/bookmark.sh
 
 ####  bookmark-interactive
 #
@@ -157,7 +122,8 @@ bookmark-interactive no
 #
 # Default value: %BROWSER, otherwise lynx
 #
-browser "w3m %u"
+# browser "w3m %u"
+browser "~/.config/newsboat/browser.sh"
 
 ####  cache-file
 #
@@ -167,7 +133,7 @@ browser "w3m %u"
 #
 # Syntax: <path>
 #
-# Default value: "~/.newsboat/cache.db"
+# Default value: "~/.config/newsboat/cache.db"
 #
 # cache-file "/tmp/testcache.db"
 
@@ -181,7 +147,7 @@ browser "w3m %u"
 #
 # Default value: yes
 #
-cleanup-on-quit no
+cleanup-on-quit yes
 
 ####  color
 #
@@ -216,7 +182,7 @@ confirm-exit no
 #
 # Default value: ""
 #
-# cookie-cache "~/.newsboat/cookies.txt"
+# cookie-cache "~/.config/newsboat/cookies.txt"
 
 ####  datetime-format
 #
@@ -229,6 +195,7 @@ confirm-exit no
 # Default value: %b %d
 #
 # datetime-format "%D, %R"
+datetime-format "%Y-%m-%d"
 
 ####  define-filter
 #
@@ -252,7 +219,7 @@ confirm-exit no
 #
 # Default value: no
 #
-# delete-read-articles-on-quit yes
+delete-read-articles-on-quit yes
 
 ####  dialogs-title-format
 #
@@ -332,7 +299,7 @@ download-timeout 10
 #
 # Default value: ""
 #
-# error-log "~/.newsboat/error.log"
+# error-log "~/.config/newsboat/error.log"
 
 ####  external-url-viewer
 #
@@ -427,7 +394,7 @@ feed-sort-order unreadarticlecount-asc
 #
 # Default value: ""
 #
-# feedhq-passwordfile "~/.newsboat/feedhq-pw.txt"
+# feedhq-passwordfile "~/.config/newsboat/feedhq-pw.txt"
 
 ####  feedhq-passwordeval
 #
@@ -439,7 +406,7 @@ feed-sort-order unreadarticlecount-asc
 #
 # Default value: ""
 #
-# feedhq-passwordeval "gpg --decrypt ~/.newsboat/feedhq-password.gpg"
+# feedhq-passwordeval "gpg --decrypt ~/.config/newsboat/feedhq-password.gpg"
 
 ####  feedhq-show-special-feeds
 #
@@ -617,6 +584,7 @@ goto-next-feed no
 # Default value: download
 #
 # ignore-mode "display"
+ignore-mode "download"
 
 ####  include
 #
@@ -628,22 +596,23 @@ goto-next-feed no
 #
 # Default value: n/a
 #
-# include "~/.newsboat/colors"
-# include "~/.newsboat/colorschemes/commander
-include "~/.newsboat/colorschemes/cyanism
-# include "~/.newsboat/colorschemes/greenscreen
-# include "~/.newsboat/colorschemes/gruvbox
-# include "~/.newsboat/colorschemes/inkpot
-# include "~/.newsboat/colorschemes/kinda-maia
-# include "~/.newsboat/colorschemes/light
-# include "~/.newsboat/colorschemes/nord
-# include "~/.newsboat/colorschemes/plain
-# include "~/.newsboat/colorschemes/psychedelic
-# include "~/.newsboat/colorschemes/schleichfahrt
-# include "~/.newsboat/colorschemes/simple
-# include "~/.newsboat/colorschemes/solarized-dark
-# include "~/.newsboat/colorschemes/solarized-light
-# include "~/.newsboat/colorschemes/universal-color
+include ~/.config/newsboat/keys
+# include "~/.config/newsboat/colors"
+# include "~/.config/newsboat/colorschemes/commander
+include "~/.config/newsboat/colorschemes/cyanism
+# include "~/.config/newsboat/colorschemes/greenscreen
+# include "~/.config/newsboat/colorschemes/gruvbox
+# include "~/.config/newsboat/colorschemes/inkpot
+# include "~/.config/newsboat/colorschemes/kinda-maia
+# include "~/.config/newsboat/colorschemes/light
+# include "~/.config/newsboat/colorschemes/nord
+# include "~/.config/newsboat/colorschemes/plain
+# include "~/.config/newsboat/colorschemes/psychedelic
+# include "~/.config/newsboat/colorschemes/schleichfahrt
+# include "~/.config/newsboat/colorschemes/simple
+# include "~/.config/newsboat/colorschemes/solarized-dark
+# include "~/.config/newsboat/colorschemes/solarized-light
+# include "~/.config/newsboat/colorschemes/universal-color
 
 ####  itemview-title-format
 #
@@ -721,7 +690,7 @@ include "~/.newsboat/colorschemes/cyanism
 #
 # Default value: ""
 #
-# inoreader-passwordfile "~/.newsboat/inoreader-pw.txt"
+# inoreader-passwordfile "~/.config/newsboat/inoreader-pw.txt"
 
 ####  inoreader-passwordeval
 #
@@ -733,7 +702,7 @@ include "~/.newsboat/colorschemes/cyanism
 #
 # Default value: ""
 #
-# inoreader-passwordeval "gpg --decrypt ~/.newsboat/inoreader-password.gpg"
+# inoreader-passwordeval "gpg --decrypt ~/.config/newsboat/inoreader-password.gpg"
 
 ####  inoreader-show-special-feeds
 #
@@ -771,6 +740,9 @@ include "~/.newsboat/colorschemes/cyanism
 # Default value: n/a
 #
 # macro k open ; reload ; quit
+macro i set pager "~/.config/newsboat/kitty-img-pager.sh"; open; set pager internal
+macro f set browser firefox ; open-in-browser ; set browser "~/.config/newsboat/browser.sh"
+macro w set browser w3m ; open-in-browser ; set browser "~/.config/newsboat/browser.sh"
 
 ####  mark-as-read-on-hover
 #
@@ -858,7 +830,7 @@ include "~/.newsboat/colorschemes/cyanism
 #
 # Default value: ""
 #
-# newsblur-passwordfile "~/.newsboat/newsblur-pw.txt"
+# newsblur-passwordfile "~/.config/newsboat/newsblur-pw.txt"
 
 ####  newsblur-passwordeval
 #
@@ -870,7 +842,7 @@ include "~/.newsboat/colorschemes/cyanism
 #
 # Default value: ""
 #
-# newsblur-passwordeval "gpg --decrypt ~/.newsboat/newsblur-password.gpg"
+# newsblur-passwordeval "gpg --decrypt ~/.config/newsboat/newsblur-password.gpg"
 
 ####  newsblur-url
 #
@@ -993,7 +965,7 @@ include "~/.newsboat/colorschemes/cyanism
 #
 # Default value: ""
 #
-# ocnews-passwordfile "~/.newsboat/ocnews-pw.txt"
+# ocnews-passwordfile "~/.config/newsboat/ocnews-pw.txt"
 
 ####  ocnews-passwordeval
 #
@@ -1005,7 +977,7 @@ include "~/.newsboat/colorschemes/cyanism
 #
 # Default value: ""
 #
-# ocnews-passwordeval "gpg --decrypt ~/.newsboat/ocnews-password.gpg"
+# ocnews-passwordeval "gpg --decrypt ~/.config/newsboat/ocnews-password.gpg"
 
 ####  ocnews-url
 #
@@ -1082,7 +1054,7 @@ include "~/.newsboat/colorschemes/cyanism
 #
 # Default value: ""
 #
-# oldreader-passwordfile "~/.newsboat/oldreader-pw.txt"
+# oldreader-passwordfile "~/.config/newsboat/oldreader-pw.txt"
 
 ####  oldreader-passwordeval
 #
@@ -1094,7 +1066,7 @@ include "~/.newsboat/colorschemes/cyanism
 #
 # Default value: ""
 #
-# oldreader-passwordeval "gpg --decrypt ~/.newsboat/oldreader-password.gpg"
+# oldreader-passwordeval "gpg --decrypt ~/.config/newsboat/oldreader-password.gpg"
 
 ####  oldreader-show-special-feeds
 #
@@ -1276,7 +1248,7 @@ reload-threads 4
 #
 # Default value: 60
 #
-reload-time 120
+reload-time 90
 
 ####  reset-unread-on-update
 #
@@ -1389,7 +1361,7 @@ reload-time 120
 #
 # Default value: yes
 #
-# show-read-articles no
+show-read-articles no
 
 ####  show-read-feeds
 #
@@ -1515,7 +1487,7 @@ text-width 80
 #
 # Default value: ""
 #
-# ttrss-passwordfile "~/.newsboat/ttrss-pw.txt"
+# ttrss-passwordfile "~/.config/newsboat/ttrss-pw.txt"
 
 ####  ttrss-passwordeval
 #
@@ -1527,7 +1499,7 @@ text-width 80
 #
 # Default value: ""
 #
-# ttrss-passwordeval "gpg --decrypt ~/.newsboat/ttrss-password.gpg"
+# ttrss-passwordeval "gpg --decrypt ~/.config/newsboat/ttrss-password.gpg"
 
 ####  ttrss-url
 #
@@ -1540,36 +1512,11 @@ text-width 80
 #
 # ttrss-url "http://example.com/ttrss/"
 
-####  unbind-key
-#
-# Unbind key <key>. This means that no operation is called when <key> is
-# pressed. If you provide "-a" as <key>, all currently bound keys will become
-# unbound. Optionally, you can specify a dialog (for a list of available
-# dialogs, see `bind-key` above). If you specify one, the key binding will only
-# be unbound for the specified dialog.
-#
-# Syntax: <key> [<dialog>]
-#
-# Default value: n/a
-#
-# unbind-key R
-# unbind-key ENTER
-unbind-key j
-unbind-key k
-unbind-key J
-unbind-key K
-unbind-key ^D
-unbind-key ^U
-unbind-key o
-unbind-key g
-unbind-key G
-unbind-key C feedlist
-
 ####  urls-source
 #
 # This configuration command sets the source where URLs shall be retrieved
-# from. By default, this is ~/.newsboat/urls. Alternatively, you can set it to
-# `opml`, which enables newsboat's OPML online subscription mode, to `ttrss`
+# from. By default, this is ~/.config/newsboat/urls. Alternatively, you can set it
+# to `opml`, which enables newsboat's OPML online subscription mode, to `ttrss`
 # which enables newsboat's Tiny Tiny RSS support, to `oldreader`, which enables
 # newsboat's The Old Reader support, to `newsblur`, which enables NewsBlur
 # support, or `feedhq` for FeedHQ support, or `ocnews` for ownCloud News
@@ -1614,4 +1561,12 @@ unbind-key C feedlist
 # Default value: ""
 #
 # user-agent "Lynx/2.8.5rel.1 libwww-FM/2.14"
+user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0"
+
+####  miscellaneous
+#
+confirm-mark-feed-read no
+download-path ~/Downloads/
+max-downloads 2
+scrolloff 50
 

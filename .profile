@@ -12,7 +12,7 @@
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+        . "$HOME/.bashrc"
     fi
 fi
 
@@ -36,3 +36,4 @@ if [ -e /home/ronnie/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ronnie/.n
 
 # Created by `pipx` on 2022-10-01 18:44:33
 export PATH="$PATH:/home/ronnie/.local/bin"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

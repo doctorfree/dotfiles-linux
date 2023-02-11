@@ -81,11 +81,9 @@ Plug 'junegunn/vim-easy-align' " A simple, easy-to-use Vim alignment plugin
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 "   nmap ga <Plug>(EasyAlign)
 Plug 'scrooloose/nerdcommenter'
-Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer'
 Plug 'KabbAmine/vCoolor.vim'
-Plug 'dkarter/bullets.vim'
-Plug 'wellle/context.vim'
+Plug 'RRethy/vim-illuminate'
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'tpope/vim-git'            " Syntax, indent, and filetype for Git
 " Git integration - :Git (or just :G) calls any arbitrary Git command
@@ -108,13 +106,11 @@ let g:airline#extensions#default#layout = [
     \ [ 'x', 'y', 'z']
     \ ]
 Plug 'vim-airline/vim-airline-themes' " Airline status themes
-" let g:airline_theme='simple'
-" let g:airline_theme='dark-powerline'
-let g:airline_theme='google_dark'
-" Plug 'tpope/vim-sleuth'        " Automatically adjust indentation
-" Make your Vim/Neovim as smart as VSCode
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" let g:coc_disable_startup_warning = 1
+" Airline themes can be found in:
+" ~/.local/share/nvim/plugged/vim-airline-themes/autoload/airline/themes/
+"   simple, powerlineish, onedark, desertink distinguished, cool, cobalt2,
+"   hybrid, night_owl, luna, solarized_flood, google_dark, ravenpower, molokai
+let g:airline_theme='asciiville'
 Plug 'fladson/vim-kitty' " Kitty config syntax highlighting for vim
 " Language support
 Plug 'fatih/vim-go'            " Go language support for Vim
@@ -141,11 +137,11 @@ Plug 'lambdalisue/suda.vim' " Alternative sudo for vim
 " :SudaWrite
 " Write contents to /etc/profile
 " :SudaWrite /etc/profile
-Plug 'tomtom/tlib_vim'     " Some utility functions
-Plug 'tomtom/tcomment_vim' " Easy to use, file-type sensible comments for Vim
 Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, mru, tag finder for Vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'    " Things you can do with fzf and Vim
+Plug 'romgrk/fzy-lua-native' " Needed for lua_fzy_highlighter in wilder
+
 if has('nvim')
   function! UpdateRemotePlugins(...)
     " Needed to refresh runtime files
@@ -174,7 +170,7 @@ let g:pymode_warnings = 1
 Plug 'zaki/zazen'
 Plug 'yuttie/hydrangea-vim'
 Plug 'flazz/vim-colorschemes'  " One stop shop for vim colorschemes
-Plug 'gmarik/ingretu'
+Plug 'doctorfree/vim-asciiville'
 " Uncomment to play with colorschemes
 " Plug 'felixhummel/setcolors.vim' " Easily switch colorschemes
 
@@ -186,6 +182,19 @@ Plug 'junegunn/vim-journal'
 " Cheat sheets
 Plug 'sudormrfbin/cheatsheet.nvim'  " :Cheatsheet
 
+" These plugins disabled for now
+"
+" These two seem to conflict with Airline/Wilder highlighting
+" Plug 'Yggdroot/indentLine'
+" Plug 'dkarter/bullets.vim'
+"
+" Plug 'wellle/context.vim'
+" Plug 'tpope/vim-sleuth'        " Automatically adjust indentation
+" Make your Vim/Neovim as smart as VSCode
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" let g:coc_disable_startup_warning = 1
+" Plug 'tomtom/tlib_vim'     " Some utility functions
+" Plug 'tomtom/tcomment_vim' " Easy to use, file-type sensible comments for Vim
 call plug#end()
 
 " General "{{{
@@ -195,15 +204,9 @@ set backspace+=start
 set history=256 " Number of things to remember in history
 set ruler       " Show the cursor position all the time
 set showcmd     " Display an incomplete command in statusline
-set incsearch   " Show matches while typing
 if has('mouse')
   set mouse=a   " Enable mouse in GUI mode
   set mousehide " Hide mouse after chars typed
-endif
-
-if &t_Co > 2 || has("gui_running")
-  syntax on     " Enable syntax
-  set hlsearch  " Highlight search
 endif
 
 scriptencoding utf-8           " UTF-8 all the way
@@ -225,13 +228,17 @@ set autoread
 
 set nobackup
 set nowritebackup
-set directory=/tmp//           " Prepend(^=) $HOME/.tmp/ to default path; use full path as backup filename(//)
+set directory=/tmp//           " Prepend(^=) $HOME/.tmp/ to default path
+                               " Use full path as backup filename(//)
 set noswapfile                 "
 
-set hidden                     " The current buffer can be put to the background without writing to disk
+set hidden                     " Current buffer to background without writing to disk
 
+syntax on                      " Enable syntax
+set incsearch                  " Show matches while typing
 set ignorecase                 " Be case insensitive when searching
 set smartcase                  " Be case sensitive when input has a capital letter
+set hlsearch                   " Highlight search
 
 let g:is_posix = 1             " Vim's default is archaic bourne shell, bring it up to the 90s
 let mapleader = ','
@@ -259,24 +266,34 @@ call wilder#setup({'modes': [':', '/', '?']})
 "       \ 'accept_key': '<Down>',
 "       \ 'reject_key': '<Up>',
 "       \ })
-" 
+
 " Airline and Lightline users:
 " wilder#wildmenu_airline_theme() and wilder#wildmenu_lightline_theme() can be used.
+"     \   'highlighter': wilder#basic_highlighter(),
+"     \   'highlights': {'default': 'Statusline'},
+"     \   'highlights': {},
+"     \   'separator': ' · ',
+"     \   'separator': '  ',
 call wilder#set_option('renderer', wilder#wildmenu_renderer(
       \ wilder#wildmenu_airline_theme({
-      \   'highlights': {},
-      \   'highlighter': wilder#basic_highlighter(),
+      \   'highlighter': wilder#lua_fzy_highlighter(),
       \   'separator': ' · ',
       \ })))
+"     \ 'apply_incsearch_fix': 1,
+"     \ }))
+" call wilder#set_option('renderer', wilder#wildmenu_renderer({
+"       \ 'apply_incsearch_fix': 1,
+"       \ }))
+
 " "}}}
 
 " Formatting "{{{
-set fo+=o                      " Automatically insert the current comment leader after hitting 'o' or 'O' in Normal mode.
-set fo-=r                      " Do not automatically insert a comment leader after an enter
-set fo-=t                      " Do no auto-wrap text using textwidth (does not apply to comments)
+set fo+=o  " Insert the current comment leader after hitting 'o' or 'O' in Normal mode.
+set fo-=r  " Do not automatically insert a comment leader after an enter
+set fo-=t  " Do no auto-wrap text using textwidth (does not apply to comments)
 
 " set nowrap
-" set textwidth=0                " Don't wrap lines by default
+" set textwidth=0              " Don't wrap lines by default
 
 set tabstop=2                  " Tab size eql 2 spaces
 set softtabstop=2
@@ -293,7 +310,7 @@ set cinwords+=for,switch,case
 " "}}}
 
 " Visual "{{{
-" set synmaxcol=250              " limit syntax highlighting to 128 columns
+set synmaxcol=250             " limit syntax highlighting to 250 columns
 
 set nonumber                  " line numbers Off
 set showmatch                 " Show matching brackets.
@@ -303,8 +320,8 @@ set novisualbell              " No blinking
 set noerrorbells              " No noise.
 set vb t_vb=                  " Disable any beeps or flashes on error
 
-" set laststatus=2              " Always show status line.
-" set shortmess=atI             " Shortens messages
+" set laststatus=2            " Always show status line.
+" set shortmess=atI           " Shortens messages
 
 set statusline=%<%f\          " Custom statusline
 set stl+=[%{&ff}]             " Show fileformat
@@ -393,28 +410,54 @@ let g:context_nvim_no_redraw = 1
 
 " Neovim :Terminal
 "
-" Exit NeoVim's terminal emulator (:term) by simply pressing escape
+" Exit Neovim's terminal emulator (:term) by simply pressing escape
 tmap <Esc> <C-\><C-n>
 tmap <C-w> <Esc><C-w>
 "tmap <C-d> <Esc>:q<CR>
 autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 
-" Python
-let g:python3_host_prog = '~/.config/nvim/env/bin/python3'
-let g:pydocstring_doq_path = '~/.config/nvim/env/bin/doq'
+" If Python was installed in a virtual environment here
+" let g:python3_host_prog = '~/.config/nvim/env/bin/python3'
+" let g:pydocstring_doq_path = '~/.config/nvim/env/bin/doq'
 
 """ Core plugin configuration (lua)
 " Use airline rather than lualine
 " require('lualine-config')
 lua << EOF
 servers = {
-    'pyright',
-    --'tsserver', -- uncomment for typescript. See https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md for other language servers
+    "pyright",
+    -- LSP
+    "awk_ls",
+    "bashls",
+    "dockerfile-language-server",
+    "json-lsp",
+    -- "marksman",
+    "typescript-language-server",
+    -- "texlab",
+    -- "ltex-ls",
+    "lua-language-server",
+    "pyright",
+    "terraform-ls",
+    "vimls",
+    "yaml-language-server",
+    -- Formatter
+    "black",
+    "prettier",
+    "stylua",
+    "shfmt",
+    -- Linter
+    "eslint_d",
+    "shellcheck",
+    "tflint",
+    "yamllint",
+    -- DAP
+    -- "debugpy",
 }
-require('treesitter-config')
+
 require('nvim-cmp-config')
 require('lspconfig-config')
+require('treesitter-config')
 require('telescope-config')
 require('nvim-tree-config')
 require('diagnostics')
@@ -462,13 +505,6 @@ EOF
 
 """ Custom Functions
 
-" Trim Whitespaces
-function! TrimWhitespace()
-    let l:save = winsaveview()
-    %s/\\\@<!\s\+$//e
-    call winrestview(l:save)
-endfunction
-
 """ Custom Mappings (vim) (lua custom mappings are within individual lua config files)
 
 " Core
@@ -476,7 +512,6 @@ let mapleader=","
 nmap <leader>q :NvimTreeFindFileToggle<CR>
 nmap \ <leader>q
 nmap <leader>r :so ~/.config/nvim/init.vim<CR>
-nmap <leader>t :call TrimWhitespace()<CR>
 xmap <leader>a gaip*
 nmap <leader>a gaip*
 nmap <leader>h :RainbowParentheses!!<CR>
@@ -522,14 +557,29 @@ if has("autocmd")
 else
   set autoindent    " always set autoindenting on
 endif " has("autocmd")
+
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 endif
-if has("gui_running")
-  colorscheme ingretu
-else
-" colorscheme darkspectrum
-  colorscheme darktango
+
+if has("termguicolors")
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
 endif
+
+" let g:asciiville_italic = 0
+colorscheme asciiville
+" AsciivilleDarkBlueSoft
+" AsciivilleDarkCyanSoft
+" AsciivilleDarkCyanHard
+" AsciivilleNightOrangeSoft
+" AsciivilleNightOrangeHard
+" AsciivilleNightRedSoft
+" AsciivilleNightRedHard
+" AsciivilleLightSoft
+" AsciivilleLightHard
+AsciivilleDarkBlueHard
+
 set guifont=Inconsolata:h18
 let g:syntastic_html_checkers = []

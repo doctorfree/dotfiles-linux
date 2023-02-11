@@ -1,11 +1,11 @@
 ARTDIR=/usr/share/asciiville/art
 MUSEDIR=/usr/share/asciiville/music
-SONG=/Chronos.mp3
-ALTSONG=/Epic_Dramatic-Yuriy_Bespalov.wav
+SONG=/usr/asciiville/music/Chronos.mp3
+ALTSONG=/usr/asciiville/music/Epic_Dramatic-Yuriy_Bespalov.wav
 
 AUDIO=1
 BROWSER=w3m
-COMMAND="mpcplus"
+COMMAND="btop"
 FULLSCREEN=
 LOLCAT="lolcat"
 MTITLE="Asciiville"
@@ -24,7 +24,7 @@ journal="default"
 style="pretty"
 show_interval=5
 zoom_depth=7
-zoom_interval=3
+zoom_interval=4
 art_font_size=4
 txt_font_size=20
 
