@@ -206,7 +206,7 @@ eval "$(direnv hook bash)"
 
 # command -v spd-say > /dev/null && spd-say "Your computer has been hacked"
 
-. "$HOME/.cargo/env"
 
 # Created by `pipx` on 2022-10-01 18:44:33
 export PATH="$PATH:/home/ronnie/.local/bin"
+. "$HOME/.cargo/env"
