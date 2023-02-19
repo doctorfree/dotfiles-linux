@@ -77,21 +77,6 @@ umask 022
 # To pickup GNU coreutils from the Brew installation path
 [ -d /usr/local/opt/coreutils/libexec/gnubin ] && PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 
-# Go paths
-[ -d ~/go ] && export GOPATH=$HOME/go
-[ "$GOPATH" ] && [ -d "$GOPATH/bin" ] && PATH="$PATH:$GOPATH/bin"
-[ -d /usr/local/go ] && export GOROOT=/usr/local/go
-[ -d /usr/local/go/bin ] && {
-  if [ `echo $PATH | grep -c /usr/local/go/bin` -ne "1" ]; then
-    PATH="$PATH:/usr/local/go/bin"
-  fi
-}
-[ -d $HOME/go/bin ] && {
-  if [ `echo $PATH | grep -c $HOME/go/bin` -ne "1" ]; then
-    PATH="$PATH:$HOME/go/bin"
-  fi
-}
-
 if [ `echo $PATH | grep -c /usr/local/sbin` -ne "1" ]; then
 PATH="$PATH:/usr/local/bin:/usr/local/sbin"
 fi
@@ -240,6 +225,7 @@ MAGIC_ENTER_OTHER_COMMAND='ls'
 plugins=(
   magic-enter
   zsh-autosuggestions
+  zsh-kitty
   zsh-syntax-highlighting
   web-search
 )
@@ -299,6 +285,8 @@ autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
 
+__kitty_complete
+
 # User configuration
 
 export MANPATH="/usr/local/share/man:$MANPATH"
@@ -356,6 +344,13 @@ fi
 [ -f ~/.functions ] && source ~/.functions
 
 [ -f ~/.private ] && source ~/.private
+
+[ -f ~/.kitty_keys ] && source ~/.kitty_keys
+
+function _kitty_keys {
+  compadd 'copypaste' 'debugging' 'layouts' 'miscellaneous' 'scrolling' 'tabs' 'windows' 'custom'
+}
+compdef _kitty_keys kitty_keys
 
 # GPU Mining parameters
 export GPU_MAX_ALLOC_PERCENT=100
@@ -424,6 +419,28 @@ PERL_MM_OPT="INSTALL_BASE=/home/ronnie/perl5"; export PERL_MM_OPT;
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
+# Go paths
+[ -d ~/go ] && export GOPATH=$HOME/go
+[ "$GOPATH" ] && [ -d "$GOPATH/bin" ] && PATH="$PATH:$GOPATH/bin"
+
+if [ -d /home/linuxbrew/.linuxbrew/opt/go ]
+then
+  export GOROOT=/home/linuxbrew/.linuxbrew/opt/go
+else
+  [ -d /usr/local/go ] && export GOROOT=/usr/local/go
+fi
+[ -d ${GOROOT}/bin ] && {
+  if [ `echo $PATH | grep -c ${GOROOT}/bin` -ne "1" ]; then
+    PATH="$PATH:${GOROOT}/bin"
+  fi
+}
+[ -d $HOME/go/bin ] && {
+  if [ `echo $PATH | grep -c $HOME/go/bin` -ne "1" ]; then
+    PATH="$PATH:$HOME/go/bin"
+  fi
+}
+export PATH
+
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 export NVM_DIR="$HOME/.nvm"

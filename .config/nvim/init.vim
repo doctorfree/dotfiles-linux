@@ -1,11 +1,11 @@
 """
-"      _                      _    _           _   __   __         
-"     / \                    (_)  (_)         (_) [  | [  |        
-"    / _ \     .--.   .---.  __   __  _   __  __   | |  | | .---.  
-"   / ___ \   ( (`\] / /'`\][  | [  |[ \ [  ][  |  | |  | |/ /__\\ 
-" _/ /   \ \_  `'.'. | \__.  | |  | | \ \/ /  | |  | |  | || \__., 
-"|____| |____|[\__) )'.___.'[___][___] \__/  [___][___][___]'.__.' 
-"                                                                  
+"      _                      _    _           _   __   __
+"     / \                    (_)  (_)         (_) [  | [  |
+"    / _ \     .--.   .---.  __   __  _   __  __   | |  | | .---.
+"   / ___ \   ( (`\] / /'`\][  | [  |[ \ [  ][  |  | |  | |/ /__\\
+" _/ /   \ \_  `'.'. | \__.  | |  | | \ \/ /  | |  | |  | || \__.,
+"|____| |____|[\__) )'.___.'[___][___] \__/  [___][___][___]'.__.'
+"
 "-----------------Neovim Initialization Vimscript----------------
 "
 "  Version : 1.0.0
@@ -17,7 +17,7 @@
 "
 """ Vim-Plug managed plugins
 "
-" Use ':help vim-plug' or ':help plug-options' for assistance with Vim-Plug 
+" Use ':help vim-plug' or ':help plug-options' for assistance with Vim-Plug
 
 call plug#begin()
 
@@ -33,7 +33,7 @@ Plug 'hrsh7th/nvim-cmp'    " A completion engine plugin for Neovim
 Plug 'tamago324/cmp-zsh'   " Zsh completion for cmp
 Plug 'Shougo/deol.nvim'    " Recommended to use together
 " Snippets
-Plug 'L3MON4D3/LuaSnip', {'tag': 'v<CurrentMajor>.*', 'do': 'make install_jsregexp'}
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'gmarik/snipmate.vim'      " TextMate's snippets features in Vim
@@ -44,9 +44,12 @@ Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
+
+" Debug adapter
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
 
 " Functionalities
 Plug 'tpope/vim-fugitive'
@@ -59,6 +62,15 @@ Plug 'bogado/file-line'        " Enable opening a file in a given line
                                " vim index.html:20
                                " vim app/models/user.rb:1337
 Plug 'tpope/vim-sleuth'        " Automatically adjust indentation
+
+Plug 'kosayoda/nvim-lightbulb'
+
+Plug 'folke/neodev.nvim'
+Plug 'j-hui/fidget.nvim'
+Plug 'simrat39/inlay-hints.nvim'
+Plug 'camilledejoye/nvim-lsp-selection-range'
+Plug 'simrat39/rust-tools.nvim'
+Plug 'mrcjkb/haskell-tools.nvim', { 'branch': '1.x.x' }
 
 " CoC Nodejs extension host
 " Load extensions like VSCode and host language servers
@@ -89,7 +101,6 @@ Plug 'junegunn/vim-easy-align' " A simple, easy-to-use Vim alignment plugin
 Plug 'scrooloose/nerdcommenter'
 Plug 'KabbAmine/vCoolor.vim'
 Plug 'RRethy/vim-illuminate'
-Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'tpope/vim-git'            " Syntax, indent, and filetype for Git
 " Git integration - :Git (or just :G) calls any arbitrary Git command
 Plug 'junegunn/gv.vim'      " A git commit browser (requires vim-fugitive)
@@ -121,7 +132,8 @@ Plug 'vim-airline/vim-airline-themes' " Airline status themes
 let g:airline_theme='asciiville'
 Plug 'fladson/vim-kitty' " Kitty config syntax highlighting for vim
 " Language support
-Plug 'fatih/vim-go'            " Go language support for Vim
+Plug 'ray-x/go.nvim'           " Go language support for Neovim
+Plug 'ray-x/guihua.lua'        " Floating window support
 Plug 'yuezk/vim-js'            " Syntax highlighting for JavaScript and Flow.js
 Plug 'leafgarland/typescript-vim' " Typescript syntax
 " To disable built-in Typescript indentation:
@@ -143,9 +155,10 @@ Plug 'lambdalisue/suda.vim' " Alternative sudo for vim
 " :SudaWrite
 " Write contents to /etc/profile
 " :SudaWrite /etc/profile
-Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, mru, tag finder for Vim
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'    " Things you can do with fzf and Vim
+" Plug 'ctrlpvim/ctrlp.vim'  " Fuzzy file, buffer, mru, tag finder for Vim
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'    " Things you can do with fzf and Vim
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'romgrk/fzy-lua-native' " Needed for lua_fzy_highlighter in wilder
 Plug 'sheerun/vim-polyglot'  " Better syntax highlighting
 Plug 'folke/which-key.nvim'  " Easily find key map bindings
@@ -159,22 +172,6 @@ Plug 'jackMort/ChatGPT.nvim'
 
 " Register vim-plug as a plugin to enable help  (e.g. :help plug-options)
 Plug 'junegunn/vim-plug'
-
-if has('nvim')
-  function! UpdateRemotePlugins(...)
-    " Needed to refresh runtime files
-    let &rtp=&rtp
-    UpdateRemotePlugins
-  endfunction
-
-  Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-else
-  Plug 'gelguy/wilder.nvim'
-
-  " To use Python remote plugin features in Vim, can be skipped
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
 
 " Functionalities - Python
 Plug 'psf/black', { 'branch': 'stable' }
@@ -202,9 +199,36 @@ Plug 'doctorfree/setcolors.vim' " Easily switch colorschemes
 let g:mycolorschemes = ['asciiville', 'everforest', 'cool', 'desertink', 'distinguished', 'hybrid', 'luna', 'molokai', 'solarized', 'zenburn']
 
 " Aesthetics - Others
+if has('nvim')
+  function! UpdateRemotePlugins(...)
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
+  endfunction
+
+  Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+else
+  Plug 'gelguy/wilder.nvim'
+
+  " To use Python remote plugin features in Vim, can be skipped
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/vim-journal'
+
+" Cellular automata animations based on the content of neovim buffer
+" https://github.com/Eandrju/cellular-automaton.nvim
+" Trigger it using the command:
+"   :CellularAutomaton make_it_rain
+" or
+"   :CellularAutomaton game_of_life
+" or create a mapping:
+"   vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+" Close animation window with one of: q/<Esc>/<CR>
+Plug 'eandrju/cellular-automaton.nvim'
 
 " Cheat sheets
 Plug 'sudormrfbin/cheatsheet.nvim'  " :Cheatsheet
@@ -264,11 +288,11 @@ set wildmode=longest,list
 " When in : cmdline mode, wildmenu suggestions will be automatically provided.
 " When searching using /, suggestions from the current buffer will be provided.
 " Substring matching is used by default.
-" 
+"
 " Use <Tab> to cycle through the list forwards, and <S-Tab> to move backwards.
-" 
+"
 " The keybinds can be changed:
-" 
+"
 " Default keys
 " call wilder#setup({
 "       \ 'modes': [':', '/', '?'],
@@ -400,7 +424,7 @@ let g:signify_sign_change = '│'
 hi DiffDelete guifg=#ff5555 guibg=none
 
 " FixCursorHold for better performance
-let g:cursorhold_updatetime = 100
+let g:updatetime = 300
 
 " context.vim
 let g:context_nvim_no_redraw = 1
@@ -521,6 +545,36 @@ EOF
   endif
 endif
 
+if exists('g:plugs["nvim-dap"]')
+  if !empty(glob(g:plugs['nvim-dap'].dir.'/lua/nvim-dap/plugin/dap.lua'))
+    lua require('dap-config')
+  endif
+endif
+if exists('g:plugs["fidget.nvim"]')
+  if !empty(glob(g:plugs['fidget.nvim'].dir.'/lua/fidget.lua'))
+    lua require"fidget".setup{}
+  endif
+endif
+if exists('g:plugs["go.nvim"]')
+  if !empty(glob(g:plugs['go.nvim'].dir.'/lua/go.lua'))
+    lua require('go-config')
+  endif
+endif
+if exists('g:plugs["inlay-hints.nvim"]')
+  if !empty(glob(g:plugs['inlay-hints.nvim'].dir.'/lua/inlay-hints/init.lua'))
+    lua require("inlay-hints").setup()
+  endif
+endif
+if exists('g:plugs["nvim-lightbulb"]')
+  if !empty(glob(g:plugs['nvim-lightbulb'].dir.'/lua/nvim-lightbulb/init.lua'))
+    lua require('lightbulb-config')
+  endif
+endif
+if exists('g:plugs["rust-tools.nvim"]')
+  if !empty(glob(g:plugs['rust-tools.nvim'].dir.'/lua/rust-tools/init.lua'))
+    lua require('rust-tools')
+  endif
+endif
 if exists('g:plugs["toggleterm.nvim"]')
   if !empty(glob(g:plugs['toggleterm.nvim'].dir.'/lua/toggleterm.lua'))
     lua require('toggleterm').setup()

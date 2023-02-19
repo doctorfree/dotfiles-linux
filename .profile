@@ -37,3 +37,24 @@ if [ -e /home/ronnie/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ronnie/.n
 export PATH="$PATH:/home/ronnie/.local/bin"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 . "$HOME/.cargo/env"
+# Go paths
+[ -d ~/go ] && export GOPATH=$HOME/go
+[ "$GOPATH" ] && [ -d "$GOPATH/bin" ] && PATH="$PATH:$GOPATH/bin"
+
+if [ -d /home/linuxbrew/.linuxbrew/opt/go ]
+then
+  export GOROOT=/home/linuxbrew/.linuxbrew/opt/go
+else
+  [ -d /usr/local/go ] && export GOROOT=/usr/local/go
+fi
+[ -d ${GOROOT}/bin ] && {
+  if [ `echo $PATH | grep -c ${GOROOT}/bin` -ne "1" ]; then
+    PATH="$PATH:${GOROOT}/bin"
+  fi
+}
+[ -d $HOME/go/bin ] && {
+  if [ `echo $PATH | grep -c $HOME/go/bin` -ne "1" ]; then
+    PATH="$PATH:$HOME/go/bin"
+  fi
+}
+export PATH

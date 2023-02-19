@@ -154,32 +154,61 @@ install_brew () {
     # shellcheck disable=SC2016
     if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]
     then
-      BREW_EXE="/home/linuxbrew/.linuxbrew/bin/brew"
-      HOMEBREW_HOME="/home/linuxbrew/"
+      HOMEBREW_HOME="/home/linuxbrew/.linuxbrew"
+      BREW_EXE="${HOMEBREW_HOME}/bin/brew"
     else
       if [ -x /usr/local/bin/brew ]
       then
-        BREW_EXE="/usr/local/bin/brew"
-        HOMEBREW_HOME="/usr/local/"
+        HOMEBREW_HOME="/usr/local"
+        BREW_EXE="${HOMEBREW_HOME}/bin/brew"
       else
         if [ -x /opt/homebrew/bin/brew ]
         then
-          BREW_EXE="/opt/homebrew/bin/brew"
-          HOMEBREW_HOME="/opt/homebrew/"
+          HOMEBREW_HOME="/opt/homebrew"
+          BREW_EXE="${HOMEBREW_HOME}/bin/brew"
         else
           abort "Homebrew brew executable could not be located"
         fi
       fi
     fi
+    GOTEXT='# Go paths
+[ -d ~/go ] && export GOPATH=$HOME/go
+[ "$GOPATH" ] && [ -d "$GOPATH/bin" ] && PATH="$PATH:$GOPATH/bin"
+
+if [ -d __YYY__/opt/go ]
+then
+  export GOROOT=__YYY__/opt/go
+else
+  [ -d /usr/local/go ] && export GOROOT=/usr/local/go
+fi
+[ -d ${GOROOT}/bin ] && {
+  if [ `echo $PATH | grep -c ${GOROOT}/bin` -ne "1" ]; then
+    PATH="$PATH:${GOROOT}/bin"
+  fi
+}
+[ -d $HOME/go/bin ] && {
+  if [ `echo $PATH | grep -c $HOME/go/bin` -ne "1" ]; then
+    PATH="$PATH:$HOME/go/bin"
+  fi
+}
+export PATH'
+
     if [ -f "${BASHINIT}" ]
     then
+      grep "export GOROOT" "${BASHINIT}" > /dev/null || {
+        echo "${GOTEXT}" | sed -e "s%__YYY__%${HOMEBREW_HOME}%" >> "${BASHINIT}"
+      }
       grep "^eval \"\$(${BREW_EXE} shellenv)\"" "${BASHINIT}" > /dev/null || {
         echo 'eval "$(XXX shellenv)"' | sed -e "s%XXX%${BREW_EXE}%" >> "${BASHINIT}"
       }
     else
-      echo 'eval "$(XXX shellenv)"' | sed -e "s%XXX%${BREW_EXE}%" > "${BASHINIT}"
+      echo "${GOTEXT}" | sed -e "s%__YYY__%${HOMEBREW_HOME}%" > "${BASHINIT}"
+      echo 'eval "$(XXX shellenv)"' | sed -e "s%XXX%${BREW_EXE}%" >> "${BASHINIT}"
     fi
     [ -f "${HOME}/.zshrc" ] && {
+      grep "export GOROOT" "${HOME}/.zshrc" > /dev/null || {
+        echo "${GOTEXT}" | sed -e "s%__YYY__%${HOMEBREW_HOME}%" >> "${HOME}/.zshrc"
+      }
       grep "^eval \"\$(${BREW_EXE} shellenv)\"" "${HOME}/.zshrc" > /dev/null || {
         echo 'eval "$(XXX shellenv)"' | sed -e "s%XXX%${BREW_EXE}%" >> "${HOME}/.zshrc"
       }
@@ -187,11 +216,6 @@ install_brew () {
     eval "$(${BREW_EXE} shellenv)"
     have_brew=`type -p brew`
     [ "${have_brew}" ] && BREW_EXE="brew"
-    log "Install gcc (recommended by brew) ..."
-    ${BREW_EXE} install --quiet gcc > /dev/null 2>&1
-#   [ $? -eq 0 ] || ${BREW_EXE} link --overwrite --quiet gcc > /dev/null 2>&1
-      printf " done"
-#   }
   fi
   [ "${HOMEBREW_HOME}" ] || {
     brewpath=$(command -v brew)
@@ -204,6 +228,11 @@ install_brew () {
   }
   log "    Homebrew installed in ${HOMEBREW_HOME}"
   log "    See ${DOC_HOMEBREW}"
+  log "Installing Homebrew gcc, cmake, and make ..."
+  ${BREW_EXE} install --quiet gcc > /dev/null 2>&1
+  ${BREW_EXE} install --quiet cmake > /dev/null 2>&1
+  ${BREW_EXE} install --quiet make > /dev/null 2>&1
+  printf " done"
 }
 
 install_neovim_dependencies () {
@@ -300,11 +329,32 @@ fixup_init_vim () {
         rm -f /tmp/nvim$$
       }
     }
+		[ "${BREW_EXE}" ] || BREW_EXE=brew
+    BREW_ROOT="$(${BREW_EXE} --prefix)"
+		[ "${BREW_ROOT}" ] && {
+      if [ -d ${BREW_ROOT}/opt/go/libexec ]
+      then
+        export GOROOT="${BREW_ROOT}/opt/go/libexec"
+      else
+        if [ -d ${BREW_ROOT}/opt/go ]
+        then
+          export GOROOT="${BREW_ROOT}/opt/go"
+        else
+          [ -d ${BREW_ROOT}/go ] && export GOROOT="${BREW_ROOT}/go"
+        fi
+      fi
+		}
+    [ "${GOPATH}" ] || export GOPATH="${HOME}/go"
+    for gop in ${GOPATH} ${GOPATH}/src ${GOPATH}/pkg ${GOPATH}/bin
+    do
+      [ -d "${gop}" ] || mkdir -p "${gop}"
+    done
     have_nvim=`type -p nvim`
     [ "${have_nvim}" ] && {
       grep "^Plug " ${NVIMCONF} > /dev/null && {
-        nvim -i NONE -c 'PlugInstall' -c 'qa'
-        nvim -i NONE -c 'CocInstall coc-clangd' -c 'qa'
+        nvim -i NONE -c "PlugInstall" -c 'qa'
+        nvim -i NONE -c "UpdateRemotePlugins" -c 'qa'
+        nvim -i NONE -c "GoInstallBinaries" -c 'qa'
       }
     }
   }
@@ -323,7 +373,7 @@ git_clone_neovim_config () {
 check_python () {
   brew_path=$(command -v brew)
   brew_dir=$(dirname ${brew_path})
-  if [ -x ${brew_dir}/python3 ] 
+  if [ -x ${brew_dir}/python3 ]
   then
     PYTHON="${brew_dir}/python3"
   else
@@ -382,6 +432,8 @@ install_npm () {
   }
   [ "${PYTHON}" ] && {
     log 'Installing Python dependencies ...'
+    ${PYTHON} -m pip install --upgrade pip > /dev/null 2>&1
+    ${PYTHON} -m pip install --upgrade setuptools > /dev/null 2>&1
     ${PYTHON} -m pip install wheel > /dev/null 2>&1
     ${PYTHON} -m pip install pynvim doq > /dev/null 2>&1
     printf " done"
@@ -398,16 +450,15 @@ install_npm () {
       npm i -g neovim > /dev/null 2>&1
       printf " done"
 
+      log "Installing the icon font for Visual Studio Code ..."
+      npm i -g @vscode/codicons > /dev/null 2>&1
+      printf " done"
+
       log "Installing language servers ..."
-      # Could also install the language servers with brew, for example:
-      #   brew install bash-language-server
-      #
       # python language server
       npm i -g pyright > /dev/null 2>&1
       # typescript language server
       npm i -g typescript typescript-language-server > /dev/null 2>&1
-      # bash language server
-      npm i -g bash-language-server > /dev/null 2>&1
       # awk language server
       npm i -g awk-language-server > /dev/null 2>&1
       # css language server
@@ -417,7 +468,7 @@ install_npm () {
       # docker language server
       npm i -g dockerfile-language-server-nodejs > /dev/null 2>&1
       # brew installed language servers
-      for server in ansible haskell sql lua yaml
+      for server in ansible bash haskell sql lua yaml
       do
         ${BREW_EXE} install -q ${server}-language-server > /dev/null 2>&1
         [ $? -eq 0 ] || ${BREW_EXE} link --overwrite --quiet \
@@ -429,6 +480,7 @@ install_npm () {
       ${BREW_EXE} install -q rust-analyzer > /dev/null 2>&1
       [ "${PYTHON}" ] && {
         ${PYTHON} -m pip install cmake-language-server > /dev/null 2>&1
+        ${PYTHON} -m pip install python-lsp-server > /dev/null 2>&1
       }
       printf " done"
       # For other language servers, see:

@@ -1,8 +1,8 @@
 # Asciiville Neovim text editor
 
-[Neovim](https://neovim.io) is a fork of the [Vim](vim.md) text editor that strives to improve the extensibility and maintainability of Vim. Some features of the fork include built-in Language Server Protocol support, support for asynchronous I/O, and support for scripting using Lua.
+[Neovim](https://neovim.io) is a fork of the [Vim](https://en.wikipedia.org/wiki/Vim_(text_editor)) text editor that strives to improve the extensibility and maintainability of Vim. Some features of the fork include built-in Language Server Protocol support, support for asynchronous I/O, and support for scripting using Lua.
 
-![](neovim.png)
+![](screenshots/neovim.png)
 
 ## Table of Contents
 
@@ -12,6 +12,7 @@
     1. [Language servers](#language-servers)
     1. [Key mappings](#key-mappings)
 1. [Plugins](#plugins)
+1. [Screenshots](#screenshots)
 1. [Usage](#usage)
 
 ## Introduction
@@ -132,6 +133,11 @@ and configured by Asciiville initialization:
 - [vimls](https://github.com/iamcco/vim-language-server) : VimScript language server
 - [yamlls](https://github.com/redhat-developer/yaml-language-server) : YAML language server
 
+The Asciiville Neovim installation uses the
+[go.nvim Neovim plugin](https://github.com/ray-x/go.nvim) to provide a modern
+Go development environment inside Neovim. The go.nvim plugin is based on gopls,
+treesitter AST, Dap and a variety of Go tools.
+
 For other language servers, see [LSP server configurations](https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md).
 
 The language servers are utilized by the `nvim-lspconfig` and `nvim-cmp` Neovim
@@ -144,7 +150,31 @@ hints, and info. Help is often available for the word or line on which the
 cursor is positioned by typing `Shift-K` and `Ctrl-K`.
 
 The configuration for language servers and facilities used by `nvim-lspconfig`
-and `nvim-cmp` can be found in `~/.config/nvim/lua/`.
+and `nvim-cmp` can be found in `~/.config/nvim/lua/`. Current support:
+
+```
+Parser/Features         H L F I J
+  - css                 ✓ . ✓ ✓ ✓
+  - javascript          ✓ ✓ ✓ ✓ ✓
+  - python              ✓ ✓ ✓ ✓ ✓
+  - go                  ✓ ✓ ✓ ✓ ✓
+  - json                ✓ ✓ ✓ ✓ .
+  - vim                 ✓ ✓ ✓ . ✓
+  - lua                 ✓ ✓ ✓ ✓ ✓
+  - c                   ✓ ✓ ✓ ✓ ✓
+  - help                ✓ . . . ✓
+  - query               ✓ ✓ ✓ ✓ ✓
+  - yaml                ✓ ✓ ✓ ✓ ✓
+  - comment             ✓ . . . .
+  - toml                ✓ ✓ ✓ ✓ ✓
+  - html                ✓ ✓ ✓ ✓ ✓
+  - bash                ✓ ✓ ✓ . ✓
+  - cmake               ✓ . ✓ . .
+  - regex               ✓ . . . .
+  - java                ✓ ✓ . ✓ ✓
+
+  Legend: H[ighlight], L[ocals], F[olds], I[ndents], In[j]ections
+```
 
 ### Key mappings
 
@@ -180,7 +210,7 @@ The `setcolors.vim` plugin creates the following key mappings:
 - `<F8>` Next colorscheme and airline theme
 - `<F9>` Random colorscheme and airline theme
 
-For example, when `<F8>` is pressed the next colorscheme in the list is used. 
+For example, when `<F8>` is pressed the next colorscheme in the list is used.
 Note that both the Neovim colorscheme and the Airline theme are set. These
 two color schemes need to be coordinated to provide proper contrast and
 readability. The default colorschemes above take care of this. If you change
@@ -192,8 +222,35 @@ compatible [Airline themes](https://github.com/vim-airline/vim-airline-themes).
 See a list of
 [Neovim plugins installed, configured, and enabled in Asciiville](Plugins-urls.md).
 Each of the plugins used in the Asciiville Neovim configuration is listed
-and linked to its GitHub repository where configuration and user documentation 
+and linked to its GitHub repository where configuration and user documentation
 can be found.
+
+## Screenshots
+
+Neovim editing sessions illustrating `:vsplit <filename>`, Python script on left
+and Bash script on right. The first screenshot is using the `asciiville`
+colorscheme, the second uses the `everforest` colorscheme, and the third
+screenshot is using the `solarized` colorscheme. The colorschemes
+and `vim-airline` themes are included with Asciiville and can be switched
+between using `<F8>` (along with several other compatible colorschemes).
+
+Here we can see an example of the search bar enabled by the Wilder plugin with
+completions and suggestions matching the search. These suggestions can be
+rapidly accessed with `<Tab>`.
+
+![](screenshots/neovim-wilder.png)
+
+In this screenshot we see the `vim-airline` plugin status bar. The status bar
+displays different information depending on what mode you are in. Color themes
+for airline are coordinated with the selected Neovim colorscheme.
+
+![](screenshots/neovim-airline.png)
+
+This screenshot illustrates the autocompletion and suggestions provided by
+the `nvim-cmp` plugin. Custom icons are used to denote type, rounded borders
+and styling provide an easy on the eyes look and feel.
+
+![](screenshots/nvim-cmp.png)
 
 ## Usage
 
