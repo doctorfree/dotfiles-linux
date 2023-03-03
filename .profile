@@ -35,17 +35,20 @@ if [ -e /home/ronnie/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ronnie/.n
 
 # Created by `pipx` on 2022-10-01 18:44:33
 export PATH="$PATH:/home/ronnie/.local/bin"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-. "$HOME/.cargo/env"
 # Go paths
 [ -d ~/go ] && export GOPATH=$HOME/go
 [ "$GOPATH" ] && [ -d "$GOPATH/bin" ] && PATH="$PATH:$GOPATH/bin"
 
-if [ -d /home/linuxbrew/.linuxbrew/opt/go ]
+if [ -d /home/linuxbrew/.linuxbrew/opt/go/libexec ]
 then
-  export GOROOT=/home/linuxbrew/.linuxbrew/opt/go
+  export GOROOT=/home/linuxbrew/.linuxbrew/opt/go/libexec
 else
-  [ -d /usr/local/go ] && export GOROOT=/usr/local/go
+  if [ -d /home/linuxbrew/.linuxbrew/opt/go ]
+  then
+    export GOROOT=/home/linuxbrew/.linuxbrew/opt/go
+  else
+    [ -d /usr/local/go ] && export GOROOT=/usr/local/go
+  fi
 fi
 [ -d ${GOROOT}/bin ] && {
   if [ `echo $PATH | grep -c ${GOROOT}/bin` -ne "1" ]; then
@@ -58,3 +61,7 @@ fi
   fi
 }
 export PATH
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

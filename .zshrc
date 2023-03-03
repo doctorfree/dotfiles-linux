@@ -410,24 +410,20 @@ PERL_LOCAL_LIB_ROOT="/home/ronnie/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_
 PERL_MB_OPT="--install_base \"/home/ronnie/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/ronnie/perl5"; export PERL_MM_OPT;
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
 # Go paths
 [ -d ~/go ] && export GOPATH=$HOME/go
 [ "$GOPATH" ] && [ -d "$GOPATH/bin" ] && PATH="$PATH:$GOPATH/bin"
 
-if [ -d /home/linuxbrew/.linuxbrew/opt/go ]
+if [ -d /home/linuxbrew/.linuxbrew/opt/go/libexec ]
 then
-  export GOROOT=/home/linuxbrew/.linuxbrew/opt/go
+  export GOROOT=/home/linuxbrew/.linuxbrew/opt/go/libexec
 else
-  [ -d /usr/local/go ] && export GOROOT=/usr/local/go
+  if [ -d /home/linuxbrew/.linuxbrew/opt/go ]
+  then
+    export GOROOT=/home/linuxbrew/.linuxbrew/opt/go
+  else
+    [ -d /usr/local/go ] && export GOROOT=/usr/local/go
+  fi
 fi
 [ -d ${GOROOT}/bin ] && {
   if [ `echo $PATH | grep -c ${GOROOT}/bin` -ne "1" ]; then
@@ -440,12 +436,24 @@ fi
   fi
 }
 export PATH
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+#
 # Set aliases after all PATH components have been added
 [ -f ~/.aliases ] && source ~/.aliases
+
+export TZ="America/Los_Angeles"

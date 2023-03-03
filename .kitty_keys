@@ -8,7 +8,7 @@ kitty_keys () {
     print1 () {
         env printf $1
     }
-
+    
     #
     # User-configurable variables:
     #
@@ -23,8 +23,8 @@ kitty_keys () {
 
     # Leading and trailing to use in output.
     # As the output is processed with column(1) using ':' as
-    # the delimiter, these variables must contain a ':'.
-    LEADING=${KITTY_KEYS_LEADING:-"\n:\n"}
+    # the delimiter, these variables must contain a ':'. 
+    LEADING=${KITTY_KEYS_LEADING:-":\n"}
     TRAILING=${KITTY_KEYS_TRAILING:-":\n"}
 
     # Maximum column width of action field, after which
@@ -37,12 +37,12 @@ kitty_keys () {
     #
     # Variables for internal use.
     #
-
+    
     # Try to make field-splitting behaviour uniform across shells.
     local IFS=''
     # Footer for long actions not required by default.
     WANT_FOOTER=no
-
+    
     # Actions with a default keybinding. Based on
     # https://sw.kovidgoyal.net/kitty/actions/
     #
@@ -110,7 +110,7 @@ windows:toggle_maximized:kitty_mod+f10
     #
     # Main logic.
     #
-
+    
     if [ -f "${CONF}" ]
     then
         CHANGES=$(sed -n '/^map/p' "${CONF}" \
@@ -141,14 +141,14 @@ windows:toggle_maximized:kitty_mod+f10
         IFS=' '
         for B in $BINDINGS
         do
-            if print1 "${DEFAULTS}" | grep -q "${B}" 2> /dev/null
+            if print1 "${DEFAULTS}" | grep -qF "${B}"
             then
                 DEFAULTS=$(print1 "${DEFAULTS}" | sed "/${B}/d")
             fi
         done
         IFS=''
     fi
-
+    
     COPYPASTE="-- Copy/paste --:
 $(print1 ${DEFAULTS} | sed -n 's/^copypaste:\(.*\)$/\1/p')"
     DEBUGGING="-- Debugging --:
@@ -213,17 +213,27 @@ ${CUSTOM}"
             ;;
     esac
 
-    print1 "${LEADING}${OUT}" | column -t -s':' 2> /dev/null
-    if [ -n "${WANT_FOOTER}" -a -n "${FOOTER}" ]
+
+    WIDTH=$(print1 "${OUT}" | \
+                cut -d':' -f1 | \
+                awk '{ if (length>n) \
+                          { n=length; l=$0 } \
+                     } \
+                     END { print l }' | \
+                wc -m)
+    print1 "${LEADING}${OUT}" | \
+        awk -F':' "{ printf \"%-${WIDTH}s  %s\n\",\$1,\$2 }"
+    if [ "${WANT_FOOTER}" = 'yes' -a -n "${FOOTER}" ]
     then
         print1 "${FOOTER}\n"
     fi
     if [ -n "${TRAILING}" ]
     then
-        print1 "${TRAILING}" | column -t -s':' 2> /dev/null
+        print1 "${TRAILING}" | \
+            awk -F':' "{ printf \"%-${WIDTH}s  %s\n\",\$1,\$2 }"
     fi
 
     # Remove convenience function from environment.
     unset -f print1
-
+    
 }

@@ -40,7 +40,7 @@ indent_style = tab
 [*.{json,yml,yaml}]
 indent_style = space
 indent_size = 2
-insert_final_newline = ignore
+insert_final_newline = false
 
 [*.snip]
 indent_style = tab
