@@ -62,8 +62,14 @@ export GPG_TTY=$TTY
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+USE_STARSHIP=
+if [ -f ${HOME}/.config/starship.toml ]
+then
+  USE_STARSHIP=1
+else
+  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  fi
 fi
 
 umask 022
@@ -95,6 +101,10 @@ fi
 export PATH
 #export LDFLAGS="-L/usr/local/opt/libiconv/lib"
 #export CPPFLAGS="-I/usr/local/opt/libiconv/include"
+#
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 [ -r .p4config ] && export P4CONFIG=.p4config
 [ -d /build/toolchain ] && export TCROOT=/build/toolchain
@@ -130,7 +140,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+[ "${USE_STARSHIP}" ] || ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -401,8 +411,19 @@ export PATH="$PATH:/home/ronnie/.local/bin"
 unsetopt inc_append_history
 unsetopt share_history
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Are we using Powerlevel10k or Starship prompt
+if [ "${USE_STARSHIP}" ]
+then
+  if command -v starship > /dev/null
+  then
+    eval "$(starship init zsh)"
+  else
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  fi
+else
+  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
 
 PATH="/home/ronnie/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/home/ronnie/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
@@ -435,10 +456,8 @@ fi
     PATH="$PATH:$HOME/go/bin"
   fi
 }
+
 export PATH
-if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
