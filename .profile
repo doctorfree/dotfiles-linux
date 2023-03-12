@@ -65,3 +65,21 @@ if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if command -v zoxide > /dev/null; then
+  eval "$(zoxide init bash)"
+fi
+if command -v zoxide > /dev/null; then
+  eval "$(zoxide init bash)"
+fi
+if command -v zoxide > /dev/null; then
+  eval "$(zoxide init bash)"
+fi
+if command -v zoxide > /dev/null; then
+  eval "$(zoxide init bash)"
+fi
+if command -v zoxide > /dev/null; then
+  eval "$(zoxide init bash)"
+fi
+if command -v zoxide > /dev/null; then
+  eval "$(zoxide init bash)"
+fi
