@@ -463,8 +463,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export NVIM_APPNAME="nvim-lazyman"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -479,21 +477,7 @@ export NVIM_APPNAME="nvim-lazyman"
 
 export TZ="America/Los_Angeles"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
+# Source the Lazyman shell initialization for aliases and nvims function
+[ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
+# Source the Lazyman shell initialization for aliases and nvims function
+[ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind

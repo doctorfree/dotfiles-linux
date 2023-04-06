@@ -61,27 +61,6 @@ alias l='ls -CF'
 
 #alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# To use Vim
-command -v vim > /dev/null && alias vi='vim'
-# To use NeoVim
-command -v nvim > /dev/null && {
-  alias vi='nvim'
-  [ -d $HOME/.config/nvim-lazyman ] && {
-    alias lmvim='function _lmvim(){ export NVIM_APPNAME="nvim-lazyman"; nvim $* };_lmvim'
-  }
-  [ -d $HOME/.config/nvim-astro ] && {
-    alias avim='function _avim(){ export NVIM_APPNAME="nvim-astro"; nvim $* };_avim'
-  }
-  [ -d $HOME/.config/nvim-multi ] && {
-    alias mvim='function _mvim(){ export NVIM_APPNAME="nvim-multi"; nvim $* };_mvim'
-  }
-  [ -d $HOME/.config/nvim-LazyVim ] && {
-    alias lvim='function _lvim(){ export NVIM_APPNAME="nvim-LazyVim"; nvim $* };_lvim'
-  }
-  [ -d $HOME/.config/nvim-kickstart ] && {
-    alias kvim='function _kvim(){ export NVIM_APPNAME="nvim-kickstart"; nvim $* };_kvim'
-  }
-}
 # To use NeoVim-qt
 command -v nvim-qt > /dev/null && \
   command -v gvim > /dev/null || alias gvim='nvim-qt'

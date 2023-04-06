@@ -45,26 +45,26 @@ HISTFILESIZE=5000
 HISTFILE=~/.bash_history
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
-if [ `echo $PATH | grep -c /usr/local/sbin` -ne "1" ]; then
-PATH="$PATH:/usr/local/bin:/usr/local/sbin"
+if [ $(echo $PATH | grep -c /usr/local/sbin) -ne "1" ]; then
+  PATH="$PATH:/usr/local/bin:/usr/local/sbin"
 fi
-if [ `echo $PATH | grep -c /usr/local/go/bin` -ne "1" ]; then
-PATH="$PATH:/usr/local/go/bin"
+if [ $(echo $PATH | grep -c /usr/local/go/bin) -ne "1" ]; then
+  PATH="$PATH:/usr/local/go/bin"
 fi
-if [ `echo $PATH | grep -c $HOME/go/bin` -ne "1" ]; then
-PATH="$PATH:$HOME/go/bin"
+if [ $(echo $PATH | grep -c $HOME/go/bin) -ne "1" ]; then
+  PATH="$PATH:$HOME/go/bin"
 fi
-if [ `echo $PATH | grep -c /usr/local/swift/bin` -ne "1" ]; then
-PATH="$PATH:/usr/local/swift/bin"
+if [ $(echo $PATH | grep -c /usr/local/swift/bin) -ne "1" ]; then
+  PATH="$PATH:/usr/local/swift/bin"
 fi
-if [ `echo $PATH | grep -c $HOME/bin` -ne "1" ]; then
-PATH="$PATH:$HOME/bin"
+if [ $(echo $PATH | grep -c $HOME/bin) -ne "1" ]; then
+  PATH="$PATH:$HOME/bin"
 fi
-if [ `echo $PATH | grep -c $HOME/.local/bin` -ne "1" ]; then
-PATH="$PATH:$HOME/.local/bin"
+if [ $(echo $PATH | grep -c $HOME/.local/bin) -ne "1" ]; then
+  PATH="$PATH:$HOME/.local/bin"
 fi
 if [ -d /usr/local/bunsen/bin ]; then
-PATH="$PATH:/usr/local/bunsen/bin"
+  PATH="$PATH:/usr/local/bunsen/bin"
 fi
 export DISPLAY=:0
 export GPU_MAX_ALLOC_PERCENT=100
@@ -80,18 +80,18 @@ export VISUAL=vim
 export EDITOR=$VISUAL
 
 # enable terminal linewrap
-setterm -linewrap on 2> /dev/null
+setterm -linewrap on 2>/dev/null
 
 # colorize man pages
-man () {
+man() {
   LESS_TERMCAP_mb=$'\e[1;32m' \
-  LESS_TERMCAP_md=$'\e[1;32m' \
-  LESS_TERMCAP_me=$'\e[0m' \
-  LESS_TERMCAP_se=$'\e[0m' \
-  LESS_TERMCAP_so=$'\e[01;33m' \
-  LESS_TERMCAP_ue=$'\e[0m' \
-  LESS_TERMCAP_us=$'\e[1;4;31m' \
-  command man "$@"
+    LESS_TERMCAP_md=$'\e[1;32m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[1;4;31m' \
+    command man "$@"
 }
 
 export LESSHISTFILE=-
@@ -104,8 +104,8 @@ export BAT_CONFIG_PATH="/etc/bat.conf"
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+  *i*) ;;
+  *) return ;;
 esac
 
 # MEDIAROOT is used by doctorfree's Scripts to identify the media root
@@ -122,13 +122,16 @@ eval "$(direnv hook bash)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-    xterm) export TERM=xterm-color; color_prompt=yes;;
+  xterm-color | *-256color) color_prompt=yes ;;
+  xterm)
+    export TERM=xterm-color
+    color_prompt=yes
+    ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -137,21 +140,21 @@ esac
 #force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
 fi
 
 #myip=`ip addr show | awk '$1 == "inet" && $3 == "brd" { sub (/\/.*/,""); print $2 }' | head -1`
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\] \w:\[\033[00m\] \$ '
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\] \w:\[\033[00m\] \$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u \w: \$ '
+  PS1='${debian_chroot:+($debian_chroot)}\u \w: \$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -159,24 +162,23 @@ PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-#   PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u: \w\a\]$PS1"
+  xterm* | rxvt*)
+    #   PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u: \w\a\]$PS1"
     PS1="\[\e]0;\w\a\]$PS1"
     ;;
-*)
-    ;;
+  *) ;;
 esac
 
 if [ -f ~/.aliases ]; then
-    . ~/.aliases
+  . ~/.aliases
 fi
 
 if [ -f ~/.functions ]; then
-    . ~/.functions
+  . ~/.functions
 fi
 
 if [ -f ~/.private ]; then
-    . ~/.private
+  . ~/.private
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -206,7 +208,7 @@ eval "$(direnv hook bash)"
 
 # command -v spd-say > /dev/null && spd-say "Your computer has been hacked"
 
-
 # Created by `pipx` on 2022-10-01 18:44:33
 export PATH="$PATH:/home/ronnie/.local/bin"
-. "$HOME/.cargo/env"
+# Source the Lazyman shell initialization for aliases and nvims function
+[ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
