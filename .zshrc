@@ -24,18 +24,18 @@
 #
 ## Install Powerlevel10k theme for Oh My Zsh:
 # git clone https://github.com/romkatv/powerlevel10k.git \
-#   $ZSH_CUSTOM/themes/powerlevel10k
+  #   $ZSH_CUSTOM/themes/powerlevel10k
 #
 ## Set ZSH_THEME in $HOME/.zshrc
 # ZSH_THEME="powerlevel10k/powerlevel10k"
 #
 ## Install Zsh Plugins:
 # git clone https://github.com/zsh-users/zsh-autosuggestions \
-#   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  #   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-#   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  #   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 # git clone https://github.com/zsh-users/zsh-completions \
-#   ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
+  #   ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 #
 ## Install Meslo Nerd Font patched for Powerlevel10k
 # See https://github.com/romkatv/powerlevel10k#fonts
@@ -45,7 +45,7 @@
 # I needed to install the zsh-tab-title plugin to get Kitty tab titles right
 #
 #   git clone https://github.com/trystan2k/zsh-tab-title \
-#     ~/.oh-my-zsh/custom/plugins/zsh-tab-title
+  #     ~/.oh-my-zsh/custom/plugins/zsh-tab-title
 #
 # Add zsh-tab-title into plugins array in .zshrc
 # Add the following:
@@ -84,19 +84,19 @@ umask 022
 [ -d /usr/local/opt/coreutils/libexec/gnubin ] && PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 
 if [ `echo $PATH | grep -c /usr/local/sbin` -ne "1" ]; then
-PATH="$PATH:/usr/local/bin:/usr/local/sbin"
+  PATH="$PATH:/usr/local/bin:/usr/local/sbin"
 fi
 if [ `echo $PATH | grep -c /usr/local/swift/bin` -ne "1" ]; then
-PATH="$PATH:/usr/local/swift/bin"
+  PATH="$PATH:/usr/local/swift/bin"
 fi
 if [ `echo $PATH | grep -c $HOME/bin` -ne "1" ]; then
-PATH="$PATH:$HOME/bin"
+  PATH="$PATH:$HOME/bin"
 fi
 if [ `echo $PATH | grep -c $HOME/.local/bin` -ne "1" ]; then
-PATH="$PATH:$HOME/.local/bin"
+  PATH="$PATH:$HOME/.local/bin"
 fi
 if [ -d /usr/local/bunsen/bin ]; then
-PATH="$PATH:/usr/local/bunsen/bin"
+  PATH="$PATH:/usr/local/bunsen/bin"
 fi
 export PATH
 #export LDFLAGS="-L/usr/local/opt/libiconv/lib"
@@ -379,13 +379,13 @@ setterm -linewrap on 2> /dev/null
 # colorize man pages
 man () {
   LESS_TERMCAP_mb=$'\e[1;32m' \
-  LESS_TERMCAP_md=$'\e[1;32m' \
-  LESS_TERMCAP_me=$'\e[0m' \
-  LESS_TERMCAP_se=$'\e[0m' \
-  LESS_TERMCAP_so=$'\e[01;33m' \
-  LESS_TERMCAP_ue=$'\e[0m' \
-  LESS_TERMCAP_us=$'\e[1;4;31m' \
-  command man "$@"
+    LESS_TERMCAP_md=$'\e[1;32m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[1;4;31m' \
+    command man "$@"
 }
 
 export LESSHISTFILE=-
@@ -402,7 +402,7 @@ export MEDIAROOT=/u
 export BROWSER=firefox
 export FX_THEME=9
 
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # Created by `pipx` on 2022-10-01 18:44:33
 export PATH="$PATH:/home/ronnie/.local/bin"
@@ -478,6 +478,8 @@ export NVM_DIR="$HOME/.nvm"
 export TZ="America/Los_Angeles"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Source the Lazyman shell initialization for aliases and nvims function
+# shellcheck source=.config/nvim-Lazyman/.lazymanrc
 [ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
-# Source the Lazyman shell initialization for aliases and nvims function
+# Source the Lazyman nvimsbind for alias key bindings
+# shellcheck source=.config/nvim-Lazyman/.nvimsbind
 [ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
