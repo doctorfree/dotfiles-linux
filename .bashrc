@@ -210,9 +210,9 @@ eval "$(direnv hook bash)"
 
 # Created by `pipx` on 2022-10-01 18:44:33
 export PATH="$PATH:/home/ronnie/.local/bin"
-# Source the Lazyman shell initialization for aliases and nvims function
+# Source the Lazyman shell initialization for aliases and nvims selector
 # shellcheck source=.config/nvim-Lazyman/.lazymanrc
 [ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
-# Source the Lazyman shell initialization for nvims key binding
+# Source the Lazyman .nvimsbind for nvims key binding
 # shellcheck source=.config/nvim-Lazyman/.nvimsbind
 [ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
