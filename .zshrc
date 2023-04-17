@@ -36,6 +36,8 @@
   #   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 # git clone https://github.com/zsh-users/zsh-completions \
   #   ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
+# git clone https://github.com/redxtech/zsh-kitty \
+  #   ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-kitty
 #
 ## Install Meslo Nerd Font patched for Powerlevel10k
 # See https://github.com/romkatv/powerlevel10k#fonts
