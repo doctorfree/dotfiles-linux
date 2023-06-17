@@ -101,18 +101,9 @@ if [ -d /usr/local/bunsen/bin ]; then
   PATH="$PATH:/usr/local/bunsen/bin"
 fi
 export PATH
-#export LDFLAGS="-L/usr/local/opt/libiconv/lib"
-#export CPPFLAGS="-I/usr/local/opt/libiconv/include"
-#
-if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
 
 [ -r .p4config ] && export P4CONFIG=.p4config
 [ -d /build/toolchain ] && export TCROOT=/build/toolchain
-
-# Homebrew Python path
-[ -d /usr/local/opt/python/libexec/bin ] && export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 [ -d $HOME/.rbenv/bin ] && export PATH="$HOME/.rbenv/bin:$PATH"
 if command -v rbenv > /dev/null; then
@@ -434,31 +425,9 @@ PERL_MB_OPT="--install_base \"/home/ronnie/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/ronnie/perl5"; export PERL_MM_OPT;
 
 # Go paths
-[ -d ~/go ] && export GOPATH=$HOME/go
-[ "$GOPATH" ] && [ -d "$GOPATH/bin" ] && PATH="$PATH:$GOPATH/bin"
-
-if [ -d /home/linuxbrew/.linuxbrew/opt/go/libexec ]
-then
-  export GOROOT=/home/linuxbrew/.linuxbrew/opt/go/libexec
-else
-  if [ -d /home/linuxbrew/.linuxbrew/opt/go ]
-  then
-    export GOROOT=/home/linuxbrew/.linuxbrew/opt/go
-  else
-    [ -d /usr/local/go ] && export GOROOT=/usr/local/go
-  fi
-fi
-[ -d ${GOROOT}/bin ] && {
-  if [ `echo $PATH | grep -c ${GOROOT}/bin` -ne "1" ]; then
-    PATH="$PATH:${GOROOT}/bin"
-  fi
-}
-[ -d $HOME/go/bin ] && {
-  if [ `echo $PATH | grep -c $HOME/go/bin` -ne "1" ]; then
-    PATH="$PATH:$HOME/go/bin"
-  fi
-}
-
+# [ -d /usr/lib/go-1.13 ] && export GOROOT=/usr/lib/go-1.13
+# [ -d $HOME/go ] && export GOPATH=$HOME/go
+[ -d /usr/local/go/bin ] && PATH=$PATH:/usr/local/go/bin
 export PATH
 
 export NVM_DIR="$HOME/.nvm"
@@ -478,10 +447,13 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.aliases ] && source ~/.aliases
 
 export TZ="America/Los_Angeles"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Source the Lazyman shell initialization for aliases and nvims selector
 # shellcheck source=.config/nvim-Lazyman/.lazymanrc
 [ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
 # Source the Lazyman .nvimsbind for nvims key binding
 # shellcheck source=.config/nvim-Lazyman/.nvimsbind
 [ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
+# Bob neovim version manager path
+[ -d ${HOME}/.local/share/bob/nvim-bin ] && {
+  export PATH="${HOME}/.local/share/bob/nvim-bin${PATH:+:${PATH}}"
+}

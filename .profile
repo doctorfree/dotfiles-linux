@@ -10,103 +10,30 @@
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-        . "$HOME/.bashrc"
-    fi
-fi
-
-# set PATH so it includes Go bin if it exists
-if [ -d "/usr/local/go/bin" ] ; then
-    PATH="/usr/local/go/bin:$PATH"
+  # include .bashrc if it exists
+  if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
+  fi
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+if [ -d "$HOME/bin" ]; then
+  PATH="$HOME/bin:$PATH"
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+if [ -d "$HOME/.local/bin" ]; then
+  PATH="$HOME/.local/bin:$PATH"
 fi
 
 if [ -e /home/ronnie/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ronnie/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 # Created by `pipx` on 2022-10-01 18:44:33
-export PATH="$PATH:/home/ronnie/.local/bin"
-# Go paths
-[ -d ~/go ] && export GOPATH=$HOME/go
-[ "$GOPATH" ] && [ -d "$GOPATH/bin" ] && PATH="$PATH:$GOPATH/bin"
+PATH="$PATH:/home/ronnie/.local/bin"
 
-if [ -d /home/linuxbrew/.linuxbrew/opt/go/libexec ]
-then
-  export GOROOT=/home/linuxbrew/.linuxbrew/opt/go/libexec
-else
-  if [ -d /home/linuxbrew/.linuxbrew/opt/go ]
-  then
-    export GOROOT=/home/linuxbrew/.linuxbrew/opt/go
-  else
-    [ -d /usr/local/go ] && export GOROOT=/usr/local/go
-  fi
-fi
-[ -d ${GOROOT}/bin ] && {
-  if [ `echo $PATH | grep -c ${GOROOT}/bin` -ne "1" ]; then
-    PATH="$PATH:${GOROOT}/bin"
-  fi
-}
-[ -d $HOME/go/bin ] && {
-  if [ `echo $PATH | grep -c $HOME/go/bin` -ne "1" ]; then
-    PATH="$PATH:$HOME/go/bin"
-  fi
-}
+# Go paths
+# [ -d /usr/local/go ] && export GOROOT=/usr/local/go
+# [ -d $HOME/go ] && export GOPATH=$HOME/go
+[ -d /usr/local/go/bin ] && PATH=$PATH:/usr/local/go/bin
 export PATH
-if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-if command -v zoxide > /dev/null; then
-  eval "$(zoxide init bash)"
-fi
+. "$HOME/.cargo/env"

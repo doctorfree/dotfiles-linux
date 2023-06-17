@@ -210,9 +210,17 @@ eval "$(direnv hook bash)"
 
 # Created by `pipx` on 2022-10-01 18:44:33
 export PATH="$PATH:/home/ronnie/.local/bin"
+
+if command -v zoxide > /dev/null; then
+  eval "$(zoxide init bash)"
+fi
 # Source the Lazyman shell initialization for aliases and nvims selector
 # shellcheck source=.config/nvim-Lazyman/.lazymanrc
 [ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
 # Source the Lazyman .nvimsbind for nvims key binding
 # shellcheck source=.config/nvim-Lazyman/.nvimsbind
 [ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
+# Bob neovim version manager path
+[ -d ${HOME}/.local/share/bob/nvim-bin ] && {
+  export PATH="${HOME}/.local/share/bob/nvim-bin${PATH:+:${PATH}}"
+}
