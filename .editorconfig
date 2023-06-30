@@ -17,6 +17,11 @@ indent_style = space
 indent_size = 2
 charset = utf-8
 
+[Rakefile]
+indent_style = space
+indent_size = 2
+charset = utf-8
+
 [*.{c,cc,cpp,h,hpp}]
 indent_style = space
 tab_width = 4
@@ -63,5 +68,9 @@ indent_size = 4
 indent_style = tab
 
 [*.toml]
+indent_style = space
+indent_size = 4
+
+[*.vim]
 indent_style = space
 indent_size = 4
