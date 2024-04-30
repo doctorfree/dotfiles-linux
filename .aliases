@@ -16,15 +16,18 @@ alias df='df -h'
 alias du='du -h'
 alias dutop='du -h -d 0'
 alias icat="kitty +kitten icat"
+alias kc='kitty-control'
 alias kt='cd ~/.config/kitty/themes && fzf --preview "head -n 40 {} && kitty @ --to unix:/tmp/kitty set-colors -a -c {}"; cd -'
 alias whvn='cd "/mac/pictures/Work/Wallhaven"'
 alias mpp='tmux new-session -s musicplayerplus "tmux source-file ~/.config/mpcplus/tsession"'
 alias neo='neofetch | lolcat'
+alias nf='nfetch'
 alias whence='type -a'
 alias open='gio open '
 alias xdg-open='gio open '
 alias sudo='sudo '
-alias ronrecord='cd /u/ronrecord.com/httpdocs'
+alias keylogin='keybase login ronrecord'
+alias ronrecord='cd /u/sites/ronrecord.com'
 alias binance='cd ~/src/trading/profit-trailer/binance'
 alias config='cd "/usr/local/MagicMirror/config"'
 alias configs='cd "/usr/local/MagicMirror/config"'
@@ -85,3 +88,8 @@ command -v bat > /dev/null && alias less='bat'
 command -v batcat > /dev/null && \
 	alias bat='batcat' && \
 	alias less='batcat'
+
+### Neovim
+if [ -d $HOME/.config/nvim-Lazyman ]; then
+  command -v nvim > /dev/null && alias vi="NVIM_APPNAME=nvim-Lazyman nvim"
+fi

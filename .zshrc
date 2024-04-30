@@ -226,6 +226,7 @@ MAGIC_ENTER_OTHER_COMMAND='ls'
 # Not used but useful: common-aliases, fzf, themes
 # Available plugins: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
 plugins=(
+  fzf-tab
   magic-enter
   zsh-autosuggestions
   zsh-kitty
@@ -371,15 +372,42 @@ setterm -linewrap on 2> /dev/null
 
 # colorize man pages
 man () {
-  LESS_TERMCAP_mb=$'\e[1;32m' \
-    LESS_TERMCAP_md=$'\e[1;32m' \
+  LESS_TERMCAP_mb=$'\e[01;31m' \
+    LESS_TERMCAP_md=$'\e[01;35m' \
     LESS_TERMCAP_me=$'\e[0m' \
     LESS_TERMCAP_se=$'\e[0m' \
     LESS_TERMCAP_so=$'\e[01;33m' \
     LESS_TERMCAP_ue=$'\e[0m' \
-    LESS_TERMCAP_us=$'\e[1;4;31m' \
+    LESS_TERMCAP_us=$'\e[04;36m' \
     command man "$@"
 }
+# Using tput with green and cyan, yellow on blue, white
+# Color       #define       Value       RGB
+# black     COLOR_BLACK       0     0, 0, 0
+# red       COLOR_RED         1     max,0,0
+# green     COLOR_GREEN       2     0,max,0
+# yellow    COLOR_YELLOW      3     max,max,0
+# blue      COLOR_BLUE        4     0,0,max
+# magenta   COLOR_MAGENTA     5     max,0,max
+# cyan      COLOR_CYAN        6     0,max,max
+# white     COLOR_WHITE       7     max,max,max
+#
+#   LESS_TERMCAP_mb=$(tput bold; tput setaf 2) \
+#   LESS_TERMCAP_ZN=$(tput ssubm) \
+#   LESS_TERMCAP_ZV=$(tput rsubm) \
+#   LESS_TERMCAP_ZO=$(tput ssupm) \
+#   LESS_TERMCAP_ZW=$(tput rsupm) \
+#man () {
+#    LESS_TERMCAP_md=$(tput bold; tput setaf 6) \
+#    LESS_TERMCAP_me=$(tput sgr0) \
+#    LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 57) \
+#    LESS_TERMCAP_se=$(tput rmso; tput sgr0) \
+#    LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 4) \
+#    LESS_TERMCAP_ue=$(tput rmul; tput sgr0) \
+#    LESS_TERMCAP_mr=$(tput rev) \
+#    LESS_TERMCAP_mh=$(tput dim) \
+#    command man "$@"
+#}
 
 export LESSHISTFILE=-
 
@@ -392,7 +420,7 @@ export BAT_CONFIG_PATH="/etc/bat.conf"
 # MEDIAROOT is used by doctorfree's Scripts to identify the media root
 export MEDIAROOT=/u
 
-export BROWSER=firefox
+#export BROWSER=firefox
 export FX_THEME=9
 
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
@@ -427,12 +455,16 @@ PERL_MM_OPT="INSTALL_BASE=/home/ronnie/perl5"; export PERL_MM_OPT;
 # Go paths
 # [ -d /usr/lib/go-1.13 ] && export GOROOT=/usr/lib/go-1.13
 # [ -d $HOME/go ] && export GOPATH=$HOME/go
+[ -d ${HOME}/go/bin ] && PATH=$PATH:${HOME}/go/bin
 [ -d /usr/local/go/bin ] && PATH=$PATH:/usr/local/go/bin
 export PATH
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+export GEM_HOME="$HOME/gems"
+export PATH="$PATH:$HOME/gems/bin"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -457,3 +489,20 @@ export TZ="America/Los_Angeles"
 [ -d ${HOME}/.local/share/bob/nvim-bin ] && {
   export PATH="${HOME}/.local/share/bob/nvim-bin${PATH:+:${PATH}}"
 }
+# Luarocks bin path
+[ -d ${HOME}/.luarocks/bin ] && {
+  export PATH="${HOME}/.luarocks/bin${PATH:+:${PATH}}"
+}
+
+# bun completions
+[ -s "/home/ronnie/.bun/_bun" ] && source "/home/ronnie/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+[ -f ~/.fzf-functions.zsh ] && source ~/.fzf-functions.zsh
+
+export PATH=$HOME/bin:$PATH
+# Added by PMD
+export PATH="$PATH:$HOME/.local/share/pmd-bin-7.1.0/bin"
+source <(pmd generate-completion)

@@ -195,7 +195,7 @@ fi
 # Kitty bassh completions
 # source <(kitty + complete setup bash)
 
-export BROWSER=firefox
+#export BROWSER=firefox
 export FX_THEME=9
 
 #PS1='\@ \u@`/bin/hostname`:`pwd` # '
@@ -214,6 +214,10 @@ export PATH="$PATH:/home/ronnie/.local/bin"
 if command -v zoxide > /dev/null; then
   eval "$(zoxide init bash)"
 fi
+
+export GEM_HOME="$HOME/gems"
+export PATH="$PATH:$HOME/gems/bin"
+
 # Source the Lazyman shell initialization for aliases and nvims selector
 # shellcheck source=.config/nvim-Lazyman/.lazymanrc
 [ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
@@ -224,3 +228,15 @@ fi
 [ -d ${HOME}/.local/share/bob/nvim-bin ] && {
   export PATH="${HOME}/.local/share/bob/nvim-bin${PATH:+:${PATH}}"
 }
+. "$HOME/.cargo/env"
+# Luarocks bin path
+[ -d ${HOME}/.luarocks/bin ] && {
+  export PATH="${HOME}/.luarocks/bin${PATH:+:${PATH}}"
+}
+
+export PATH=$HOME/bin:$PATH
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Added by PMD
+export PATH="$PATH:$HOME/.local/share/pmd-bin-7.1.0/bin"
+source <(pmd generate-completion)
