@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+#
+have_fast=$(type -p fastfetch)
+[ "${have_fast}" ] || {
+  printf "\nERROR: fastfetch not found in PATH"
+  printf "\nInstall fastfetch and rerun this command"
+  printf "\nExiting\n"
+  exit 1
+}
+
+tput clear
+export TERM=xterm-kitty
+
+fastfetch
