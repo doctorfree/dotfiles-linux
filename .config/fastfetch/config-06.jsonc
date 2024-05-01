@@ -1,6 +1,10 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
+    "padding": {
+      "left": 2,
+      "top": 2
+    },
     "type": "kitty-direct",
     "source": "~/.local/share/icons/hicolor/512x512/apps/ubuntu-jammy.png"
   },
@@ -12,6 +16,38 @@
       "type": "custom",
       "format": " \u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m  \u001b[38m  \u001b[39m       \u001b[38m  \u001b[37m  \u001b[36m  \u001b[35m  \u001b[34m  \u001b[33m  \u001b[32m  \u001b[31m  \u001b[90m"
     },
+    {
+      "type": "os",
+      "key": "╭─",
+      "keyColor": "blue"
+    },
+    {
+      "type": "packages",
+      "key": "├─󰏖",
+      "keyColor": "blue"
+    },
+    {
+      "type": "uptime",
+      "key": "├─󰅐",
+      "keyColor": "blue"
+    },
+    {
+      "type": "media",
+      "key": "├─󰝚",
+      "keyColor": "blue"
+    },
+    {
+      "type": "localip",
+      "key": "├─󰩟",
+      "compact": true,
+      "keyColor": "blue"
+    },
+    {
+      "type": "publicip",
+      "key": "╰─󰩠",
+      "keyColor": "blue"
+    },
+    "break",
     {
       "type": "cpu",
       "key": "╭─󰻠",
@@ -77,38 +113,6 @@
       "type": "wm",
       "key": "╰─",
       "keyColor": "yellow"
-    },
-    "break",
-    {
-      "type": "os",
-      "key": " OS",
-      "keyColor": "blue"
-    },
-    {
-      "type": "packages",
-      "key": "├─󰏖",
-      "keyColor": "blue"
-    },
-    {
-      "type": "uptime",
-      "key": "├─󰅐",
-      "keyColor": "blue"
-    },
-    {
-      "type": "media",
-      "key": "├─󰝚",
-      "keyColor": "blue"
-    },
-    {
-      "type": "localip",
-      "key": "├─󰩟",
-      "compact": true,
-      "keyColor": "blue"
-    },
-    {
-      "type": "publicip",
-      "key": "╰─󰩠",
-      "keyColor": "blue"
     }
   ]
 }
