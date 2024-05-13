@@ -2,11 +2,11 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "padding": {
-      "left": 4,
-      "top": 2
+      "left": 2,
+      "top": 1
     },
     "type": "kitty-direct",
-    "source": "~/.local/share/icons/hicolor/256x256/apps/ubuntu-jammy.png"
+    "source": "~/.local/share/icons/hicolor/512x512/apps/ubuntu.png"
   },
   "modules": [
     {
@@ -40,12 +40,12 @@
       "keyColor": "green"
     },
     {
-      "type": "battery",
+      "type": "sound",
       "key": "├─",
       "keyColor": "green"
     },
     {
-      "type": "sound",
+      "type": "battery",
       "key": "╰─",
       "keyColor": "green"
     }

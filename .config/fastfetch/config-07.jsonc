@@ -2,12 +2,10 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "padding": {
-      "left": 4,
-      "top": 4
+      "top": 2
     },
     "type": "kitty-direct",
-    "width": 40,
-    "source": "~/.local/share/icons/hicolor/512x512/apps/ubuntu-jammy.png"
+    "source": "~/.local/share/icons/hicolor/512x512/apps/ubuntu.png"
   },
   "display": {
     "separator": " -> "
@@ -15,58 +13,16 @@
   "modules": [
     {
       "type": "custom",
-      "format": "\u001b[90m┌────────────────────────────────────────────────────────────┐"
+      "format": " \u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m  \u001b[38m  \u001b[39m       \u001b[38m  \u001b[37m  \u001b[36m  \u001b[35m  \u001b[34m  \u001b[33m  \u001b[32m  \u001b[31m  \u001b[90m"
     },
     {
-      "type": "os",
-      "key": " OS",
-      "keyColor": "yellow",
+      "type": "host",
+      "key": "󰌢 PC",
+      "keyColor": "green"
     },
-    {
-      "type": "packages",
-      "key": "├󰏖",
-      "keyColor": "yellow"
-    },
-    {
-      "type": "shell",
-      "key": "└",
-      "keyColor": "yellow"
-    },
-    {
-      "type": "terminal",
-      "key": "├",
-      "keyColor": "yellow"
-    },
-    {
-      "type": "terminalfont",
-      "key": "├",
-      "keyColor": "yellow"
-    },
-    "break",
-    {
-      "type": "de",
-      "key": " DE/WM",
-      "keyColor": "blue"
-    },
-    {
-      "type": "wm",
-      "key": "├󰉼",
-      "keyColor": "blue"
-    },
-    {
-      "type": "wmtheme",
-      "key": "├󰉼",
-      "keyColor": "blue"
-    },
-    {
-      "type": "icons",
-      "key": "├󰀻",
-      "keyColor": "blue"
-    },
-    "break",
     {
       "type": "cpu",
-      "key": "󰌢 SYSTEM",
+      "key": "├󰻠",
       "keyColor": "green"
     },
     {
@@ -95,28 +51,69 @@
       "keyColor": "green"
     },
     {
+      "type": "title",
+      "key": "├",
+      "format": "{1}@{2}",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "os",
+      "key": "├",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "packages",
+      "key": "├󰏖",
+      "keyColor": "yellow"
+    },
+    {
+      "type": "shell",
+      "key": "└",
+      "keyColor": "yellow"
+    },
+    "break",
+
+    {
+      "type": "wm",
+      "key": " DE/WM",
+      "keyColor": "blue"
+    },
+    {
+      "type": "wmtheme",
+      "key": "├󰉼",
+      "keyColor": "blue"
+    },
+    {
+      "type": "icons",
+      "key": "├󰀻",
+      "keyColor": "blue"
+    },
+    {
+      "type": "terminal",
+      "key": "├",
+      "keyColor": "blue"
+    },
+    {
+      "type": "wallpaper",
+      "key": "└󰸉",
+      "keyColor": "blue"
+    },
+
+    "break",
+    {
       "type": "sound",
-      "key": "├",
-      "keyColor": "green"
+      "key": " SOUND",
+      "keyColor": "cyan"
     },
     {
       "type": "player",
-      "key": "│ ├󰥠",
-      "keyColor": "green"
+      "key": "├󰥠",
+      "keyColor": "cyan"
     },
     {
       "type": "media",
-      "key": "│ └󰝚",
-      "keyColor": "green"
-    },
-    {
-      "type": "custom",
-      "format": "\u001b[90m└────────────────────────────────────────────────────────────┘"
-    },
-    {
-      "type": "custom",
-      "format": " \u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m  \u001b[38m  \u001b[39m       \u001b[38m  \u001b[37m  \u001b[36m  \u001b[35m  \u001b[34m  \u001b[33m  \u001b[32m  \u001b[31m  \u001b[90m"
+      "key": "└󰝚",
+      "keyColor": "cyan"
     }
-
   ]
 }

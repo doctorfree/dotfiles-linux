@@ -6,11 +6,11 @@
       "top": 4
     },
     "type": "kitty-direct",
-    "source": "~/.local/share/icons/hicolor/512x512/apps/ubuntu-jammy.png"
+    "source": "~/.local/share/icons/hicolor/512x512/apps/ubuntu.png"
   },
   "display": {
     "separator": "",
-    "keyWidth": 15
+    "keyWidth": 14
   },
   "modules": [
     {
@@ -28,7 +28,7 @@
       "type": "host"
     },
     {
-      "key": "│           │\u001b[11D\u001b[33m distro",
+      "key": "│           │\u001b[11D\u001b[33m distro",
       "type": "os"
     },
     {
